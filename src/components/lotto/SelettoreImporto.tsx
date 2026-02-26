@@ -11,7 +11,7 @@ const IMPORTI = [200, 100, 50, 20, 10, 5, 3, 2, 1, 0.50, 0.25];
 export function SelettoreImporto({ importo, onChange, disabled }: SelettoreImportoProps) {
   return (
     <div className="flex items-center gap-[3px] sm:gap-1 flex-wrap">
-      <span className="text-[9px] sm:text-[10px] font-bold font-['Oswald'] text-foreground/70 mr-0.5">€</span>
+      <span className="text-[9px] sm:text-[10px] font-bold text-foreground/70 mr-0.5">€</span>
       {IMPORTI.map(v => (
         <button
           key={v}
