@@ -46,7 +46,7 @@ export function SelettoreSorteImporti({
             !abilitata && "opacity-40"
           )}>
             <div className={cn(
-              "w-[52px] sm:w-[60px] shrink-0 text-[7px] sm:text-[8px] font-bold uppercase tracking-wide py-1 px-1 truncate",
+              "w-[58px] sm:w-[68px] shrink-0 text-[8px] sm:text-[9px] font-bold uppercase tracking-wide py-1.5 px-1.5 truncate",
               importoAttuale ? "text-[hsl(var(--lotto-orange))]" : "text-foreground/50"
             )}>
               {tipo}
