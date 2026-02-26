@@ -144,39 +144,43 @@ const Index = () => {
 
           {/* ===== COLONNA DESTRA ===== */}
           <div className="space-y-3 sm:space-y-4">
-            {/* Risultati estrazione */}
-            {(lotto.risultatoCorrente || lotto.isEstracting) && (
-              <div className="schedina-card overflow-hidden animate-fade-in">
-                <div className="schedina-header px-3 sm:px-4 py-2 flex items-center justify-between gap-2">
-                  <span className="text-white font-['Oswald'] font-bold text-xs sm:text-sm uppercase tracking-widest">
-                    🎰 Estrazione
+            {/* Risultati estrazione — sempre visibile */}
+            <div className="schedina-card overflow-hidden">
+              <div className="schedina-header px-3 sm:px-4 py-2 flex items-center justify-between gap-2">
+                <span className="text-white font-['Oswald'] font-bold text-xs sm:text-sm uppercase tracking-widest">
+                  🎰 Estrazione
+                </span>
+                {lotto.risultatoCorrente && (
+                  <span className={`text-xs sm:text-sm font-bold font-['Oswald'] uppercase ${lotto.risultatoCorrente.totaleVinto > 0 ? 'text-[hsl(var(--lotto-gold))]' : 'text-white/60'}`}>
+                    {lotto.risultatoCorrente.totaleVinto > 0
+                      ? `🎉 €${lotto.risultatoCorrente.totaleVinto.toFixed(2)}!`
+                      : 'Nessuna vincita'}
                   </span>
-                  {lotto.risultatoCorrente && (
-                    <span className={`text-xs sm:text-sm font-bold font-['Oswald'] uppercase ${lotto.risultatoCorrente.totaleVinto > 0 ? 'text-[hsl(var(--lotto-gold))]' : 'text-white/60'}`}>
-                      {lotto.risultatoCorrente.totaleVinto > 0
-                        ? `🎉 €${lotto.risultatoCorrente.totaleVinto.toFixed(2)}!`
-                        : 'Nessuna vincita'}
-                    </span>
-                  )}
-                </div>
-                <div className="p-2 sm:p-3 bg-white/60">
-                  {lotto.isEstracting ? (
-                    <div className="text-center py-6 sm:py-8">
-                      <div className="text-3xl sm:text-4xl animate-bounce">🎱</div>
-                      <p className="text-muted-foreground mt-2 font-['Oswald'] uppercase tracking-wider text-[10px] sm:text-xs">
-                        Estrazione in corso...
-                      </p>
-                    </div>
-                  ) : lotto.risultatoCorrente && (
-                    <TabellaEstrazione
-                      estrazione={lotto.risultatoCorrente.estrazione}
-                      numeriGiocati={lotto.risultatoCorrente.giocata.numeri}
-                      ruoteGiocate={lotto.risultatoCorrente.giocata.ruote}
-                    />
-                  )}
-                </div>
+                )}
               </div>
-            )}
+              <div className="p-2 sm:p-3 bg-white/60">
+                {lotto.isEstracting ? (
+                  <div className="text-center py-6 sm:py-8">
+                    <div className="text-3xl sm:text-4xl animate-bounce">🎱</div>
+                    <p className="text-muted-foreground mt-2 font-['Oswald'] uppercase tracking-wider text-[10px] sm:text-xs">
+                      Estrazione in corso...
+                    </p>
+                  </div>
+                ) : lotto.risultatoCorrente ? (
+                  <TabellaEstrazione
+                    estrazione={lotto.risultatoCorrente.estrazione}
+                    numeriGiocati={lotto.risultatoCorrente.giocata.numeri}
+                    ruoteGiocate={lotto.risultatoCorrente.giocata.ruote}
+                  />
+                ) : (
+                  <TabellaEstrazione
+                    estrazione={{} as any}
+                    numeriGiocati={[]}
+                    ruoteGiocate={[]}
+                  />
+                )}
+              </div>
+            </div>
 
             <PannelloProbabilita
               tipo={lotto.tipoGiocata}
