@@ -15,7 +15,7 @@ export function TabellaEstrazione({ estrazione, numeriGiocati, ruoteGiocate, isA
     <div className="overflow-x-auto">
       <table className="w-full text-sm border-collapse">
         <thead>
-          <tr className="bg-[hsl(var(--lotto-salmon))] text-white">
+          <tr className="bg-[hsl(var(--lotto-salmon))] text-white" role="row">
             <th className="text-left py-1.5 px-2 text-[10px] font-bold uppercase tracking-wider font-['Oswald']">Ruota</th>
             {[1, 2, 3, 4, 5].map(i => (
               <th key={i} className="text-center py-1.5 px-1 text-[10px] font-bold font-['Oswald']">{i}°</th>
