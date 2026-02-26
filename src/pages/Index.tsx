@@ -18,7 +18,7 @@ const Index = () => {
     : [];
 
   return (
-    <div className="min-h-screen bg-background py-3 sm:py-6">
+    <div className="min-h-screen bg-background py-3 sm:py-6" style={{ backgroundImage: `url(${wallpaperBg})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed' }}>
       <div className="max-w-5xl mx-auto px-2 sm:px-4">
         <div className="grid grid-cols-1 lg:grid-cols-[400px_1fr] gap-4 sm:gap-6">
 
