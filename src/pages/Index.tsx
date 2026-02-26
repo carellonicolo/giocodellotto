@@ -7,6 +7,7 @@ import { SelettoreImporto } from '@/components/lotto/SelettoreImporto';
 import { TabellaEstrazione } from '@/components/lotto/TabellaEstrazione';
 import { PannelloProbabilita } from '@/components/lotto/PannelloProbabilita';
 import { StoricoGiocate } from '@/components/lotto/StoricoGiocate';
+import { RegoleLottoModal } from '@/components/lotto/RegoleLottoModal';
 import { NUMERI_MINIMI } from '@/lib/lotto/types';
 import { Button } from '@/components/ui/button';
 
