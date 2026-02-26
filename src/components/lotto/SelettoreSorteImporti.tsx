@@ -93,7 +93,7 @@ export function SelettoreSorteImporti({
         >
           {numeroOro ? '✓' : ''}
         </button>
-        <span className="text-[7px] sm:text-[8px] font-bold uppercase tracking-wide text-foreground/60">
+        <span className="text-[8px] sm:text-[9px] font-bold uppercase tracking-wide text-foreground/60">
           Numero Oro <span className="text-[6px] font-normal">(raddoppia il costo)</span>
         </span>
       </div>
