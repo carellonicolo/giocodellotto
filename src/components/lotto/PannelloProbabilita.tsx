@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import { ChevronDown } from 'lucide-react';
 import type { TipoGiocata } from '@/lib/lotto/types';
 import { TIPI_GIOCATA } from '@/lib/lotto/types';
 import {
