@@ -59,7 +59,7 @@ export function SelettoreSorteImporti({
                   disabled={disabled || !abilitata}
                   onClick={() => onSetImporto(tipo, selected ? undefined : imp)}
                   className={cn(
-                    "flex-1 h-5 sm:h-6 border border-[hsl(var(--lotto-salmon)/0.3)] text-[6px] sm:text-[7px] font-bold transition-all",
+                    "flex-1 h-6 sm:h-7 border border-[hsl(var(--lotto-salmon)/0.3)] text-[7px] sm:text-[8px] font-bold transition-all",
                     "hover:bg-[hsl(var(--lotto-peach))]",
                     selected
                       ? "bg-[hsl(var(--lotto-orange))] text-white border-[hsl(var(--lotto-orange))]"
