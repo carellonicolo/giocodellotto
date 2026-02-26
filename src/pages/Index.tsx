@@ -149,6 +149,8 @@ const Index = () => {
                 <span className="text-white font-bold text-xs sm:text-sm uppercase tracking-widest">
                   🎰 Estrazione
                 </span>
+                <div className="flex items-center gap-2">
+                  <RegoleLottoModal />
                 {lotto.risultatoCorrente && (
                   <span className={`text-xs sm:text-sm font-bold uppercase ${lotto.risultatoCorrente.totaleVinto > 0 ? 'text-[hsl(var(--lotto-gold))]' : 'text-white/60'}`}>
                     {lotto.risultatoCorrente.totaleVinto > 0
