@@ -9,7 +9,7 @@ interface GrigliaNumeriProps {
 
 export function GrigliaNumeri({ numeriSelezionati, numeriIndovinati = [], onToggle, disabled }: GrigliaNumeriProps) {
   return (
-    <div className="grid grid-cols-10 gap-[2px] sm:gap-[2px]">
+    <div className="grid grid-cols-10 gap-[2px] sm:gap-[3px]">
       {Array.from({ length: 90 }, (_, i) => i + 1).map(n => {
         const selezionato = numeriSelezionati.includes(n);
         const indovinato = numeriIndovinati.includes(n);
@@ -19,7 +19,7 @@ export function GrigliaNumeri({ numeriSelezionati, numeriIndovinati = [], onTogg
             disabled={disabled}
             onClick={() => onToggle(n)}
             className={cn(
-              'lotto-bubble border-[hsl(var(--lotto-salmon))] w-5 h-5 text-[7px] sm:w-6 sm:h-6 sm:text-[9px]',
+              'lotto-bubble border-[hsl(var(--lotto-salmon))] w-6 h-6 text-[8px] sm:w-7 sm:h-7 sm:text-[10px]',
               selezionato && indovinato && 'matched',
               selezionato && !indovinato && 'selected',
               !selezionato && 'bg-white/80 text-foreground hover:bg-[hsl(var(--lotto-peach))]',

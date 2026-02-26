@@ -19,26 +19,26 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background py-3 sm:py-6">
       <div className="max-w-5xl mx-auto px-2 sm:px-4">
-        <div className="grid grid-cols-1 lg:grid-cols-[340px_1fr] gap-4 sm:gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[400px_1fr] gap-4 sm:gap-6">
 
           {/* ===== SCHEDINA ===== */}
-          <div className="schedina-card overflow-hidden w-full max-w-[340px] mx-auto lg:mx-0">
+          <div className="schedina-card overflow-hidden w-full max-w-[400px] mx-auto lg:mx-0">
             {/* Header */}
             <div className="schedina-header p-0 flex items-center justify-center overflow-hidden">
               <img src={lottoLogo} alt="Il Gioco del Lotto" className="w-[120%] h-auto object-cover -my-3 sm:-my-4" />
             </div>
 
             {/* I TUOI NUMERI + RUOTE side by side */}
-            <div className="px-1.5 sm:px-2 pt-1.5 sm:pt-2">
+            <div className="px-2 sm:px-3 pt-2 sm:pt-3">
               <div className="flex rounded-t overflow-hidden">
                 <div className="schedina-section-title flex-1 rounded-none text-[8px] sm:text-[10px]">
                   I TUOI NUMERI (massimo 10)
                 </div>
-                <div className="schedina-section-title w-[72px] sm:w-[85px] rounded-none border-l border-white/30 text-[8px] sm:text-[10px]">
+                <div className="schedina-section-title w-[85px] sm:w-[100px] rounded-none border-l border-white/30 text-[8px] sm:text-[10px]">
                   RUOTE
                 </div>
               </div>
-              <div className="bg-white/40 rounded-b p-1 sm:p-1.5 flex gap-1 sm:gap-2">
+              <div className="bg-white/40 rounded-b p-1.5 sm:p-2 flex gap-1.5 sm:gap-2">
                 <div className="flex-1 min-w-0">
                   <GrigliaNumeri
                     numeriSelezionati={lotto.numeriSelezionati}
@@ -59,11 +59,11 @@ const Index = () => {
             </div>
 
             {/* IMPORTO DI GIOCATA PER SORTE */}
-            <div className="px-1.5 sm:px-2 pt-1.5 sm:pt-2">
+            <div className="px-2 sm:px-3 pt-2 sm:pt-3">
               <div className="schedina-section-title rounded-t text-[8px] sm:text-[10px]">
                 IMPORTO DI GIOCATA PER SORTE
               </div>
-              <div className="bg-white/40 rounded-b p-1 sm:p-1.5">
+              <div className="bg-white/40 rounded-b p-1.5 sm:p-2">
                 <SelettoreSorteImporti
                   importiPerSorte={lotto.importiPerSorte}
                   numeriSelezionati={lotto.numeriSelezionati.length}
@@ -76,7 +76,7 @@ const Index = () => {
             </div>
 
             {/* Riepilogo e pulsante */}
-            <div className="px-1.5 sm:px-2 py-2 sm:py-3 space-y-1.5 sm:space-y-2">
+            <div className="px-2 sm:px-3 py-2.5 sm:py-3 space-y-2 sm:space-y-2.5">
               {lotto.numeriSelezionati.length > 0 && (
                 <div className="flex items-center gap-0.5 sm:gap-1 flex-wrap px-1">
                   <span className="text-[7px] sm:text-[8px] text-foreground/50 uppercase">Numeri:</span>

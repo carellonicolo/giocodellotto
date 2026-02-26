@@ -26,9 +26,9 @@ export function SelettoreSorteImporti({
     <div className="space-y-1">
       {/* Header row with importi */}
       <div className="flex items-end gap-0">
-        <div className="w-[52px] sm:w-[60px] shrink-0" />
+        <div className="w-[58px] sm:w-[68px] shrink-0" />
         {IMPORTI_COMPATTI.map(imp => (
-          <div key={imp} className="flex-1 text-center text-[6px] sm:text-[7px] font-bold text-foreground/60 leading-tight pb-0.5">
+          <div key={imp} className="flex-1 text-center text-[7px] sm:text-[8px] font-bold text-foreground/60 leading-tight pb-0.5">
             {imp >= 1 ? imp : imp.toFixed(2).replace('0.', '.')}
           </div>
         ))}
@@ -46,7 +46,7 @@ export function SelettoreSorteImporti({
             !abilitata && "opacity-40"
           )}>
             <div className={cn(
-              "w-[52px] sm:w-[60px] shrink-0 text-[7px] sm:text-[8px] font-bold uppercase tracking-wide py-1 px-1 truncate",
+              "w-[58px] sm:w-[68px] shrink-0 text-[8px] sm:text-[9px] font-bold uppercase tracking-wide py-1.5 px-1.5 truncate",
               importoAttuale ? "text-[hsl(var(--lotto-orange))]" : "text-foreground/50"
             )}>
               {tipo}
@@ -59,7 +59,7 @@ export function SelettoreSorteImporti({
                   disabled={disabled || !abilitata}
                   onClick={() => onSetImporto(tipo, selected ? undefined : imp)}
                   className={cn(
-                    "flex-1 h-5 sm:h-6 border border-[hsl(var(--lotto-salmon)/0.3)] text-[6px] sm:text-[7px] font-bold transition-all",
+                    "flex-1 h-6 sm:h-7 border border-[hsl(var(--lotto-salmon)/0.3)] text-[7px] sm:text-[8px] font-bold transition-all",
                     "hover:bg-[hsl(var(--lotto-peach))]",
                     selected
                       ? "bg-[hsl(var(--lotto-orange))] text-white border-[hsl(var(--lotto-orange))]"
@@ -93,7 +93,7 @@ export function SelettoreSorteImporti({
         >
           {numeroOro ? '✓' : ''}
         </button>
-        <span className="text-[7px] sm:text-[8px] font-bold uppercase tracking-wide text-foreground/60">
+        <span className="text-[8px] sm:text-[9px] font-bold uppercase tracking-wide text-foreground/60">
           Numero Oro <span className="text-[6px] font-normal">(raddoppia il costo)</span>
         </span>
       </div>
