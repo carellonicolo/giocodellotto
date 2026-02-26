@@ -9,7 +9,7 @@ interface GrigliaNumeriProps {
 
 export function GrigliaNumeri({ numeriSelezionati, numeriIndovinati = [], onToggle, disabled }: GrigliaNumeriProps) {
   return (
-    <div className="grid grid-cols-10 gap-[2px] sm:gap-[2px]">
+    <div className="grid grid-cols-10 gap-[2px] sm:gap-[3px]">
       {Array.from({ length: 90 }, (_, i) => i + 1).map(n => {
         const selezionato = numeriSelezionati.includes(n);
         const indovinato = numeriIndovinati.includes(n);
