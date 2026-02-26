@@ -7,6 +7,7 @@ import { SelettoreImporto } from '@/components/lotto/SelettoreImporto';
 import { TabellaEstrazione } from '@/components/lotto/TabellaEstrazione';
 import { PannelloProbabilita } from '@/components/lotto/PannelloProbabilita';
 import { StoricoGiocate } from '@/components/lotto/StoricoGiocate';
+import { RegoleLottoModal } from '@/components/lotto/RegoleLottoModal';
 import { NUMERI_MINIMI } from '@/lib/lotto/types';
 import { Button } from '@/components/ui/button';
 
@@ -148,6 +149,8 @@ const Index = () => {
                 <span className="text-white font-bold text-xs sm:text-sm uppercase tracking-widest">
                   🎰 Estrazione
                 </span>
+                <div className="flex items-center gap-2">
+                  <RegoleLottoModal />
                 {lotto.risultatoCorrente && (
                   <span className={`text-xs sm:text-sm font-bold uppercase ${lotto.risultatoCorrente.totaleVinto > 0 ? 'text-[hsl(var(--lotto-gold))]' : 'text-white/60'}`}>
                     {lotto.risultatoCorrente.totaleVinto > 0
@@ -155,6 +158,7 @@ const Index = () => {
                       : 'Nessuna vincita'}
                   </span>
                 )}
+                </div>
               </div>
               <div className="p-2 sm:p-3 bg-white/60">
                 {lotto.isEstracting ? (
