@@ -79,9 +79,9 @@ const Index = () => {
             <div className="px-2 sm:px-3 py-2.5 sm:py-3 space-y-2 sm:space-y-2.5">
               {lotto.numeriSelezionati.length > 0 && (
                 <div className="flex items-center gap-0.5 sm:gap-1 flex-wrap px-1">
-                  <span className="text-[7px] sm:text-[8px] text-foreground/50 uppercase">Numeri:</span>
+                  <span className="text-[9px] sm:text-[10px] text-foreground/50 uppercase">Numeri:</span>
                   {[...lotto.numeriSelezionati].sort((a, b) => a - b).map(n => (
-                    <span key={n} className="inline-flex items-center justify-center w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[hsl(var(--lotto-orange))] text-white text-[7px] sm:text-[8px] font-bold">
+                    <span key={n} className="inline-flex items-center justify-center w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-[hsl(var(--lotto-orange))] text-white text-[8px] sm:text-[10px] font-bold">
                       {n}
                     </span>
                   ))}
@@ -90,7 +90,7 @@ const Index = () => {
               {lotto.sortiAttive.length > 0 && (
                 <div className="px-1 space-y-0.5">
                   {lotto.sortiAttive.map(s => (
-                    <div key={s} className="flex justify-between text-[7px] sm:text-[8px] text-foreground/60">
+                    <div key={s} className="flex justify-between text-[9px] sm:text-[11px] text-foreground/60">
                       <span>{s}</span>
                       <span>€{(lotto.importiPerSorte[s]! * lotto.ruoteSelezionate.length).toFixed(2)}</span>
                     </div>
@@ -98,7 +98,7 @@ const Index = () => {
                 </div>
               )}
               <div className="flex items-center gap-2 px-1">
-                <div className="flex-1 text-[8px] sm:text-[9px] text-foreground/60">
+                <div className="flex-1 text-[10px] sm:text-[11px] text-foreground/60">
                   <span>Costo totale: <strong className="text-foreground">€{lotto.costoTotale.toFixed(2)}</strong></span>
                   <span className="ml-1">({lotto.ruoteSelezionate.length} ruote)</span>
                 </div>
@@ -107,7 +107,7 @@ const Index = () => {
                 <Button
                   onClick={lotto.gioca}
                   disabled={!lotto.puoGiocare}
-                  className="flex-1 font-bold uppercase tracking-wider text-[10px] sm:text-xs shadow-lg bg-[hsl(var(--lotto-orange))] hover:bg-[hsl(15_80%_48%)] text-white"
+                  className="flex-1 font-bold uppercase tracking-wider text-xs sm:text-sm shadow-lg bg-[hsl(var(--lotto-orange))] hover:bg-[hsl(15_80%_48%)] text-white"
                   size="sm"
                 >
                   {lotto.isEstracting ? '🎰 Estrazione...' : '🎯 GIOCA!'}
