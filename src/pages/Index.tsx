@@ -34,7 +34,7 @@ const Index = () => {
                 <div className="schedina-section-title flex-1 rounded-none text-[8px] sm:text-[10px]">
                   I TUOI NUMERI (massimo 10)
                 </div>
-                <div className="schedina-section-title w-[72px] sm:w-[85px] rounded-none border-l border-white/30 text-[8px] sm:text-[10px]">
+                <div className="schedina-section-title w-[85px] sm:w-[100px] rounded-none border-l border-white/30 text-[8px] sm:text-[10px]">
                   RUOTE
                 </div>
               </div>
