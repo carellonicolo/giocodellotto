@@ -12,13 +12,13 @@ interface TabellaEstrazioneProps {
 
 export function TabellaEstrazione({ estrazione, numeriGiocati, ruoteGiocate, isAnimating }: TabellaEstrazioneProps) {
   return (
-    <div className="overflow-x-auto rounded border border-border bg-[hsl(var(--lotto-cream))]">
+    <div className="overflow-x-auto">
       <table className="w-full text-sm border-collapse">
         <thead>
-          <tr className="lotto-header text-white">
-            <th className="text-left py-2 px-3 text-[11px] font-bold uppercase tracking-wider font-['Oswald']">Ruota</th>
+          <tr className="bg-[hsl(var(--lotto-salmon))] text-white">
+            <th className="text-left py-1.5 px-2 text-[10px] font-bold uppercase tracking-wider font-['Oswald']">Ruota</th>
             {[1, 2, 3, 4, 5].map(i => (
-              <th key={i} className="text-center py-2 px-2 text-[11px] font-bold font-['Oswald']">{i}° Estr.</th>
+              <th key={i} className="text-center py-1.5 px-1 text-[10px] font-bold font-['Oswald']">{i}°</th>
             ))}
           </tr>
         </thead>
@@ -29,29 +29,28 @@ export function TabellaEstrazione({ estrazione, numeriGiocati, ruoteGiocate, isA
             const hsl = COLORI_RUOTE[ruota];
             return (
               <tr key={ruota} className={cn(
-                'border-b border-border/30 transition-colors',
-                isGiocata && 'bg-[hsl(var(--lotto-red)/0.05)]',
-                rIdx % 2 === 0 && !isGiocata && 'bg-white/50'
+                'border-b border-[hsl(var(--lotto-salmon)/0.2)]',
+                isGiocata && 'bg-[hsl(var(--lotto-peach)/0.5)]',
+                rIdx % 2 === 0 && !isGiocata && 'bg-white/30'
               )}>
-                <td className="py-1.5 px-3 font-bold text-[11px] uppercase font-['Oswald'] tracking-wide"
+                <td className="py-1 px-2 font-bold text-[10px] uppercase font-['Oswald'] tracking-wide"
                     style={{ color: `hsl(${hsl})` }}>
-                  {isGiocata && <span className="mr-1">▸</span>}
-                  {ruota}
+                  {isGiocata && '▸ '}{ruota}
                 </td>
                 {numeri.map((n, idx) => {
                   const indovinato = numeriGiocati.includes(n) && isGiocata;
                   return (
-                    <td key={idx} className="text-center py-1.5 px-1">
+                    <td key={idx} className="text-center py-1 px-1">
                       <span className={cn(
-                        "inline-flex items-center justify-center w-8 h-8 rounded-full text-[11px] font-bold font-['Oswald'] transition-all",
+                        "inline-flex items-center justify-center w-7 h-7 rounded-full text-[10px] font-bold font-['Oswald']",
                         indovinato
                           ? 'bg-[hsl(var(--lotto-green))] text-white ring-2 ring-[hsl(var(--lotto-gold))] scale-110 shadow-md'
                           : isGiocata
-                            ? 'bg-white border border-border text-foreground'
+                            ? 'bg-white border border-[hsl(var(--lotto-salmon)/0.4)] text-foreground'
                             : 'text-muted-foreground',
                         isAnimating && 'animate-scale-in'
                       )}
-                      style={isAnimating ? { animationDelay: `${(rIdx * 5 + idx) * 60}ms`, animationFillMode: 'both' } : undefined}
+                      style={isAnimating ? { animationDelay: `${(rIdx * 5 + idx) * 50}ms`, animationFillMode: 'both' } : undefined}
                       >
                         {n}
                       </span>

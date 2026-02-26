@@ -8,45 +8,37 @@ interface SelettoreTipoProps {
   disabled?: boolean;
 }
 
-const ICONE_TIPO: Record<string, string> = {
-  Estratto: '①',
-  Ambo: '②',
-  Terno: '③',
-  Quaterna: '④',
-  Cinquina: '⑤',
-};
-
 export function SelettoreTipo({ tipo, onChange, numeriSelezionati, disabled }: SelettoreTipoProps) {
   return (
-    <div className="space-y-2">
-      <h3 className="text-xs font-bold text-[hsl(var(--lotto-red))] uppercase tracking-widest font-['Oswald']">
-        Tipo di Sorte
-      </h3>
-      <div className="grid grid-cols-5 gap-1 p-2 rounded bg-[hsl(var(--lotto-cream))] border border-border">
-        {TIPI_GIOCATA.map(t => {
-          const minimo = NUMERI_MINIMI[t];
-          const abilitato = numeriSelezionati >= minimo;
-          return (
-            <button
-              key={t}
-              disabled={disabled || !abilitato}
-              onClick={() => onChange(t)}
-              className={cn(
-                "py-2 text-[11px] font-bold rounded border-2 transition-all font-['Oswald'] uppercase tracking-wide",
-                tipo === t
-                  ? 'bg-[hsl(var(--lotto-blue))] text-white border-[hsl(var(--lotto-blue))] shadow-md'
-                  : abilitato
-                    ? 'bg-white text-foreground border-border/60 hover:border-[hsl(var(--lotto-blue)/0.5)]'
-                    : 'bg-muted/50 text-muted-foreground border-border/30 opacity-40 cursor-not-allowed',
-              )}
-            >
-              <span className="block text-lg leading-none mb-0.5">{ICONE_TIPO[t]}</span>
-              {t}
-              <span className="block text-[9px] font-normal opacity-70 normal-case">min {minimo} num.</span>
-            </button>
-          );
-        })}
-      </div>
+    <div className="space-y-[2px]">
+      {TIPI_GIOCATA.map(t => {
+        const minimo = NUMERI_MINIMI[t];
+        const abilitato = numeriSelezionati >= minimo;
+        const isSelected = tipo === t;
+        return (
+          <button
+            key={t}
+            disabled={disabled || !abilitato}
+            onClick={() => onChange(t)}
+            className={cn(
+              "w-full flex items-center gap-2 py-1 px-2 rounded transition-all text-left",
+              "font-['Oswald'] text-[11px] uppercase tracking-wider",
+              isSelected
+                ? 'bg-[hsl(var(--lotto-orange))] text-white font-bold'
+                : abilitato
+                  ? 'bg-white/60 text-foreground hover:bg-[hsl(var(--lotto-peach))]'
+                  : 'bg-white/30 text-muted-foreground/40 cursor-not-allowed',
+            )}
+          >
+            <span className={cn(
+              'w-4 h-4 rounded-full border-2 border-[hsl(var(--lotto-salmon))] flex-shrink-0',
+              isSelected && 'bg-white border-white'
+            )} />
+            <span className="flex-1">{t}</span>
+            <span className="text-[8px] opacity-60 normal-case">min {minimo}</span>
+          </button>
+        );
+      })}
     </div>
   );
 }

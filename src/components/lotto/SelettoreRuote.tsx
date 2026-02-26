@@ -8,7 +8,56 @@ interface SelettoreRuoteProps {
   disabled?: boolean;
 }
 
-const COLORI_RUOTE: Record<string, string> = {
+export function SelettoreRuote({ ruoteSelezionate, onToggle, onToggleTutte, disabled }: SelettoreRuoteProps) {
+  const tutteSelezionate = ruoteSelezionate.length === RUOTE.length;
+  return (
+    <div className="flex flex-col gap-[2px]">
+      {RUOTE.map(ruota => {
+        const sel = ruoteSelezionate.includes(ruota);
+        return (
+          <div key={ruota} className="ruota-row">
+            <button
+              disabled={disabled}
+              onClick={() => onToggle(ruota)}
+              className={cn(
+                'w-4 h-4 rounded-full border-2 border-[hsl(var(--lotto-salmon))] flex-shrink-0 transition-all',
+                sel ? 'bg-[hsl(var(--lotto-orange))]' : 'bg-white/80',
+                disabled && 'opacity-50 cursor-not-allowed'
+              )}
+            />
+            <span className={cn(
+              'text-[9px] font-bold uppercase leading-none whitespace-nowrap',
+              sel ? 'text-[hsl(var(--lotto-orange))]' : 'text-foreground/70'
+            )}>
+              {ruota === 'Nazionale' ? 'RUOTA NAZ.' : ruota.toUpperCase()}
+            </span>
+          </div>
+        );
+      })}
+      {/* Tutte */}
+      <div className="ruota-row mt-1 pt-1 border-t border-[hsl(var(--lotto-salmon)/0.3)]">
+        <button
+          disabled={disabled}
+          onClick={onToggleTutte}
+          className={cn(
+            'w-4 h-4 rounded-full border-2 border-[hsl(var(--lotto-salmon))] flex-shrink-0 transition-all',
+            tutteSelezionate ? 'bg-[hsl(var(--lotto-orange))]' : 'bg-white/80',
+            disabled && 'opacity-50 cursor-not-allowed'
+          )}
+        />
+        <span className={cn(
+          'text-[9px] font-bold uppercase leading-none',
+          tutteSelezionate ? 'text-[hsl(var(--lotto-orange))]' : 'text-foreground/70'
+        )}>
+          TUTTE
+        </span>
+      </div>
+    </div>
+  );
+}
+
+// Keep for TabellaEstrazione
+export const COLORI_RUOTE: Record<string, string> = {
   Bari: '0 70% 45%',
   Cagliari: '25 75% 48%',
   Firenze: '270 55% 48%',
@@ -21,58 +70,3 @@ const COLORI_RUOTE: Record<string, string> = {
   Venezia: '165 55% 38%',
   Nazionale: '220 50% 30%',
 };
-
-export function SelettoreRuote({ ruoteSelezionate, onToggle, onToggleTutte, disabled }: SelettoreRuoteProps) {
-  const tutteSelezionate = ruoteSelezionate.length === RUOTE.length;
-
-  return (
-    <div className="space-y-2">
-      <div className="flex items-center justify-between">
-        <h3 className="text-xs font-bold text-[hsl(var(--lotto-red))] uppercase tracking-widest font-['Oswald']">
-          Scegli le Ruote
-        </h3>
-        <button
-          onClick={onToggleTutte}
-          disabled={disabled}
-          className={cn(
-            'ruota-badge text-[10px] px-3 py-1 rounded border-2 transition-all font-bold uppercase',
-            tutteSelezionate
-              ? 'bg-[hsl(var(--lotto-red))] text-white border-[hsl(var(--lotto-red))]'
-              : 'bg-white text-muted-foreground border-border hover:border-[hsl(var(--lotto-red)/0.5)]'
-          )}
-        >
-          {tutteSelezionate ? '✓ Tutte' : 'Tutte'}
-        </button>
-      </div>
-      <div className="grid grid-cols-4 gap-1.5 p-2 rounded bg-[hsl(var(--lotto-cream))] border border-border">
-        {RUOTE.map(ruota => {
-          const sel = ruoteSelezionate.includes(ruota);
-          const hsl = COLORI_RUOTE[ruota];
-          return (
-            <button
-              key={ruota}
-              disabled={disabled}
-              onClick={() => onToggle(ruota)}
-              className={cn(
-                'ruota-badge px-1 py-1.5 text-[11px] font-bold rounded border-2 transition-all uppercase',
-                sel
-                  ? 'text-white shadow-md'
-                  : 'bg-white text-foreground border-border/60 hover:shadow-sm',
-                disabled && 'opacity-50 cursor-not-allowed',
-                ruota === 'Nazionale' && 'col-span-2'
-              )}
-              style={sel ? {
-                backgroundColor: `hsl(${hsl})`,
-                borderColor: `hsl(${hsl})`,
-              } : undefined}
-            >
-              {ruota}
-            </button>
-          );
-        })}
-      </div>
-    </div>
-  );
-}
-
-export { COLORI_RUOTE };

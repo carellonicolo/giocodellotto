@@ -6,7 +6,7 @@
 
 @layer base {
   :root {
-    --background: 40 20% 95%;
+    --background: 30 30% 95%;
     --foreground: 220 20% 10%;
 
     --card: 0 0% 100%;
@@ -15,13 +15,13 @@
     --popover: 0 0% 100%;
     --popover-foreground: 220 20% 10%;
 
-    --primary: 0 75% 42%;
+    --primary: 15 85% 55%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 45 80% 55%;
+    --secondary: 30 70% 90%;
     --secondary-foreground: 220 20% 10%;
 
-    --muted: 40 15% 90%;
+    --muted: 30 20% 90%;
     --muted-foreground: 220 10% 45%;
 
     --accent: 210 60% 45%;
@@ -30,17 +30,20 @@
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 30 15% 80%;
-    --input: 30 15% 80%;
-    --ring: 0 75% 42%;
+    --border: 25 25% 82%;
+    --input: 25 25% 82%;
+    --ring: 15 85% 55%;
 
     --radius: 0.25rem;
 
-    --lotto-red: 0 75% 42%;
+    --lotto-orange: 15 85% 55%;
+    --lotto-peach: 25 80% 88%;
+    --lotto-salmon: 15 75% 75%;
     --lotto-gold: 45 80% 55%;
     --lotto-blue: 210 60% 45%;
     --lotto-green: 145 55% 38%;
-    --lotto-cream: 40 30% 93%;
+    --lotto-cream: 35 40% 94%;
+    --lotto-red: 0 70% 50%;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -55,38 +58,31 @@
   .dark {
     --background: 220 20% 8%;
     --foreground: 40 15% 90%;
-
     --card: 220 18% 12%;
     --card-foreground: 40 15% 90%;
-
     --popover: 220 18% 12%;
     --popover-foreground: 40 15% 90%;
-
-    --primary: 0 70% 50%;
+    --primary: 15 80% 55%;
     --primary-foreground: 0 0% 100%;
-
-    --secondary: 45 70% 45%;
+    --secondary: 25 40% 20%;
     --secondary-foreground: 0 0% 100%;
-
     --muted: 220 15% 18%;
     --muted-foreground: 220 10% 55%;
-
     --accent: 210 55% 50%;
     --accent-foreground: 0 0% 100%;
-
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
-
     --border: 220 15% 22%;
     --input: 220 15% 22%;
-    --ring: 0 70% 50%;
-
-    --lotto-red: 0 70% 50%;
+    --ring: 15 80% 55%;
+    --lotto-orange: 15 80% 55%;
+    --lotto-peach: 25 40% 25%;
+    --lotto-salmon: 15 50% 40%;
     --lotto-gold: 45 70% 45%;
     --lotto-blue: 210 55% 50%;
     --lotto-green: 145 50% 42%;
     --lotto-cream: 220 15% 15%;
-
+    --lotto-red: 0 65% 50%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -109,25 +105,41 @@
 }
 
 @layer components {
-  .schedina-border {
-    border: 3px solid hsl(var(--lotto-red));
-    box-shadow: inset 0 0 0 1px hsl(var(--lotto-gold) / 0.5),
-                0 4px 20px hsl(var(--lotto-red) / 0.15);
+  .schedina-card {
+    background: linear-gradient(180deg, hsl(var(--lotto-peach)), hsl(var(--lotto-cream)));
+    border: 2px solid hsl(var(--lotto-orange));
+    border-radius: 8px;
+    box-shadow: 0 4px 20px hsl(var(--lotto-orange) / 0.2);
   }
-  .lotto-header {
-    background: linear-gradient(135deg, hsl(var(--lotto-red)), hsl(0 65% 35%));
+  .schedina-header {
+    background: linear-gradient(135deg, hsl(var(--lotto-orange)), hsl(15 80% 48%));
     font-family: 'Oswald', sans-serif;
   }
-  .numero-cell {
-    @apply w-7 h-7 text-[11px] font-bold rounded-sm border transition-all duration-100 cursor-pointer select-none;
+  .schedina-section-title {
+    @apply text-[10px] font-bold uppercase tracking-widest py-1 px-2 text-center;
+    font-family: 'Oswald', sans-serif;
+    background: hsl(var(--lotto-salmon));
+    color: white;
+  }
+  .lotto-bubble {
+    @apply w-6 h-6 rounded-full border-2 flex items-center justify-center text-[9px] font-bold cursor-pointer select-none transition-all;
     font-family: 'Oswald', sans-serif;
   }
-  .numero-cell:hover:not(:disabled) {
-    transform: scale(1.15);
-    z-index: 1;
+  .lotto-bubble:hover:not(:disabled) {
+    transform: scale(1.1);
   }
-  .ruota-badge {
+  .lotto-bubble.selected {
+    background: hsl(var(--lotto-orange));
+    color: white;
+    border-color: hsl(15 70% 40%);
+  }
+  .lotto-bubble.matched {
+    background: hsl(var(--lotto-green));
+    color: white;
+    border-color: hsl(145 50% 30%);
+  }
+  .ruota-row {
+    @apply flex items-center gap-1 py-0.5;
     font-family: 'Oswald', sans-serif;
-    letter-spacing: 0.05em;
   }
 }
