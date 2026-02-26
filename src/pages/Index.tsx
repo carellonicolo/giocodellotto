@@ -38,7 +38,7 @@ const Index = () => {
                   RUOTE
                 </div>
               </div>
-              <div className="bg-white/40 rounded-b p-1 sm:p-1.5 flex gap-1 sm:gap-2">
+              <div className="bg-white/40 rounded-b p-1.5 sm:p-2 flex gap-1.5 sm:gap-2">
                 <div className="flex-1 min-w-0">
                   <GrigliaNumeri
                     numeriSelezionati={lotto.numeriSelezionati}
