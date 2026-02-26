@@ -42,6 +42,28 @@ function Comb({ n, k }: { n: number; k: number }) {
   );
 }
 
+function CollapsibleSection({ title, defaultOpen = true, children }: { title: string; defaultOpen?: boolean; children: React.ReactNode }) {
+  const [open, setOpen] = useState(defaultOpen);
+  return (
+    <div className="rounded border border-border/50 overflow-hidden">
+      <button
+        onClick={() => setOpen(o => !o)}
+        className="w-full flex items-center justify-between px-2.5 py-2 bg-[hsl(var(--lotto-cream))] hover:bg-[hsl(var(--lotto-cream)/0.8)] transition-colors text-left"
+      >
+        <h4 className="font-medium text-[10px] uppercase text-muted-foreground tracking-wider">{title}</h4>
+        <ChevronDown className={`h-3.5 w-3.5 text-muted-foreground transition-transform duration-200 ${open ? 'rotate-180' : ''}`} />
+      </button>
+      <div className={`grid transition-all duration-200 ease-in-out ${open ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}>
+        <div className="overflow-hidden">
+          <div className="p-2.5 space-y-2.5">
+            {children}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function PannelloProbabilita({ tipo, numeriGiocati, importo, numRuote }: PannelloProbabilitaProps) {
   const prob = numeriGiocati > 0 ? calcolaProbabilita(tipo, numeriGiocati) : 0;
   const probPercentuale = (prob * 100).toFixed(6);
@@ -64,10 +86,7 @@ export function PannelloProbabilita({ tipo, numeriGiocati, importo, numRuote }: 
       </div>
       <div className="p-3 bg-white/60 space-y-3 text-[13px] font-light">
         {numeriGiocati > 0 && (
-          <div className="p-2.5 rounded bg-[hsl(var(--lotto-cream))] border border-border/50 space-y-2.5">
-            <p className="font-semibold text-foreground text-xs tracking-wide">
-              {tipo} con {numeriGiocati} numeri
-            </p>
+          <CollapsibleSection title={`${tipo} con ${numeriGiocati} numeri`} defaultOpen={true}>
             <p className="text-[11px] text-muted-foreground font-light leading-relaxed">{getDescrizioneProbabilita(tipo)}</p>
 
             {/* Formula visiva stile matematico */}
@@ -126,13 +145,10 @@ export function PannelloProbabilita({ tipo, numeriGiocati, importo, numRuote }: 
                 </p>
               </div>
             )}
-          </div>
+          </CollapsibleSection>
         )}
 
-        <div>
-          <h4 className="font-medium text-[10px] uppercase text-muted-foreground tracking-wider mb-1.5">
-            Probabilità di riferimento
-          </h4>
+        <CollapsibleSection title="Probabilità di riferimento" defaultOpen={false}>
           <div className="space-y-[3px]">
             {TIPI_GIOCATA.map(t => {
               const p = calcolaProbabilitaSingola(t);
@@ -151,11 +167,9 @@ export function PannelloProbabilita({ tipo, numeriGiocati, importo, numRuote }: 
               );
             })}
           </div>
-        </div>
+        </CollapsibleSection>
 
-        {/* Formula generale */}
-        <div className="p-2.5 rounded bg-[hsl(var(--lotto-cream))] border border-border/50 space-y-2">
-          <h4 className="font-medium text-[10px] uppercase text-muted-foreground tracking-wide">Formula Generale</h4>
+        <CollapsibleSection title="Formula Generale" defaultOpen={false}>
           <div className="bg-white p-3 rounded border border-border/50 text-center">
             <div className="flex items-center justify-center gap-1.5 text-[11px] sm:text-sm text-foreground font-light">
               <span className="font-semibold italic">P</span>
@@ -182,7 +196,7 @@ export function PannelloProbabilita({ tipo, numeriGiocati, importo, numRuote }: 
           <p className="text-[11px] font-semibold text-[hsl(var(--lotto-red))] uppercase">
             ⚠️ Vantaggio del banco ≈ 50%
           </p>
-        </div>
+        </CollapsibleSection>
       </div>
     </div>
   );
