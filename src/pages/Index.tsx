@@ -136,7 +136,7 @@ const Index = () => {
 
             {/* Footer */}
             <div className="bg-[hsl(var(--lotto-salmon))] px-2 py-1 sm:py-1.5 text-center">
-              <p className="text-[6px] sm:text-[7px] text-white/80 font-['Oswald'] uppercase tracking-widest">
+              <p className="text-[6px] sm:text-[7px] text-white font-['Oswald'] uppercase tracking-widest">
                 ⚠️ Simulatore a scopo esclusivamente educativo e didattico
               </p>
             </div>
