@@ -11,42 +11,41 @@ interface SelettoreRuoteProps {
 export function SelettoreRuote({ ruoteSelezionate, onToggle, onToggleTutte, disabled }: SelettoreRuoteProps) {
   const tutteSelezionate = ruoteSelezionate.length === RUOTE.length;
   return (
-    <div className="flex flex-col gap-[2px]">
+    <div className="flex flex-col gap-[1px] sm:gap-[2px]">
       {RUOTE.map(ruota => {
         const sel = ruoteSelezionate.includes(ruota);
         return (
-          <div key={ruota} className="ruota-row">
+          <div key={ruota} className="ruota-row py-[1px] sm:py-0.5">
             <button
               disabled={disabled}
               onClick={() => onToggle(ruota)}
               className={cn(
-                'w-4 h-4 rounded-full border-2 border-[hsl(var(--lotto-salmon))] flex-shrink-0 transition-all',
+                'w-3 h-3 sm:w-4 sm:h-4 rounded-full border-2 border-[hsl(var(--lotto-salmon))] flex-shrink-0 transition-all',
                 sel ? 'bg-[hsl(var(--lotto-orange))]' : 'bg-white/80',
                 disabled && 'opacity-50 cursor-not-allowed'
               )}
             />
             <span className={cn(
-              'text-[9px] font-bold uppercase leading-none whitespace-nowrap',
+              'text-[7px] sm:text-[9px] font-bold uppercase leading-none whitespace-nowrap',
               sel ? 'text-[hsl(var(--lotto-orange))]' : 'text-foreground/70'
             )}>
-              {ruota === 'Nazionale' ? 'RUOTA NAZ.' : ruota.toUpperCase()}
+              {ruota === 'Nazionale' ? 'NAZ.' : ruota.toUpperCase()}
             </span>
           </div>
         );
       })}
-      {/* Tutte */}
-      <div className="ruota-row mt-1 pt-1 border-t border-[hsl(var(--lotto-salmon)/0.3)]">
+      <div className="ruota-row mt-0.5 sm:mt-1 pt-0.5 sm:pt-1 border-t border-[hsl(var(--lotto-salmon)/0.3)]">
         <button
           disabled={disabled}
           onClick={onToggleTutte}
           className={cn(
-            'w-4 h-4 rounded-full border-2 border-[hsl(var(--lotto-salmon))] flex-shrink-0 transition-all',
+            'w-3 h-3 sm:w-4 sm:h-4 rounded-full border-2 border-[hsl(var(--lotto-salmon))] flex-shrink-0 transition-all',
             tutteSelezionate ? 'bg-[hsl(var(--lotto-orange))]' : 'bg-white/80',
             disabled && 'opacity-50 cursor-not-allowed'
           )}
         />
         <span className={cn(
-          'text-[9px] font-bold uppercase leading-none',
+          'text-[7px] sm:text-[9px] font-bold uppercase leading-none',
           tutteSelezionate ? 'text-[hsl(var(--lotto-orange))]' : 'text-foreground/70'
         )}>
           TUTTE
