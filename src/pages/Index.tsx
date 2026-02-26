@@ -37,8 +37,14 @@ const Index = () => {
 
             {/* I TUOI NUMERI + RUOTE side by side */}
             <div className="px-1.5 sm:px-2 pt-1.5 sm:pt-2">
-              <div className="schedina-section-title rounded-t text-[8px] sm:text-[10px]">
-                I TUOI NUMERI (massime 10)
+              {/* Split header bar like real schedina */}
+              <div className="flex rounded-t overflow-hidden">
+                <div className="schedina-section-title flex-1 rounded-none text-[8px] sm:text-[10px]">
+                  I TUOI NUMERI (massime 10)
+                </div>
+                <div className="schedina-section-title w-[72px] sm:w-[85px] rounded-none border-l border-white/30 text-[8px] sm:text-[10px]">
+                  RUOTE
+                </div>
               </div>
               <div className="bg-white/40 rounded-b p-1 sm:p-1.5 flex gap-1 sm:gap-2">
                 {/* Griglia numeri */}
@@ -52,9 +58,6 @@ const Index = () => {
                 </div>
                 {/* Ruote a destra */}
                 <div className="flex-shrink-0 pl-1 border-l border-[hsl(var(--lotto-salmon)/0.3)]">
-                  <p className="text-[7px] sm:text-[8px] font-bold text-center text-foreground/60 uppercase tracking-wider mb-0.5 sm:mb-1">
-                    Ruote
-                  </p>
                   <SelettoreRuote
                     ruoteSelezionate={lotto.ruoteSelezionate}
                     onToggle={lotto.toggleRuota}
