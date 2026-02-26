@@ -117,7 +117,7 @@
   }
   .schedina-section-title {
     @apply text-[10px] font-bold uppercase tracking-widest py-1 px-2 text-center;
-    font-family: 'Oswald', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     background: hsl(var(--lotto-salmon));
     color: white;
   }
