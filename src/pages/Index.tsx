@@ -1,4 +1,5 @@
 import { useLotto } from '@/hooks/use-lotto';
+import lottoLogo from '@/assets/lotto-logo.png';
 import { GrigliaNumeri } from '@/components/lotto/GrigliaNumeri';
 import { SelettoreRuote } from '@/components/lotto/SelettoreRuote';
 import { SelettoreTipo } from '@/components/lotto/SelettoreTipo';
@@ -29,11 +30,8 @@ const Index = () => {
           {/* ===== SCHEDINA ===== */}
           <div className="schedina-card overflow-hidden w-full max-w-[340px] mx-auto lg:mx-0">
             {/* Header */}
-            <div className="schedina-header px-3 py-2 sm:py-3 text-center">
-              <p className="text-[8px] sm:text-[10px] text-white/70 uppercase tracking-[0.2em]">Il Gioco del</p>
-              <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight leading-none">
-                LOTTO
-              </h1>
+            <div className="schedina-header px-3 py-2 sm:py-3 flex items-center justify-center">
+              <img src={lottoLogo} alt="Il Gioco del Lotto" className="h-10 sm:h-14 object-contain" />
             </div>
 
             {/* I TUOI NUMERI + RUOTE side by side */}
