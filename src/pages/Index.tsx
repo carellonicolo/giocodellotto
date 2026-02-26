@@ -63,7 +63,7 @@ const Index = () => {
               <div className="schedina-section-title rounded-t text-[8px] sm:text-[10px]">
                 IMPORTO DI GIOCATA PER SORTE
               </div>
-              <div className="bg-white/40 rounded-b p-1 sm:p-1.5">
+              <div className="bg-white/40 rounded-b p-1.5 sm:p-2">
                 <SelettoreSorteImporti
                   importiPerSorte={lotto.importiPerSorte}
                   numeriSelezionati={lotto.numeriSelezionati.length}
