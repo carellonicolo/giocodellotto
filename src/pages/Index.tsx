@@ -90,7 +90,7 @@ const Index = () => {
               {lotto.sortiAttive.length > 0 && (
                 <div className="px-1 space-y-0.5">
                   {lotto.sortiAttive.map(s => (
-                    <div key={s} className="flex justify-between text-[7px] sm:text-[8px] text-foreground/60">
+                    <div key={s} className="flex justify-between text-[9px] sm:text-[11px] text-foreground/60">
                       <span>{s}</span>
                       <span>€{(lotto.importiPerSorte[s]! * lotto.ruoteSelezionate.length).toFixed(2)}</span>
                     </div>
