@@ -1,4 +1,5 @@
 import { useLotto } from '@/hooks/use-lotto';
+import lottoLogo from '@/assets/lotto-logo.png';
 import { GrigliaNumeri } from '@/components/lotto/GrigliaNumeri';
 import { SelettoreRuote } from '@/components/lotto/SelettoreRuote';
 import { SelettoreTipo } from '@/components/lotto/SelettoreTipo';
