@@ -113,7 +113,7 @@
   }
   .schedina-header {
     background: linear-gradient(135deg, hsl(var(--lotto-orange)), hsl(15 80% 48%));
-    font-family: 'Oswald', sans-serif;
+    font-family: 'DM Sans', sans-serif;
   }
   .schedina-section-title {
     @apply text-[10px] font-bold uppercase tracking-widest py-1 px-2 text-center;
