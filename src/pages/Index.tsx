@@ -2,22 +2,15 @@ import { useLotto } from '@/hooks/use-lotto';
 import lottoLogo from '@/assets/lotto-logo.png';
 import { GrigliaNumeri } from '@/components/lotto/GrigliaNumeri';
 import { SelettoreRuote } from '@/components/lotto/SelettoreRuote';
-import { SelettoreTipo } from '@/components/lotto/SelettoreTipo';
-import { SelettoreImporto } from '@/components/lotto/SelettoreImporto';
+import { SelettoreSorteImporti } from '@/components/lotto/SelettoreSorteImporti';
 import { TabellaEstrazione } from '@/components/lotto/TabellaEstrazione';
 import { PannelloProbabilita } from '@/components/lotto/PannelloProbabilita';
 import { StoricoGiocate } from '@/components/lotto/StoricoGiocate';
 import { RegoleLottoModal } from '@/components/lotto/RegoleLottoModal';
-import { NUMERI_MINIMI } from '@/lib/lotto/types';
 import { Button } from '@/components/ui/button';
 
 const Index = () => {
   const lotto = useLotto();
-  const minimoNumeri = NUMERI_MINIMI[lotto.tipoGiocata];
-  const puoGiocare = lotto.numeriSelezionati.length >= minimoNumeri
-    && lotto.ruoteSelezionate.length > 0
-    && lotto.importo > 0
-    && !lotto.isEstracting;
 
   const tuttiIndovinati = lotto.risultatoCorrente
     ? [...new Set(lotto.risultatoCorrente.vincite.flatMap(v => v.numeriIndovinati))]
@@ -37,17 +30,15 @@ const Index = () => {
 
             {/* I TUOI NUMERI + RUOTE side by side */}
             <div className="px-1.5 sm:px-2 pt-1.5 sm:pt-2">
-              {/* Split header bar like real schedina */}
               <div className="flex rounded-t overflow-hidden">
                 <div className="schedina-section-title flex-1 rounded-none text-[8px] sm:text-[10px]">
-                  I TUOI NUMERI (massime 10)
+                  I TUOI NUMERI (massimo 10)
                 </div>
                 <div className="schedina-section-title w-[72px] sm:w-[85px] rounded-none border-l border-white/30 text-[8px] sm:text-[10px]">
                   RUOTE
                 </div>
               </div>
               <div className="bg-white/40 rounded-b p-1 sm:p-1.5 flex gap-1 sm:gap-2">
-                {/* Griglia numeri */}
                 <div className="flex-1 min-w-0">
                   <GrigliaNumeri
                     numeriSelezionati={lotto.numeriSelezionati}
@@ -56,7 +47,6 @@ const Index = () => {
                     disabled={lotto.isEstracting}
                   />
                 </div>
-                {/* Ruote a destra */}
                 <div className="flex-shrink-0 pl-1 border-l border-[hsl(var(--lotto-salmon)/0.3)]">
                   <SelettoreRuote
                     ruoteSelezionate={lotto.ruoteSelezionate}
@@ -68,30 +58,18 @@ const Index = () => {
               </div>
             </div>
 
-            {/* IMPORTO DI GIOCATA */}
+            {/* IMPORTO DI GIOCATA PER SORTE */}
             <div className="px-1.5 sm:px-2 pt-1.5 sm:pt-2">
               <div className="schedina-section-title rounded-t text-[8px] sm:text-[10px]">
-                IMPORTO DI GIOCATA
+                IMPORTO DI GIOCATA PER SORTE
               </div>
               <div className="bg-white/40 rounded-b p-1 sm:p-1.5">
-                <SelettoreImporto
-                  importo={lotto.importo}
-                  onChange={lotto.setImporto}
-                  disabled={lotto.isEstracting}
-                />
-              </div>
-            </div>
-
-            {/* TIPO DI SORTE */}
-            <div className="px-1.5 sm:px-2 pt-1.5 sm:pt-2">
-              <div className="schedina-section-title rounded-t text-[8px] sm:text-[10px]">
-                TIPO DI SORTE
-              </div>
-              <div className="bg-white/40 rounded-b p-1 sm:p-1.5">
-                <SelettoreTipo
-                  tipo={lotto.tipoGiocata}
-                  onChange={lotto.setTipoGiocata}
+                <SelettoreSorteImporti
+                  importiPerSorte={lotto.importiPerSorte}
                   numeriSelezionati={lotto.numeriSelezionati.length}
+                  numeroOro={lotto.numeroOro}
+                  onSetImporto={lotto.setImportoSorte}
+                  onSetNumeroOro={lotto.setNumeroOro}
                   disabled={lotto.isEstracting}
                 />
               </div>
@@ -109,16 +87,26 @@ const Index = () => {
                   ))}
                 </div>
               )}
+              {lotto.sortiAttive.length > 0 && (
+                <div className="px-1 space-y-0.5">
+                  {lotto.sortiAttive.map(s => (
+                    <div key={s} className="flex justify-between text-[7px] sm:text-[8px] text-foreground/60">
+                      <span>{s}</span>
+                      <span>€{(lotto.importiPerSorte[s]! * lotto.ruoteSelezionate.length).toFixed(2)}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
               <div className="flex items-center gap-2 px-1">
                 <div className="flex-1 text-[8px] sm:text-[9px] text-foreground/60">
-                  <span>Costo: <strong className="text-foreground">€{(lotto.importo * lotto.ruoteSelezionate.length).toFixed(2)}</strong></span>
+                  <span>Costo totale: <strong className="text-foreground">€{lotto.costoTotale.toFixed(2)}</strong></span>
                   <span className="ml-1">({lotto.ruoteSelezionate.length} ruote)</span>
                 </div>
               </div>
               <div className="flex gap-2 px-1">
                 <Button
                   onClick={lotto.gioca}
-                  disabled={!puoGiocare}
+                  disabled={!lotto.puoGiocare}
                   className="flex-1 font-bold uppercase tracking-wider text-[10px] sm:text-xs shadow-lg bg-[hsl(var(--lotto-orange))] hover:bg-[hsl(15_80%_48%)] text-white"
                   size="sm"
                 >
@@ -146,7 +134,7 @@ const Index = () => {
 
           {/* ===== COLONNA DESTRA ===== */}
           <div className="space-y-3 sm:space-y-4">
-            {/* Risultati estrazione — sempre visibile */}
+            {/* Risultati estrazione */}
             <div className="schedina-card overflow-hidden">
               <div className="schedina-header px-3 sm:px-4 py-2 flex items-center justify-between gap-2">
                 <span className="text-white font-bold text-xs sm:text-sm uppercase tracking-widest">
@@ -154,13 +142,13 @@ const Index = () => {
                 </span>
                 <div className="flex items-center gap-2">
                   <RegoleLottoModal />
-                {lotto.risultatoCorrente && (
-                  <span className={`text-xs sm:text-sm font-bold uppercase ${lotto.risultatoCorrente.totaleVinto > 0 ? 'text-[hsl(var(--lotto-gold))]' : 'text-white/60'}`}>
-                    {lotto.risultatoCorrente.totaleVinto > 0
-                      ? `🎉 €${lotto.risultatoCorrente.totaleVinto.toFixed(2)}!`
-                      : 'Nessuna vincita'}
-                  </span>
-                )}
+                  {lotto.risultatoCorrente && (
+                    <span className={`text-xs sm:text-sm font-bold uppercase ${lotto.risultatoCorrente.totaleVinto > 0 ? 'text-[hsl(var(--lotto-gold))]' : 'text-white/60'}`}>
+                      {lotto.risultatoCorrente.totaleVinto > 0
+                        ? `🎉 €${lotto.risultatoCorrente.totaleVinto.toFixed(2)}!`
+                        : 'Nessuna vincita'}
+                    </span>
+                  )}
                 </div>
               </div>
               <div className="p-2 sm:p-3 bg-white/60">
@@ -188,9 +176,8 @@ const Index = () => {
             </div>
 
             <PannelloProbabilita
-              tipo={lotto.tipoGiocata}
+              importiPerSorte={lotto.importiPerSorte}
               numeriGiocati={lotto.numeriSelezionati.length}
-              importo={lotto.importo}
               numRuote={lotto.ruoteSelezionate.length}
             />
             <StoricoGiocate

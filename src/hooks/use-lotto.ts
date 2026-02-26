@@ -1,13 +1,13 @@
 import { useState, useCallback } from 'react';
-import type { Giocata, RisultatoGiocata, Ruota, TipoGiocata, StatisticheSessione } from '@/lib/lotto/types';
-import { RUOTE } from '@/lib/lotto/types';
-import { eseguiEstrazione, calcolaRisultato } from '@/lib/lotto/engine';
+import type { RisultatoGiocata, Ruota, TipoGiocata, StatisticheSessione, ImportiPerSorte } from '@/lib/lotto/types';
+import { RUOTE, NUMERI_MINIMI } from '@/lib/lotto/types';
+import { eseguiEstrazione, calcolaRisultato, calcolaCostoTotale } from '@/lib/lotto/engine';
 
 export function useLotto() {
   const [numeriSelezionati, setNumeriSelezionati] = useState<number[]>([]);
   const [ruoteSelezionate, setRuoteSelezionate] = useState<Ruota[]>([]);
-  const [tipoGiocata, setTipoGiocata] = useState<TipoGiocata>('Estratto');
-  const [importo, setImporto] = useState(1);
+  const [importiPerSorte, setImportiPerSorte] = useState<ImportiPerSorte>({});
+  const [numeroOro, setNumeroOro] = useState(false);
   const [risultatoCorrente, setRisultatoCorrente] = useState<RisultatoGiocata | null>(null);
   const [storico, setStorico] = useState<RisultatoGiocata[]>([]);
   const [isEstracting, setIsEstracting] = useState(false);
@@ -33,45 +33,71 @@ export function useLotto() {
     );
   }, []);
 
+  const setImportoSorte = useCallback((tipo: TipoGiocata, importo: number | undefined) => {
+    setImportiPerSorte(prev => {
+      const next = { ...prev };
+      if (importo === undefined || importo <= 0) {
+        delete next[tipo];
+      } else {
+        next[tipo] = importo;
+      }
+      return next;
+    });
+  }, []);
+
+  const sortiAttive = Object.keys(importiPerSorte).filter(
+    k => (importiPerSorte[k as TipoGiocata] ?? 0) > 0
+  ) as TipoGiocata[];
+
+  const costoTotale = calcolaCostoTotale(importiPerSorte, ruoteSelezionate.length, numeroOro);
+
+  const puoGiocare = numeriSelezionati.length > 0
+    && ruoteSelezionate.length > 0
+    && sortiAttive.length > 0
+    && sortiAttive.every(s => numeriSelezionati.length >= NUMERI_MINIMI[s])
+    && !isEstracting;
+
   const gioca = useCallback(() => {
-    if (numeriSelezionati.length === 0 || ruoteSelezionate.length === 0) return;
+    if (!puoGiocare) return;
 
     setIsEstracting(true);
-    const giocata: Giocata = {
+    const giocata = {
       numeri: [...numeriSelezionati],
       ruote: [...ruoteSelezionate],
-      tipo: tipoGiocata,
-      importo,
+      importiPerSorte: { ...importiPerSorte },
+      numeroOro,
     };
 
-    // Estrazione su TUTTE le ruote (come nel Lotto reale)
     const estrazione = eseguiEstrazione(RUOTE);
     const risultato = calcolaRisultato(giocata, estrazione);
+    const costo = calcolaCostoTotale(importiPerSorte, ruoteSelezionate.length, numeroOro);
 
-    // Simula l'animazione
     setTimeout(() => {
       setRisultatoCorrente(risultato);
       setStorico(prev => [risultato, ...prev].slice(0, 50));
       setStatistiche(prev => ({
         totaleGiocate: prev.totaleGiocate + 1,
-        totaleSpeso: prev.totaleSpeso + importo * ruoteSelezionate.length,
+        totaleSpeso: prev.totaleSpeso + costo,
         totaleVinto: prev.totaleVinto + risultato.totaleVinto,
         vittorie: prev.vittorie + (risultato.totaleVinto > 0 ? 1 : 0),
       }));
       setIsEstracting(false);
     }, 2000);
-  }, [numeriSelezionati, ruoteSelezionate, tipoGiocata, importo]);
+  }, [puoGiocare, numeriSelezionati, ruoteSelezionate, importiPerSorte, numeroOro]);
 
   const reset = useCallback(() => {
     setNumeriSelezionati([]);
     setRuoteSelezionate([]);
+    setImportiPerSorte({});
+    setNumeroOro(false);
     setRisultatoCorrente(null);
   }, []);
 
   return {
-    numeriSelezionati, ruoteSelezionate, tipoGiocata, importo,
+    numeriSelezionati, ruoteSelezionate, importiPerSorte, numeroOro,
     risultatoCorrente, storico, isEstracting, statistiche,
+    sortiAttive, costoTotale, puoGiocare,
     toggleNumero, toggleRuota, selezionaTutteRuote,
-    setTipoGiocata, setImporto, gioca, reset,
+    setImportoSorte, setNumeroOro, gioca, reset,
   };
 }
