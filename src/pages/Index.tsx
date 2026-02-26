@@ -194,6 +194,25 @@ const Index = () => {
             />
           </div>
         </div>
+
+        {/* Disclaimer */}
+        <div className="mt-6 sm:mt-8 border-t border-border pt-4 pb-6 px-2 space-y-2 text-center text-[9px] sm:text-[10px] text-muted-foreground font-['Oswald'] leading-relaxed">
+          <p>
+            <strong className="text-foreground/70">⚠️ AVVERTENZA SUL GIOCO D'AZZARDO:</strong> Il gioco d'azzardo può causare dipendenza patologica. 
+            Gioca responsabilmente e solo se maggiorenne. Per informazioni e aiuto chiama il 
+            <strong className="text-foreground/70"> Telefono Verde 800 558 822</strong> (ISS – Istituto Superiore di Sanità).
+          </p>
+          <p>
+            Il marchio <strong className="text-foreground/70">"Gioco del Lotto"</strong> è di proprietà esclusiva dello Stato italiano, 
+            gestito da <strong className="text-foreground/70">Lottomatica S.p.A.</strong> su concessione dell'Agenzia delle Dogane e dei Monopoli. 
+            Questa applicazione non è affiliata né autorizzata da tali enti.
+          </p>
+          <p>
+            Questo software è stato <strong className="text-foreground/70">generato con l'ausilio dell'intelligenza artificiale</strong> e ha 
+            il <strong className="text-foreground/70">solo scopo di studio della probabilità e della statistica</strong>. Non incoraggia né promuove il gioco d'azzardo in alcuna forma. 
+            Nessuna somma di denaro reale è coinvolta.
+          </p>
+        </div>
       </div>
     </div>
   );
