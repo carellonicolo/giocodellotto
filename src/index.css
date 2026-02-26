@@ -140,6 +140,6 @@
   }
   .ruota-row {
     @apply flex items-center gap-1 py-0.5;
-    font-family: 'Oswald', sans-serif;
+    font-family: 'DM Sans', sans-serif;
   }
 }
