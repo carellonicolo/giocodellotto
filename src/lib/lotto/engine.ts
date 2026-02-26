@@ -139,6 +139,21 @@ export function getFormulaDescrizione(tipo: TipoGiocata, k: number): string {
   return `P = C(${k},${t}) × C(${90-k},${5-t}) / C(90,5) = 1/${probInversa.toLocaleString('it-IT')}`;
 }
 
+// Dati strutturati per la formula visiva
+export function getFormulaData(tipo: TipoGiocata, k: number) {
+  const t = tipoToNumero(tipo);
+  const prob = calcolaProbabilita(tipo, k);
+  const probInversa = prob > 0 ? Math.round(1 / prob) : Infinity;
+  return {
+    k, t, nk: 90 - k, nt: 5 - t,
+    numeratore: `C(${k},${t}) × C(${90-k},${5-t})`,
+    denominatore: `C(90,5)`,
+    numVal: combinazioni(k, t) * combinazioni(90 - k, 5 - t),
+    denVal: combinazioni(90, 5),
+    probInversa,
+  };
+}
+
 export function getDescrizioneProbabilita(tipo: TipoGiocata): string {
   switch (tipo) {
     case 'Estratto': return 'Indovinare almeno 1 numero tra i 5 estratti';

@@ -5,7 +5,7 @@ import {
   calcolaProbabilitaSingola,
   combinazioni,
   getMoltiplicatore,
-  getFormulaDescrizione,
+  getFormulaData,
   getDescrizioneProbabilita,
 } from '@/lib/lotto/engine';
 
@@ -16,6 +16,30 @@ interface PannelloProbabilitaProps {
   numRuote: number;
 }
 
+/** Fraction rendered as numerator / denominator with a horizontal bar */
+function Frac({ num, den }: { num: React.ReactNode; den: React.ReactNode }) {
+  return (
+    <span className="inline-flex flex-col items-center mx-0.5 align-middle">
+      <span className="px-1 leading-tight">{num}</span>
+      <span className="w-full border-t border-foreground/60" />
+      <span className="px-1 leading-tight">{den}</span>
+    </span>
+  );
+}
+
+/** Subscript-style C(n,k) rendered as a combination symbol */
+function Comb({ n, k }: { n: number; k: number }) {
+  return (
+    <span className="inline-flex items-baseline">
+      <span className="italic mr-px">C</span>
+      <span className="inline-flex flex-col items-center text-[7px] leading-[1.1] -ml-px">
+        <span>{n}</span>
+        <span>{k}</span>
+      </span>
+    </span>
+  );
+}
+
 export function PannelloProbabilita({ tipo, numeriGiocati, importo, numRuote }: PannelloProbabilitaProps) {
   const prob = numeriGiocati > 0 ? calcolaProbabilita(tipo, numeriGiocati) : 0;
   const probPercentuale = (prob * 100).toFixed(6);
@@ -24,6 +48,10 @@ export function PannelloProbabilita({ tipo, numeriGiocati, importo, numRuote }: 
   const vincitaPotenziale = importo * moltiplicatore;
   const costoTotale = importo * numRuote;
   const valoreAtteso = prob * vincitaPotenziale * numRuote - costoTotale;
+
+  const minNumeri = { Estratto: 1, Ambo: 2, Terno: 3, Quaterna: 4, Cinquina: 5 }[tipo];
+  const hasFormula = numeriGiocati >= minNumeri;
+  const formula = hasFormula ? getFormulaData(tipo, numeriGiocati) : null;
 
   return (
     <div className="schedina-card overflow-hidden">
@@ -39,15 +67,50 @@ export function PannelloProbabilita({ tipo, numeriGiocati, importo, numRuote }: 
               {tipo} con {numeriGiocati} numeri
             </p>
             <p className="text-[10px] text-muted-foreground">{getDescrizioneProbabilita(tipo)}</p>
-            <p className="font-mono text-[9px] bg-white p-1.5 rounded border border-border/50">
-              {numeriGiocati >= ({ Estratto: 1, Ambo: 2, Terno: 3, Quaterna: 4, Cinquina: 5 }[tipo])
-                ? getFormulaDescrizione(tipo, numeriGiocati)
-                : 'Seleziona abbastanza numeri'}
-            </p>
+
+            {/* Formula visiva stile matematico */}
+            <div className="bg-white p-2 sm:p-3 rounded border border-border/50 text-center">
+              {formula ? (
+                <div className="space-y-2">
+                  {/* P = fraction */}
+                  <div className="flex items-center justify-center gap-1 text-[10px] sm:text-xs font-mono text-foreground">
+                    <span className="font-semibold italic">P</span>
+                    <span>=</span>
+                    <Frac
+                      num={
+                        <span className="flex items-center gap-0.5">
+                          <Comb n={formula.k} k={formula.t} />
+                          <span>×</span>
+                          <Comb n={formula.nk} k={formula.nt} />
+                        </span>
+                      }
+                      den={<Comb n={90} k={5} />}
+                    />
+                    <span>=</span>
+                    <Frac
+                      num={<span>{formula.numVal.toLocaleString('it-IT')}</span>}
+                      den={<span>{formula.denVal.toLocaleString('it-IT')}</span>}
+                    />
+                    <span>=</span>
+                    <Frac
+                      num={<span className="font-bold">1</span>}
+                      den={<span className="font-bold">{formula.probInversa.toLocaleString('it-IT')}</span>}
+                    />
+                  </div>
+                  <p className="text-[8px] text-muted-foreground">
+                    dove C(n,k) = n! / (k! × (n-k)!)
+                  </p>
+                </div>
+              ) : (
+                <p className="text-[9px] text-muted-foreground">Seleziona abbastanza numeri</p>
+              )}
+            </div>
+
             <div className="grid grid-cols-2 gap-1.5">
               <div className="bg-white p-1.5 rounded border border-border/50 text-center">
                 <p className="text-[8px] text-muted-foreground uppercase font-['Oswald']">Probabilità</p>
                 <p className="font-bold text-foreground font-['Oswald'] text-xs">{prob > 0 ? `1/${probInversa.toLocaleString('it-IT')}` : '—'}</p>
+                <p className="text-[8px] text-muted-foreground">{probPercentuale}%</p>
               </div>
               <div className="bg-white p-1.5 rounded border border-border/50 text-center">
                 <p className="text-[8px] text-muted-foreground uppercase font-['Oswald']">Vincita max</p>
@@ -76,18 +139,42 @@ export function PannelloProbabilita({ tipo, numeriGiocati, importo, numRuote }: 
               return (
                 <div key={t} className="flex justify-between items-center py-0.5 px-2 rounded bg-[hsl(var(--lotto-cream))]">
                   <span className="font-['Oswald'] font-bold text-[10px] uppercase">{t}</span>
-                  <span className="font-mono text-[10px] text-muted-foreground">1/{inv.toLocaleString('it-IT')}</span>
+                  <span className="font-mono text-[10px] text-muted-foreground">
+                    <span className="inline-flex flex-col items-center align-middle mx-0.5">
+                      <span className="leading-tight">1</span>
+                      <span className="w-full border-t border-muted-foreground/50" />
+                      <span className="leading-tight">{inv.toLocaleString('it-IT')}</span>
+                    </span>
+                  </span>
                 </div>
               );
             })}
           </div>
         </div>
 
-        <div className="p-2 rounded bg-[hsl(var(--lotto-cream))] border border-border/50 space-y-1">
-          <h4 className="font-['Oswald'] font-bold text-[9px] uppercase text-muted-foreground">Formula</h4>
-          <p className="font-mono text-[9px] bg-white p-1.5 rounded border border-border/50 leading-relaxed">
-            P = Σ C(k,j) × C(90-k,5-j) / C(90,5)
-          </p>
+        {/* Formula generale */}
+        <div className="p-2 rounded bg-[hsl(var(--lotto-cream))] border border-border/50 space-y-2">
+          <h4 className="font-['Oswald'] font-bold text-[9px] uppercase text-muted-foreground">Formula Generale</h4>
+          <div className="bg-white p-2 rounded border border-border/50 text-center">
+            <div className="flex items-center justify-center gap-1 text-[10px] sm:text-xs font-mono text-foreground">
+              <span className="font-semibold italic">P</span>
+              <span>=</span>
+              <span className="text-[9px]">Σ</span>
+              <Frac
+                num={
+                  <span className="flex items-center gap-0.5">
+                    <Comb n={'k' as any} k={'j' as any} />
+                    <span>×</span>
+                    <Comb n={'90-k' as any} k={'5-j' as any} />
+                  </span>
+                }
+                den={<Comb n={90} k={5} />}
+              />
+            </div>
+            <p className="text-[8px] text-muted-foreground mt-1">
+              k = numeri giocati, j da t a min(k,5)
+            </p>
+          </div>
           <p className="text-[9px] text-muted-foreground">
             C(90,5) = {combinazioni(90, 5).toLocaleString('it-IT')} combinazioni
           </p>
