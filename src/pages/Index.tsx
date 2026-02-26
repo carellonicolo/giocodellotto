@@ -98,7 +98,7 @@ const Index = () => {
                 </div>
               )}
               <div className="flex items-center gap-2 px-1">
-                <div className="flex-1 text-[8px] sm:text-[9px] text-foreground/60">
+                <div className="flex-1 text-[10px] sm:text-[11px] text-foreground/60">
                   <span>Costo totale: <strong className="text-foreground">€{lotto.costoTotale.toFixed(2)}</strong></span>
                   <span className="ml-1">({lotto.ruoteSelezionate.length} ruote)</span>
                 </div>
