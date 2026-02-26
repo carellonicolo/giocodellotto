@@ -158,6 +158,7 @@ const Index = () => {
                       : 'Nessuna vincita'}
                   </span>
                 )}
+                </div>
               </div>
               <div className="p-2 sm:p-3 bg-white/60">
                 {lotto.isEstracting ? (
