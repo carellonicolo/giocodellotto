@@ -53,7 +53,7 @@ const Index = () => {
                 </div>
                 {/* Ruote a destra */}
                 <div className="flex-shrink-0 pl-1 border-l border-[hsl(var(--lotto-salmon)/0.3)]">
-                  <p className="text-[7px] sm:text-[8px] font-bold text-center text-foreground/60 font-['Oswald'] uppercase tracking-wider mb-0.5 sm:mb-1">
+                  <p className="text-[7px] sm:text-[8px] font-bold text-center text-foreground/60 uppercase tracking-wider mb-0.5 sm:mb-1">
                     Ruote
                   </p>
                   <SelettoreRuote
@@ -99,16 +99,16 @@ const Index = () => {
             <div className="px-1.5 sm:px-2 py-2 sm:py-3 space-y-1.5 sm:space-y-2">
               {lotto.numeriSelezionati.length > 0 && (
                 <div className="flex items-center gap-0.5 sm:gap-1 flex-wrap px-1">
-                  <span className="text-[7px] sm:text-[8px] text-foreground/50 font-['Oswald'] uppercase">Numeri:</span>
+                  <span className="text-[7px] sm:text-[8px] text-foreground/50 uppercase">Numeri:</span>
                   {[...lotto.numeriSelezionati].sort((a, b) => a - b).map(n => (
-                    <span key={n} className="inline-flex items-center justify-center w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[hsl(var(--lotto-orange))] text-white text-[7px] sm:text-[8px] font-bold font-['Oswald']">
+                    <span key={n} className="inline-flex items-center justify-center w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[hsl(var(--lotto-orange))] text-white text-[7px] sm:text-[8px] font-bold">
                       {n}
                     </span>
                   ))}
                 </div>
               )}
               <div className="flex items-center gap-2 px-1">
-                <div className="flex-1 text-[8px] sm:text-[9px] text-foreground/60 font-['Oswald']">
+                <div className="flex-1 text-[8px] sm:text-[9px] text-foreground/60">
                   <span>Costo: <strong className="text-foreground">€{(lotto.importo * lotto.ruoteSelezionate.length).toFixed(2)}</strong></span>
                   <span className="ml-1">({lotto.ruoteSelezionate.length} ruote)</span>
                 </div>
@@ -117,7 +117,7 @@ const Index = () => {
                 <Button
                   onClick={lotto.gioca}
                   disabled={!puoGiocare}
-                  className="flex-1 font-['Oswald'] font-bold uppercase tracking-wider text-[10px] sm:text-xs shadow-lg bg-[hsl(var(--lotto-orange))] hover:bg-[hsl(15_80%_48%)] text-white"
+                  className="flex-1 font-bold uppercase tracking-wider text-[10px] sm:text-xs shadow-lg bg-[hsl(var(--lotto-orange))] hover:bg-[hsl(15_80%_48%)] text-white"
                   size="sm"
                 >
                   {lotto.isEstracting ? '🎰 Estrazione...' : '🎯 GIOCA!'}
@@ -127,7 +127,7 @@ const Index = () => {
                   size="sm"
                   onClick={lotto.reset}
                   disabled={lotto.isEstracting}
-                  className="font-['Oswald'] font-bold border-2 border-[hsl(var(--lotto-salmon))] text-foreground/60"
+                  className="font-bold border-2 border-[hsl(var(--lotto-salmon))] text-foreground/60"
                 >
                   ↺
                 </Button>
@@ -136,7 +136,7 @@ const Index = () => {
 
             {/* Footer */}
             <div className="bg-[hsl(var(--lotto-salmon))] px-2 py-1 sm:py-1.5 text-center">
-              <p className="text-[6px] sm:text-[7px] text-white font-['Oswald'] uppercase tracking-widest">
+              <p className="text-[6px] sm:text-[7px] text-white uppercase tracking-widest">
                 ⚠️ Simulatore a scopo esclusivamente educativo e didattico
               </p>
             </div>
@@ -147,11 +147,11 @@ const Index = () => {
             {/* Risultati estrazione — sempre visibile */}
             <div className="schedina-card overflow-hidden">
               <div className="schedina-header px-3 sm:px-4 py-2 flex items-center justify-between gap-2">
-                <span className="text-white font-['Oswald'] font-bold text-xs sm:text-sm uppercase tracking-widest">
+                <span className="text-white font-bold text-xs sm:text-sm uppercase tracking-widest">
                   🎰 Estrazione
                 </span>
                 {lotto.risultatoCorrente && (
-                  <span className={`text-xs sm:text-sm font-bold font-['Oswald'] uppercase ${lotto.risultatoCorrente.totaleVinto > 0 ? 'text-[hsl(var(--lotto-gold))]' : 'text-white/60'}`}>
+                  <span className={`text-xs sm:text-sm font-bold uppercase ${lotto.risultatoCorrente.totaleVinto > 0 ? 'text-[hsl(var(--lotto-gold))]' : 'text-white/60'}`}>
                     {lotto.risultatoCorrente.totaleVinto > 0
                       ? `🎉 €${lotto.risultatoCorrente.totaleVinto.toFixed(2)}!`
                       : 'Nessuna vincita'}
@@ -162,7 +162,7 @@ const Index = () => {
                 {lotto.isEstracting ? (
                   <div className="text-center py-6 sm:py-8">
                     <div className="text-3xl sm:text-4xl animate-bounce">🎱</div>
-                    <p className="text-muted-foreground mt-2 font-['Oswald'] uppercase tracking-wider text-[10px] sm:text-xs">
+                    <p className="text-muted-foreground mt-2 uppercase tracking-wider text-[10px] sm:text-xs">
                       Estrazione in corso...
                     </p>
                   </div>
@@ -196,7 +196,7 @@ const Index = () => {
         </div>
 
         {/* Disclaimer */}
-        <div className="mt-6 sm:mt-8 border-t border-border pt-4 pb-6 px-2 space-y-2 text-center text-[9px] sm:text-[10px] text-muted-foreground font-['Oswald'] leading-relaxed">
+        <div className="mt-6 sm:mt-8 border-t border-border pt-4 pb-6 px-2 space-y-2 text-center text-[9px] sm:text-[10px] text-muted-foreground leading-relaxed">
           <p>
             <strong className="text-foreground/70">⚠️ AVVERTENZA SUL GIOCO D'AZZARDO:</strong> Il gioco d'azzardo può causare dipendenza patologica. 
             Gioca responsabilmente e solo se maggiorenne. Per informazioni e aiuto chiama il 

@@ -22,7 +22,7 @@ export function SelettoreTipo({ tipo, onChange, numeriSelezionati, disabled }: S
             onClick={() => onChange(t)}
             className={cn(
               "w-full flex items-center gap-2 py-1 px-2 rounded transition-all text-left",
-              "font-['Oswald'] text-[11px] uppercase tracking-wider",
+              "text-[11px] uppercase tracking-wider",
               isSelected
                 ? 'bg-[hsl(var(--lotto-orange))] text-white font-bold'
                 : abilitato

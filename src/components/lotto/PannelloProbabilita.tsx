@@ -18,7 +18,6 @@ interface PannelloProbabilitaProps {
   numRuote: number;
 }
 
-/** Fraction rendered as numerator / denominator with a horizontal bar */
 function Frac({ num, den }: { num: React.ReactNode; den: React.ReactNode }) {
   return (
     <span className="inline-flex flex-col items-center mx-0.5 align-middle">
@@ -29,7 +28,6 @@ function Frac({ num, den }: { num: React.ReactNode; den: React.ReactNode }) {
   );
 }
 
-/** Subscript-style C(n,k) rendered as a combination symbol */
 function Comb({ n, k }: { n: number; k: number }) {
   return (
     <span className="inline-flex items-baseline">
@@ -78,9 +76,9 @@ export function PannelloProbabilita({ tipo, numeriGiocati, importo, numRuote }: 
   const formula = hasFormula ? getFormulaData(tipo, numeriGiocati) : null;
 
   return (
-    <div className="schedina-card overflow-hidden font-['Source_Sans_3']">
+    <div className="schedina-card overflow-hidden">
       <div className="bg-[hsl(var(--lotto-blue))] px-3 py-2">
-        <h2 className="text-white font-['Oswald'] font-bold text-xs uppercase tracking-widest">
+        <h2 className="text-white font-bold text-xs uppercase tracking-widest">
           📊 Analisi Probabilistica
         </h2>
       </div>
@@ -89,7 +87,6 @@ export function PannelloProbabilita({ tipo, numeriGiocati, importo, numRuote }: 
           <CollapsibleSection title={`${tipo} con ${numeriGiocati} numeri`} defaultOpen={true}>
             <p className="text-[11px] text-muted-foreground font-light leading-relaxed">{getDescrizioneProbabilita(tipo)}</p>
 
-            {/* Formula visiva stile matematico */}
             <div className="bg-white p-3 sm:p-4 rounded border border-border/50 text-center">
               {formula ? (
                 <div className="space-y-2">
