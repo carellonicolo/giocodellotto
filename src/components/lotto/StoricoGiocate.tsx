@@ -1,4 +1,4 @@
-import type { RisultatoGiocata, StatisticheSessione } from '@/lib/lotto/types';
+import type { RisultatoGiocata, StatisticheSessione, TipoGiocata } from '@/lib/lotto/types';
 
 interface StoricoGiocateProps {
   storico: RisultatoGiocata[];
@@ -30,14 +30,17 @@ export function StoricoGiocate({ storico, statistiche }: StoricoGiocateProps) {
         </div>
         {storico.length > 0 && (
           <div className="space-y-[2px] max-h-40 overflow-y-auto">
-            {storico.slice(0, 10).map((r, i) => (
-              <div key={i} className="flex justify-between items-center py-0.5 px-2 rounded bg-[hsl(var(--lotto-cream))] text-[10px]">
-                <span>{r.giocata.tipo} — {r.giocata.numeri.join(', ')}</span>
-                <span className={r.totaleVinto > 0 ? 'text-[hsl(var(--lotto-green))] font-bold' : 'text-muted-foreground'}>
-                  {r.totaleVinto > 0 ? `+€${r.totaleVinto.toFixed(2)}` : '—'}
-                </span>
-              </div>
-            ))}
+            {storico.slice(0, 10).map((r, i) => {
+              const sorti = Object.keys(r.giocata.importiPerSorte).join('+');
+              return (
+                <div key={i} className="flex justify-between items-center py-0.5 px-2 rounded bg-[hsl(var(--lotto-cream))] text-[10px]">
+                  <span>{sorti} — {r.giocata.numeri.join(', ')}</span>
+                  <span className={r.totaleVinto > 0 ? 'text-[hsl(var(--lotto-green))] font-bold' : 'text-muted-foreground'}>
+                    {r.totaleVinto > 0 ? `+€${r.totaleVinto.toFixed(2)}` : '—'}
+                  </span>
+                </div>
+              );
+            })}
           </div>
         )}
       </div>

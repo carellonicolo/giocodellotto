@@ -16,21 +16,32 @@ export const NUMERI_MINIMI: Record<TipoGiocata, number> = {
   Cinquina: 5,
 };
 
+export const IMPORTI_DISPONIBILI = [200, 100, 50, 20, 10, 5, 3, 2, 1, 0.50, 0.25] as const;
+
+export type ImportiPerSorte = Partial<Record<TipoGiocata, number>>;
+
 export interface Giocata {
   numeri: number[];
   ruote: Ruota[];
-  tipo: TipoGiocata;
-  importo: number;
+  importiPerSorte: ImportiPerSorte;
+  numeroOro: boolean;
 }
 
 export interface RisultatoEstrazione {
   [ruota: string]: number[];
 }
 
+export interface VincitaDettaglio {
+  sorte: TipoGiocata;
+  ruota: Ruota;
+  numeriIndovinati: number[];
+  importoVinto: number;
+}
+
 export interface RisultatoGiocata {
   giocata: Giocata;
   estrazione: RisultatoEstrazione;
-  vincite: { ruota: Ruota; numeriIndovinati: number[]; importoVinto: number }[];
+  vincite: VincitaDettaglio[];
   totaleVinto: number;
   timestamp: Date;
 }

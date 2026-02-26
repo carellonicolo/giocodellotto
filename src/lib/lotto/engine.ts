@@ -1,4 +1,4 @@
-import type { Giocata, RisultatoEstrazione, RisultatoGiocata, Ruota, TipoGiocata } from './types';
+import type { Giocata, RisultatoEstrazione, RisultatoGiocata, Ruota, TipoGiocata, VincitaDettaglio } from './types';
 
 // Estrae 5 numeri casuali da 1 a 90 senza ripetizioni per ogni ruota
 export function eseguiEstrazione(ruote: readonly Ruota[]): RisultatoEstrazione {
@@ -30,20 +30,11 @@ export function combinazioni(n: number, k: number): number {
 }
 
 // Probabilità di vincita per tipo di giocata con k numeri giocati su 1 ruota
-// Formula: C(k, t) * C(90-k, 5-t) / C(90, 5) dove t = numeri da indovinare
 export function calcolaProbabilita(tipo: TipoGiocata, numeriGiocati: number): number {
   const t = tipoToNumero(tipo);
   if (numeriGiocati < t) return 0;
 
   const totale = combinazioni(90, 5);
-  // Somma su tutte le combinazioni favorevoli: almeno t numeri indovinati
-  // Per il Lotto, la probabilità è la somma per j da t a min(k,5) di C(k,j)*C(90-k,5-j)/C(90,5)
-  // Ma per le vincite standard si considera esattamente t numeri
-  // Correzione: nel Lotto si vince se almeno t dei numeri giocati sono tra i 5 estratti
-  // La probabilità per una singola combinazione di t numeri è: C(k,t) * [formula]
-  // Ma in realtà il giocatore vince per OGNI combinazione di t numeri tra quelli giocati che si trova nell'estrazione
-  
-  // Probabilità semplice: almeno t numeri giocati presenti tra i 5 estratti
   let prob = 0;
   const maxMatch = Math.min(numeriGiocati, 5);
   for (let j = t; j <= maxMatch; j++) {
@@ -58,7 +49,7 @@ export function calcolaProbabilitaSingola(tipo: TipoGiocata): number {
   return combinazioni(5, t) * combinazioni(85, 5 - t) / combinazioni(90, 5);
 }
 
-function tipoToNumero(tipo: TipoGiocata): number {
+export function tipoToNumero(tipo: TipoGiocata): number {
   switch (tipo) {
     case 'Estratto': return 1;
     case 'Ambo': return 2;
@@ -81,7 +72,7 @@ export function getMoltiplicatore(tipo: TipoGiocata, numeriGiocati: number): num
   return MOLTIPLICATORI[tipo]?.[numeriGiocati] ?? 0;
 }
 
-// Calcola il numero di combinazioni vincenti per la giocata su una ruota
+// Calcola vincita per una singola sorte su una ruota
 function calcolaVincitaRuota(
   numeriGiocati: number[],
   numeriEstratti: number[],
@@ -90,35 +81,40 @@ function calcolaVincitaRuota(
 ): { numeriIndovinati: number[]; importoVinto: number } {
   const indovinati = numeriGiocati.filter(n => numeriEstratti.includes(n));
   const t = tipoToNumero(tipo);
-  
+
   if (indovinati.length < t) {
     return { numeriIndovinati: indovinati, importoVinto: 0 };
   }
 
-  // Numero di combinazioni vincenti tra i numeri indovinati
   const combVincenti = combinazioni(indovinati.length, t);
   const moltiplicatore = getMoltiplicatore(tipo, numeriGiocati.length);
   const vincita = importo * moltiplicatore * combVincenti / combinazioni(numeriGiocati.length, t);
-  // In realtà nel Lotto, la vincita è: importo * moltiplicatore per ogni combinazione vincente
-  // diviso il numero di combinazioni giocate (che è già nel moltiplicatore)
-  
+
   return { numeriIndovinati: indovinati, importoVinto: vincita };
 }
 
 export function calcolaRisultato(giocata: Giocata, estrazione: RisultatoEstrazione): RisultatoGiocata {
-  const vincite: RisultatoGiocata['vincite'] = [];
+  const vincite: VincitaDettaglio[] = [];
   let totaleVinto = 0;
+
+  const sortiAttive = Object.entries(giocata.importiPerSorte) as [TipoGiocata, number][];
 
   for (const ruota of giocata.ruote) {
     const numeriEstratti = estrazione[ruota];
     if (!numeriEstratti) continue;
 
-    const { numeriIndovinati, importoVinto } = calcolaVincitaRuota(
-      giocata.numeri, numeriEstratti, giocata.tipo, giocata.importo
-    );
+    for (const [sorte, importo] of sortiAttive) {
+      if (!importo || importo <= 0) continue;
 
-    vincite.push({ ruota, numeriIndovinati, importoVinto });
-    totaleVinto += importoVinto;
+      const { numeriIndovinati, importoVinto } = calcolaVincitaRuota(
+        giocata.numeri, numeriEstratti, sorte, importo
+      );
+
+      if (importoVinto > 0 || numeriIndovinati.length > 0) {
+        vincite.push({ sorte, ruota, numeriIndovinati, importoVinto });
+      }
+      totaleVinto += importoVinto;
+    }
   }
 
   return {
@@ -130,13 +126,19 @@ export function calcolaRisultato(giocata: Giocata, estrazione: RisultatoEstrazio
   };
 }
 
+// Calcola il costo totale di una giocata
+export function calcolaCostoTotale(importiPerSorte: Partial<Record<TipoGiocata, number>>, numRuote: number, _numeroOro: boolean): number {
+  const sommaImporti = Object.values(importiPerSorte).reduce((acc, v) => acc + (v || 0), 0);
+  return sommaImporti * numRuote;
+}
+
 // Formule in formato leggibile
 export function getFormulaDescrizione(tipo: TipoGiocata, k: number): string {
   const t = tipoToNumero(tipo);
   const prob = calcolaProbabilita(tipo, k);
   const probInversa = prob > 0 ? Math.round(1 / prob) : Infinity;
-  
-  return `P = C(${k},${t}) × C(${90-k},${5-t}) / C(90,5) = 1/${probInversa.toLocaleString('it-IT')}`;
+
+  return `P = C(${k},${t}) × C(${90 - k},${5 - t}) / C(90,5) = 1/${probInversa.toLocaleString('it-IT')}`;
 }
 
 // Dati strutturati per la formula visiva
@@ -146,7 +148,7 @@ export function getFormulaData(tipo: TipoGiocata, k: number) {
   const probInversa = prob > 0 ? Math.round(1 / prob) : Infinity;
   return {
     k, t, nk: 90 - k, nt: 5 - t,
-    numeratore: `C(${k},${t}) × C(${90-k},${5-t})`,
+    numeratore: `C(${k},${t}) × C(${90 - k},${5 - t})`,
     denominatore: `C(90,5)`,
     numVal: combinazioni(k, t) * combinazioni(90 - k, 5 - t),
     denVal: combinazioni(90, 5),
