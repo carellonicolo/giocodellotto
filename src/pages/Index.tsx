@@ -31,8 +31,8 @@ const Index = () => {
           {/* ===== SCHEDINA ===== */}
           <div className="schedina-card overflow-hidden w-full max-w-[340px] mx-auto lg:mx-0">
             {/* Header */}
-            <div className="schedina-header px-3 py-2 sm:py-3 flex items-center justify-center">
-              <img src={lottoLogo} alt="Il Gioco del Lotto" className="h-10 sm:h-14 object-contain" />
+            <div className="schedina-header p-0 flex items-center justify-center">
+              <img src={lottoLogo} alt="Il Gioco del Lotto" className="w-full h-auto object-cover" />
             </div>
 
             {/* I TUOI NUMERI + RUOTE side by side */}
