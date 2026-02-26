@@ -107,7 +107,7 @@ const Index = () => {
                 <Button
                   onClick={lotto.gioca}
                   disabled={!lotto.puoGiocare}
-                  className="flex-1 font-bold uppercase tracking-wider text-[10px] sm:text-xs shadow-lg bg-[hsl(var(--lotto-orange))] hover:bg-[hsl(15_80%_48%)] text-white"
+                  className="flex-1 font-bold uppercase tracking-wider text-xs sm:text-sm shadow-lg bg-[hsl(var(--lotto-orange))] hover:bg-[hsl(15_80%_48%)] text-white"
                   size="sm"
                 >
                   {lotto.isEstracting ? '🎰 Estrazione...' : '🎯 GIOCA!'}
