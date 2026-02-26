@@ -57,6 +57,13 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        lotto: {
+          red: "hsl(var(--lotto-red))",
+          gold: "hsl(var(--lotto-gold))",
+          blue: "hsl(var(--lotto-blue))",
+          green: "hsl(var(--lotto-green))",
+          cream: "hsl(var(--lotto-cream))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
