@@ -26,9 +26,9 @@ export function SelettoreSorteImporti({
     <div className="space-y-1">
       {/* Header row with importi */}
       <div className="flex items-end gap-0">
-        <div className="w-[52px] sm:w-[60px] shrink-0" />
+        <div className="w-[58px] sm:w-[68px] shrink-0" />
         {IMPORTI_COMPATTI.map(imp => (
-          <div key={imp} className="flex-1 text-center text-[6px] sm:text-[7px] font-bold text-foreground/60 leading-tight pb-0.5">
+          <div key={imp} className="flex-1 text-center text-[7px] sm:text-[8px] font-bold text-foreground/60 leading-tight pb-0.5">
             {imp >= 1 ? imp : imp.toFixed(2).replace('0.', '.')}
           </div>
         ))}
