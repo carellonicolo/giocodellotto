@@ -1,23 +1,58 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import type { RisultatoGiocata, Ruota, TipoGiocata, StatisticheSessione, ImportiPerSorte } from '@/lib/lotto/types';
 import { RUOTE, NUMERI_MINIMI } from '@/lib/lotto/types';
 import { eseguiEstrazione, calcolaRisultato, calcolaCostoTotale } from '@/lib/lotto/engine';
+
+const STORICO_KEY = 'lotto-storico';
+const STATS_KEY = 'lotto-statistiche';
+
+function loadStorico(): RisultatoGiocata[] {
+  try {
+    const raw = localStorage.getItem(STORICO_KEY);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    return parsed.map((r: any) => ({ ...r, timestamp: new Date(r.timestamp) }));
+  } catch { return []; }
+}
+
+function loadStats(): StatisticheSessione {
+  try {
+    const raw = localStorage.getItem(STATS_KEY);
+    if (!raw) return { totaleGiocate: 0, totaleSpeso: 0, totaleVinto: 0, vittorie: 0 };
+    return JSON.parse(raw);
+  } catch { return { totaleGiocate: 0, totaleSpeso: 0, totaleVinto: 0, vittorie: 0 }; }
+}
 
 export function useLotto() {
   const [numeriSelezionati, setNumeriSelezionati] = useState<number[]>([]);
   const [ruoteSelezionate, setRuoteSelezionate] = useState<Ruota[]>([]);
   const [importiPerSorte, setImportiPerSorte] = useState<ImportiPerSorte>({});
   const [risultatoCorrente, setRisultatoCorrente] = useState<RisultatoGiocata | null>(null);
-  const [storico, setStorico] = useState<RisultatoGiocata[]>([]);
+  const [storico, setStorico] = useState<RisultatoGiocata[]>(loadStorico);
   const [isEstracting, setIsEstracting] = useState(false);
-  const [statistiche, setStatistiche] = useState<StatisticheSessione>({
-    totaleGiocate: 0, totaleSpeso: 0, totaleVinto: 0, vittorie: 0,
-  });
+  const [statistiche, setStatistiche] = useState<StatisticheSessione>(loadStats);
+
+  // Persist storico & stats
+  useEffect(() => {
+    try { localStorage.setItem(STORICO_KEY, JSON.stringify(storico)); } catch {}
+  }, [storico]);
+  useEffect(() => {
+    try { localStorage.setItem(STATS_KEY, JSON.stringify(statistiche)); } catch {}
+  }, [statistiche]);
 
   const toggleNumero = useCallback((n: number) => {
     setNumeriSelezionati(prev =>
       prev.includes(n) ? prev.filter(x => x !== n) : prev.length >= 10 ? prev : [...prev, n]
     );
+  }, []);
+
+  const generaNumeriCasuali = useCallback((quantita: number) => {
+    const numeri: number[] = [];
+    while (numeri.length < Math.min(quantita, 10)) {
+      const n = Math.floor(Math.random() * 90) + 1;
+      if (!numeri.includes(n)) numeri.push(n);
+    }
+    setNumeriSelezionati(numeri.sort((a, b) => a - b));
   }, []);
 
   const toggleRuota = useCallback((r: Ruota) => {
@@ -91,11 +126,20 @@ export function useLotto() {
     setRisultatoCorrente(null);
   }, []);
 
+  const resetStatistiche = useCallback(() => {
+    setStorico([]);
+    setStatistiche({ totaleGiocate: 0, totaleSpeso: 0, totaleVinto: 0, vittorie: 0 });
+    try {
+      localStorage.removeItem(STORICO_KEY);
+      localStorage.removeItem(STATS_KEY);
+    } catch {}
+  }, []);
+
   return {
     numeriSelezionati, ruoteSelezionate, importiPerSorte,
     risultatoCorrente, storico, isEstracting, statistiche,
     sortiAttive, costoTotale, puoGiocare,
     toggleNumero, toggleRuota, selezionaTutteRuote,
-    setImportoSorte, gioca, reset,
+    setImportoSorte, gioca, reset, generaNumeriCasuali, resetStatistiche,
   };
 }

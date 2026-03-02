@@ -43,7 +43,9 @@ export interface RisultatoGiocata {
   giocata: Giocata;
   estrazione: RisultatoEstrazione;
   vincite: VincitaDettaglio[];
+  totaleVintoLordo: number;
   totaleVinto: number;
+  tasse: number;
   timestamp: Date;
 }
 

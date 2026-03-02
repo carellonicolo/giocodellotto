@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { cn } from '@/lib/utils';
 
 interface GrigliaNumeriProps {
@@ -7,10 +8,12 @@ interface GrigliaNumeriProps {
   disabled?: boolean;
 }
 
-export function GrigliaNumeri({ numeriSelezionati, numeriIndovinati = [], onToggle, disabled }: GrigliaNumeriProps) {
+const NUMERI = Array.from({ length: 90 }, (_, i) => i + 1);
+
+export const GrigliaNumeri = memo(function GrigliaNumeri({ numeriSelezionati, numeriIndovinati = [], onToggle, disabled }: GrigliaNumeriProps) {
   return (
-    <div className="grid grid-cols-10 gap-[2px] sm:gap-[3px]">
-      {Array.from({ length: 90 }, (_, i) => i + 1).map(n => {
+    <div className="grid grid-cols-10 gap-[2px] sm:gap-[3px]" role="group" aria-label="Selezione numeri da 1 a 90">
+      {NUMERI.map(n => {
         const selezionato = numeriSelezionati.includes(n);
         const indovinato = numeriIndovinati.includes(n);
         return (
@@ -18,6 +21,8 @@ export function GrigliaNumeri({ numeriSelezionati, numeriIndovinati = [], onTogg
             key={n}
             disabled={disabled}
             onClick={() => onToggle(n)}
+            aria-label={`Numero ${n}${selezionato ? ', selezionato' : ''}${indovinato ? ', indovinato' : ''}`}
+            aria-pressed={selezionato}
             className={cn(
               'lotto-bubble border-[hsl(var(--lotto-salmon))] w-6 h-6 text-[8px] sm:w-7 sm:h-7 sm:text-[10px]',
               selezionato && indovinato && 'matched',
@@ -32,4 +37,4 @@ export function GrigliaNumeri({ numeriSelezionati, numeriIndovinati = [], onTogg
       })}
     </div>
   );
-}
+});

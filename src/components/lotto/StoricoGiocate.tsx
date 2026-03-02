@@ -1,12 +1,14 @@
-import { TrendingUp, Target, Coins, Trophy } from 'lucide-react';
+import { TrendingUp, Target, Coins, Trophy, Trash2 } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import type { RisultatoGiocata, StatisticheSessione } from '@/lib/lotto/types';
 
 interface StoricoGiocateProps {
   storico: RisultatoGiocata[];
   statistiche: StatisticheSessione;
+  onResetStatistiche?: () => void;
 }
 
-export function StoricoGiocate({ storico, statistiche }: StoricoGiocateProps) {
+export function StoricoGiocate({ storico, statistiche, onResetStatistiche }: StoricoGiocateProps) {
   const bilancio = statistiche.totaleVinto - statistiche.totaleSpeso;
   const pct = statistiche.totaleGiocate > 0
     ? ((statistiche.vittorie / statistiche.totaleGiocate) * 100).toFixed(1)
@@ -14,10 +16,22 @@ export function StoricoGiocate({ storico, statistiche }: StoricoGiocateProps) {
 
   return (
     <div className="schedina-card overflow-hidden">
-      <div className="bg-gradient-to-r from-[hsl(var(--lotto-green))] to-[hsl(145_50%_28%)] px-3 py-2">
+      <div className="bg-gradient-to-r from-[hsl(var(--lotto-green))] to-[hsl(145_50%_28%)] px-3 py-2 flex items-center justify-between">
         <h2 className="text-white font-bold text-xs uppercase tracking-widest">
           📈 Statistiche Sessione
         </h2>
+        {statistiche.totaleGiocate > 0 && onResetStatistiche && (
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={onResetStatistiche}
+            className="text-white/70 hover:text-white hover:bg-white/20 h-6 px-2 text-[9px] uppercase gap-1"
+            aria-label="Azzera statistiche"
+          >
+            <Trash2 className="h-3 w-3" />
+            Azzera
+          </Button>
+        )}
       </div>
       <div className="p-3 bg-white/60 space-y-2 text-sm">
         <div className="grid grid-cols-2 gap-1.5">
