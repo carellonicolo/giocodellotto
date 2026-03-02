@@ -47,7 +47,7 @@ function CollapsibleSection({ title, defaultOpen = true, children }: { title: st
         onClick={() => setOpen(o => !o)}
         className="w-full flex items-center justify-between px-2.5 py-2 bg-[hsl(var(--lotto-cream)/0.6)] hover:bg-[hsl(var(--lotto-cream)/0.9)] transition-colors text-left"
       >
-        <h4 className="font-medium text-[10px] uppercase text-muted-foreground tracking-wider">{title}</h4>
+        <h3 className="font-medium text-[10px] uppercase text-muted-foreground tracking-wider">{title}</h3>
         <ChevronDown className={`h-3.5 w-3.5 text-muted-foreground transition-transform duration-300 ${open ? 'rotate-180' : ''}`} />
       </button>
       <div className={`grid transition-all duration-300 ease-in-out ${open ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}>
