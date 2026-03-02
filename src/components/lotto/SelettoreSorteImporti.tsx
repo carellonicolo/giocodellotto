@@ -38,11 +38,11 @@ export function SelettoreSorteImporti({
           <div key={tipo} className={cn(
             "flex items-center gap-0 rounded-md overflow-hidden",
             !abilitata && "opacity-40",
-            importoAttuale && "border-l-2 border-l-[hsl(var(--lotto-orange))]"
+            importoAttuale && "border-l-2 border-l-lotto-orange"
           )}>
             <div className={cn(
               "w-[58px] sm:w-[68px] shrink-0 text-[8px] sm:text-[9px] font-bold uppercase tracking-wide py-1.5 px-1.5 truncate",
-              importoAttuale ? "text-[hsl(var(--lotto-orange))]" : "text-foreground/50"
+              importoAttuale ? "text-lotto-orange" : "text-foreground/50"
             )}>
               {tipo}
             </div>
@@ -58,11 +58,11 @@ export function SelettoreSorteImporti({
                   role="checkbox"
                   aria-checked={selected}
                   className={cn(
-                    "flex-1 h-6 sm:h-7 border border-[hsl(var(--lotto-salmon)/0.3)] text-[7px] sm:text-[8px] font-bold transition-all rounded-sm",
-                    "hover:bg-[hsl(var(--lotto-peach))]",
+                    "flex-1 h-6 sm:h-7 border border-lotto-salmon/30 text-[7px] sm:text-[8px] font-bold transition-all rounded-sm",
+                    "hover:bg-lotto-peach",
                     selected
-                      ? "bg-[hsl(var(--lotto-orange))] text-white border-[hsl(var(--lotto-orange))] shadow-sm"
-                      : "bg-white/60 text-foreground/40",
+                      ? "bg-lotto-orange text-white border-lotto-orange shadow-sm"
+                      : "bg-surface/60 text-foreground/40",
                     !abilitata && "cursor-not-allowed",
                     disabled && "cursor-not-allowed opacity-50"
                   )}

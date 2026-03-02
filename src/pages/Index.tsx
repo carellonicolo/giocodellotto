@@ -78,7 +78,7 @@ const Index = () => {
                   RUOTE
                 </div>
               </div>
-              <div className="bg-white/40 dark:bg-card/40 rounded-b p-1.5 sm:p-2 flex gap-1.5 sm:gap-2">
+              <div className="bg-card/40 rounded-b p-1.5 sm:p-2 flex gap-1.5 sm:gap-2">
                 <div className="flex-1 min-w-0">
                   <GrigliaNumeri
                     numeriSelezionati={lotto.numeriSelezionati}
@@ -87,7 +87,7 @@ const Index = () => {
                     disabled={lotto.isEstracting}
                   />
                 </div>
-                <div className="flex-shrink-0 pl-1 border-l border-[hsl(var(--lotto-salmon)/0.3)]">
+                <div className="flex-shrink-0 pl-1 border-l border-lotto-salmon/30">
                   <SelettoreRuote
                     ruoteSelezionate={lotto.ruoteSelezionate}
                     onToggle={lotto.toggleRuota}
@@ -103,7 +103,7 @@ const Index = () => {
               <div className="schedina-section-title rounded-t text-[8px] sm:text-[10px]">
                 IMPORTO DI GIOCATA PER SORTE
               </div>
-              <div className="bg-white/40 dark:bg-card/40 rounded-b p-1.5 sm:p-2">
+              <div className="bg-card/40 rounded-b p-1.5 sm:p-2">
                 <SelettoreSorteImporti
                   importiPerSorte={lotto.importiPerSorte}
                   numeriSelezionati={lotto.numeriSelezionati.length}
@@ -119,7 +119,7 @@ const Index = () => {
                 <div className="flex items-center gap-0.5 sm:gap-1 flex-wrap px-1">
                   <span className="text-[9px] sm:text-[10px] text-foreground/50 uppercase">Numeri:</span>
                   {[...lotto.numeriSelezionati].sort((a, b) => a - b).map(n => (
-                    <span key={n} className="inline-flex items-center justify-center w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-[hsl(var(--lotto-orange))] text-white text-[8px] sm:text-[10px] font-bold shadow-sm">
+                    <span key={n} className="inline-flex items-center justify-center w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-lotto-orange text-white text-[8px] sm:text-[10px] font-bold shadow-sm">
                       {n}
                     </span>
                   ))}
@@ -155,7 +155,7 @@ const Index = () => {
                   size="sm"
                   onClick={() => lotto.simulaRapida(100)}
                   disabled={!lotto.puoGiocare || lotto.isEstracting}
-                  className="font-bold text-[9px] sm:text-[10px] border-2 border-[hsl(var(--lotto-blue))] text-[hsl(var(--lotto-blue))] hover:bg-[hsl(var(--lotto-blue)/0.1)] px-2"
+                  className="font-bold text-[9px] sm:text-[10px] border-2 border-lotto-blue text-lotto-blue hover:bg-lotto-blue/10 px-2"
                   title="Simula 100 estrazioni istantaneamente"
                 >
                   <Zap className="h-3 w-3" />×100
@@ -165,7 +165,7 @@ const Index = () => {
                   size="sm"
                   onClick={() => lotto.simulaRapida(1000)}
                   disabled={!lotto.puoGiocare || lotto.isEstracting}
-                  className="font-bold text-[9px] sm:text-[10px] border-2 border-[hsl(var(--lotto-gold))] text-[hsl(var(--lotto-gold))] hover:bg-[hsl(var(--lotto-gold)/0.1)] px-2"
+                  className="font-bold text-[9px] sm:text-[10px] border-2 border-lotto-gold text-lotto-gold hover:bg-lotto-gold/10 px-2"
                   title="Simula 1000 estrazioni istantaneamente"
                 >
                   <Zap className="h-3 w-3" />×1K
@@ -175,7 +175,7 @@ const Index = () => {
                   size="sm"
                   onClick={lotto.reset}
                   disabled={lotto.isEstracting}
-                  className="font-bold border-2 border-[hsl(var(--lotto-salmon))] text-foreground/60"
+                  className="font-bold border-2 border-lotto-salmon text-foreground/60"
                   aria-label="Azzera schedina"
                 >
                   ↺
@@ -207,7 +207,7 @@ const Index = () => {
                   <RegoleLottoModal />
                 </div>
               </div>
-              <div className="p-2 sm:p-3 bg-white/60 dark:bg-card/60">
+              <div className="p-2 sm:p-3 bg-card/60">
                 {/* Risultato vincita con aria-live */}
                 <div aria-live="polite" aria-atomic="true" className="sr-only">
                   {lotto.risultatoCorrente && (
@@ -221,8 +221,8 @@ const Index = () => {
                 {lotto.risultatoCorrente && !lotto.isEstracting && (
                   <div className={`mb-2 p-2 rounded-lg text-center font-bold text-sm uppercase tracking-wider ${
                     lotto.risultatoCorrente.totaleVinto > 0
-                      ? 'bg-[hsl(var(--lotto-gold)/0.15)] text-[hsl(var(--lotto-gold))] border border-[hsl(var(--lotto-gold)/0.3)]'
-                      : 'bg-[hsl(var(--lotto-red)/0.08)] text-foreground/50'
+                      ? 'bg-lotto-gold/15 text-lotto-gold border border-lotto-gold/30'
+                      : 'bg-lotto-red/10 text-foreground/50'
                   }`}>
                     {lotto.risultatoCorrente.totaleVinto > 0 ? (
                       <div>
@@ -282,7 +282,7 @@ const Index = () => {
         {/* Disclaimer */}
         <div className="mt-6 sm:mt-8 grid grid-cols-1 sm:grid-cols-3 gap-3 px-2 pb-6">
           <div className="disclaimer-card text-center space-y-1.5">
-            <ShieldAlert className="h-5 w-5 mx-auto text-[hsl(var(--lotto-red))]" />
+            <ShieldAlert className="h-5 w-5 mx-auto text-lotto-red" />
             <p className="text-[9px] sm:text-[10px] text-muted-foreground leading-relaxed">
               <strong className="text-foreground/70">⚠️ AVVERTENZA SUL GIOCO D'AZZARDO:</strong> Il gioco d'azzardo può causare dipendenza patologica. 
               Gioca responsabilmente e solo se maggiorenne. Per informazioni e aiuto chiama il 
@@ -290,7 +290,7 @@ const Index = () => {
             </p>
           </div>
           <div className="disclaimer-card text-center space-y-1.5">
-            <Landmark className="h-5 w-5 mx-auto text-[hsl(var(--lotto-blue))]" />
+            <Landmark className="h-5 w-5 mx-auto text-lotto-blue" />
             <p className="text-[9px] sm:text-[10px] text-muted-foreground leading-relaxed">
               Il marchio <strong className="text-foreground/70">"Gioco del Lotto"</strong> è di proprietà esclusiva dello Stato italiano, 
               gestito da <strong className="text-foreground/70">Lottomatica S.p.A.</strong> su concessione dell'Agenzia delle Dogane e dei Monopoli. 
@@ -298,7 +298,7 @@ const Index = () => {
             </p>
           </div>
           <div className="disclaimer-card text-center space-y-1.5">
-            <Bot className="h-5 w-5 mx-auto text-[hsl(var(--lotto-green))]" />
+            <Bot className="h-5 w-5 mx-auto text-lotto-green" />
             <p className="text-[9px] sm:text-[10px] text-muted-foreground leading-relaxed">
               Questo software è stato <strong className="text-foreground/70">generato con l'ausilio dell'intelligenza artificiale</strong> e ha 
               il <strong className="text-foreground/70">solo scopo di studio della probabilità e della statistica</strong>. Nessuna somma di denaro reale è coinvolta.

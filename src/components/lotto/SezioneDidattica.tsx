@@ -7,7 +7,7 @@ function CollapsibleDidattica({ title, icon, defaultOpen = false, children }: { 
     <div className="glass-panel !rounded-lg overflow-hidden">
       <button
         onClick={() => setOpen(o => !o)}
-        className="w-full flex items-center justify-between px-3 py-2 bg-[hsl(var(--lotto-cream)/0.6)] hover:bg-[hsl(var(--lotto-cream)/0.9)] transition-colors text-left"
+        className="w-full flex items-center justify-between px-3 py-2 bg-lotto-cream/60 hover:bg-lotto-cream/90 transition-colors text-left"
       >
         <h3 className="font-medium text-[10px] uppercase text-muted-foreground tracking-wider flex items-center gap-1.5">
           {icon} {title}
@@ -28,12 +28,12 @@ function CollapsibleDidattica({ title, icon, defaultOpen = false, children }: { 
 export function SezioneDidattica() {
   return (
     <div className="schedina-card overflow-hidden">
-      <div className="bg-gradient-to-r from-[hsl(var(--lotto-gold))] to-[hsl(45_65%_42%)] px-3 py-2">
+      <div className="bg-gradient-to-r from-lotto-gold to-[hsl(45_65%_42%)] px-3 py-2">
         <h2 className="text-white font-bold text-xs uppercase tracking-widest">
           🎓 La Matematica del Lotto
         </h2>
       </div>
-      <div className="p-3 bg-white/60 dark:bg-card/60 space-y-2.5">
+      <div className="p-3 bg-card/60 space-y-2.5">
 
         <CollapsibleDidattica title="Legge dei Grandi Numeri" icon={<TrendingDown className="h-3 w-3" />}>
           <p>
@@ -44,8 +44,8 @@ export function SezioneDidattica() {
             Nel contesto del Lotto, questo significa che <strong className="text-foreground">più giochi, più il tuo bilancio
             si avvicina al valore atteso</strong> — che è sempre negativo per il giocatore (circa -50% della puntata).
           </p>
-          <div className="bg-[hsl(var(--lotto-red)/0.08)] border border-[hsl(var(--lotto-red)/0.2)] rounded-lg p-2.5 text-center">
-            <p className="text-[10px] font-semibold text-[hsl(var(--lotto-red))] uppercase">
+          <div className="bg-lotto-red/10 border border-lotto-red/20 rounded-lg p-2.5 text-center">
+            <p className="text-[10px] font-semibold text-lotto-red uppercase">
               💡 Prova con la simulazione ×1000 per vederlo in azione nel grafico del bilancio!
             </p>
           </div>
@@ -62,7 +62,7 @@ export function SezioneDidattica() {
             il numero 7 ha sempre <strong className="text-foreground">1 probabilità su 18</strong> di uscire (5/90), indipendentemente
             dal passato.
           </p>
-          <div className="bg-[hsl(var(--lotto-blue)/0.08)] border border-[hsl(var(--lotto-blue)/0.2)] rounded-lg p-2.5">
+          <div className="bg-lotto-blue/10 border border-lotto-blue/20 rounded-lg p-2.5">
             <p className="text-[10px] text-foreground/70">
               <strong>I numeri "ritardatari"</strong> non hanno maggiore probabilità di uscire. Le ruote e le urne
               non hanno memoria. Ogni estrazione è un evento nuovo e completamente casuale.
@@ -90,10 +90,10 @@ export function SezioneDidattica() {
               { sorte: 'Cinquina (5 num.)', equa: '43.949.268:1', reale: '6.000.000:1', vantaggio: '86,3%' },
             ].map(r => (
               <div key={r.sorte} className="grid grid-cols-[1fr_auto_auto_auto] gap-x-2 text-[10px] py-1 border-t border-border/30 items-center">
-                <span>{r.sorte}</span>
-                <span className="text-right tabular-nums">{r.equa}</span>
-                <span className="text-right tabular-nums">{r.reale}</span>
-                <span className="text-right font-semibold text-[hsl(var(--lotto-red))] tabular-nums">{r.vantaggio}</span>
+                <span className="text-foreground">{r.sorte}</span>
+                <span className="text-right tabular-nums text-muted-foreground">{r.equa}</span>
+                <span className="text-right tabular-nums text-muted-foreground">{r.reale}</span>
+                <span className="text-right font-semibold text-lotto-red tabular-nums">{r.vantaggio}</span>
               </div>
             ))}
           </div>
