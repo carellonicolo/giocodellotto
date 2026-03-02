@@ -48,6 +48,10 @@
     --glass-bg: 0 0% 100% / 0.45;
     --glass-border: 0 0% 100% / 0.25;
 
+    /* Surface tokens for component backgrounds */
+    --surface: 0 0% 100%;
+    --surface-muted: 35 40% 94%;
+
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
     --sidebar-primary: 240 5.9% 10%;
@@ -60,34 +64,48 @@
 
   .dark {
     --background: 220 20% 8%;
-    --foreground: 40 15% 90%;
-    --card: 220 18% 12%;
-    --card-foreground: 40 15% 90%;
-    --popover: 220 18% 12%;
-    --popover-foreground: 40 15% 90%;
+    --foreground: 35 20% 88%;
+
+    --card: 220 18% 13%;
+    --card-foreground: 35 20% 88%;
+
+    --popover: 220 18% 13%;
+    --popover-foreground: 35 20% 88%;
+
     --primary: 15 80% 55%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 25 40% 20%;
-    --secondary-foreground: 0 0% 100%;
+
+    --secondary: 25 30% 22%;
+    --secondary-foreground: 35 20% 88%;
+
     --muted: 220 15% 18%;
-    --muted-foreground: 220 10% 55%;
+    --muted-foreground: 220 10% 60%;
+
     --accent: 210 55% 50%;
     --accent-foreground: 0 0% 100%;
+
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
-    --border: 220 15% 22%;
-    --input: 220 15% 22%;
+
+    --border: 220 12% 25%;
+    --input: 220 12% 25%;
     --ring: 15 80% 55%;
+
     --lotto-orange: 15 80% 55%;
-    --lotto-peach: 25 40% 25%;
-    --lotto-salmon: 15 45% 40%;
-    --lotto-gold: 45 70% 45%;
-    --lotto-blue: 210 55% 50%;
-    --lotto-green: 145 50% 35%;
-    --lotto-cream: 220 15% 15%;
-    --lotto-red: 0 65% 45%;
-    --glass-bg: 220 18% 12% / 0.5;
-    --glass-border: 220 15% 30% / 0.3;
+    --lotto-peach: 25 25% 20%;
+    --lotto-salmon: 15 45% 50%;
+    --lotto-gold: 45 70% 50%;
+    --lotto-blue: 210 55% 55%;
+    --lotto-green: 145 50% 40%;
+    --lotto-cream: 220 15% 16%;
+    --lotto-red: 0 65% 50%;
+
+    --glass-bg: 220 18% 14% / 0.7;
+    --glass-border: 220 12% 30% / 0.4;
+
+    --surface: 220 18% 16%;
+    --surface-muted: 220 15% 14%;
+
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -117,7 +135,7 @@
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid hsl(var(--glass-border));
     border-radius: 12px;
-    box-shadow: 0 4px 24px hsl(0 0% 0% / 0.08), inset 0 1px 0 hsl(0 0% 100% / 0.15);
+    box-shadow: 0 4px 24px hsl(0 0% 0% / 0.08), inset 0 1px 0 hsl(var(--glass-border));
   }
 
   /* ===== Schedina Card ===== */
@@ -128,9 +146,9 @@
     box-shadow:
       0 8px 32px hsl(var(--lotto-orange) / 0.15),
       0 2px 8px hsl(0 0% 0% / 0.06),
-      inset 0 1px 0 hsl(0 0% 100% / 0.3);
+      inset 0 1px 0 hsl(var(--glass-border));
     ring: 1px;
-    --tw-ring-color: hsl(0 0% 100% / 0.2);
+    --tw-ring-color: hsl(var(--glass-border));
   }
   .schedina-header {
     background: linear-gradient(135deg, hsl(15 75% 38%), hsl(var(--lotto-orange)), hsl(15 85% 62%));
@@ -159,7 +177,7 @@
     background: hsl(var(--lotto-orange));
     color: white;
     border-color: hsl(15 70% 40%);
-    box-shadow: 0 0 0 2px hsl(0 0% 100% / 0.4), 0 2px 8px hsl(var(--lotto-orange) / 0.35);
+    box-shadow: 0 0 0 2px hsl(var(--glass-border)), 0 2px 8px hsl(var(--lotto-orange) / 0.35);
   }
   .lotto-bubble.matched {
     background: hsl(var(--lotto-green));
@@ -234,5 +252,22 @@
     border: 1px solid hsl(var(--glass-border));
     border-radius: 10px;
     padding: 1rem;
+  }
+
+  /* ===== Dark mode overrides for inner sections ===== */
+  .dark .schedina-card {
+    box-shadow:
+      0 8px 32px hsl(0 0% 0% / 0.3),
+      0 2px 8px hsl(0 0% 0% / 0.2);
+  }
+
+  .dark .lotto-bubble:not(.selected):not(.matched) {
+    background: hsl(var(--surface));
+    color: hsl(var(--foreground));
+    border-color: hsl(var(--border));
+  }
+
+  .dark .lotto-bubble:hover:not(:disabled):not(.selected):not(.matched) {
+    background: hsl(var(--lotto-peach));
   }
 }
