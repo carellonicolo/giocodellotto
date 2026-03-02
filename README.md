@@ -163,7 +163,7 @@ Il progetto segue un'architettura **component-based** con separazione netta tra 
 
 ```bash
 # Clona il repository
-git clone https://github.com/niccolfrancioni/giocodellotto.git
+git clone https://github.com/carellonicolo/giocodellotto.git
 cd giocodellotto
 
 # Installa le dipendenze
