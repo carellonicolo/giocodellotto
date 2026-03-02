@@ -64,7 +64,7 @@ export function SelettoreSorteImporti({
                     disabled && "cursor-not-allowed opacity-50"
                   )}
                 >
-                  {selected ? '✓' : ''}
+                  {selected ? '✓' : <span className="sr-only">{`€${imp}`}</span>}
                 </button>
               );
             })}
