@@ -8,6 +8,7 @@ import { TabellaEstrazione } from '@/components/lotto/TabellaEstrazione';
 import { PannelloProbabilita } from '@/components/lotto/PannelloProbabilita';
 import { StoricoGiocate } from '@/components/lotto/StoricoGiocate';
 import { RegoleLottoModal } from '@/components/lotto/RegoleLottoModal';
+import { DisclaimerModal } from '@/components/lotto/DisclaimerModal';
 import { Button } from '@/components/ui/button';
 import { ShieldAlert, Landmark, Bot } from 'lucide-react';
 
@@ -20,6 +21,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background py-3 sm:py-6" style={{ backgroundImage: `url(${wallpaperBg})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed' }}>
+      <DisclaimerModal />
       <div className="max-w-5xl mx-auto px-2 sm:px-4">
         <h1 className="text-center text-xl sm:text-2xl font-bold uppercase tracking-widest text-white mb-4 sm:mb-6 drop-shadow-[0_2px_8px_hsl(0_0%_0%/0.4)]">
           🎱 Simulatore del Gioco del Lotto
