@@ -7,7 +7,6 @@ export function useLotto() {
   const [numeriSelezionati, setNumeriSelezionati] = useState<number[]>([]);
   const [ruoteSelezionate, setRuoteSelezionate] = useState<Ruota[]>([]);
   const [importiPerSorte, setImportiPerSorte] = useState<ImportiPerSorte>({});
-  const [numeroOro, setNumeroOro] = useState(false);
   const [risultatoCorrente, setRisultatoCorrente] = useState<RisultatoGiocata | null>(null);
   const [storico, setStorico] = useState<RisultatoGiocata[]>([]);
   const [isEstracting, setIsEstracting] = useState(false);
@@ -49,7 +48,7 @@ export function useLotto() {
     k => (importiPerSorte[k as TipoGiocata] ?? 0) > 0
   ) as TipoGiocata[];
 
-  const costoTotale = calcolaCostoTotale(importiPerSorte, ruoteSelezionate.length, numeroOro);
+  const costoTotale = calcolaCostoTotale(importiPerSorte, ruoteSelezionate.length);
 
   const puoGiocare = numeriSelezionati.length > 0
     && ruoteSelezionate.length > 0
@@ -65,12 +64,12 @@ export function useLotto() {
       numeri: [...numeriSelezionati],
       ruote: [...ruoteSelezionate],
       importiPerSorte: { ...importiPerSorte },
-      numeroOro,
+      numeroOro: false,
     };
 
     const estrazione = eseguiEstrazione(RUOTE);
     const risultato = calcolaRisultato(giocata, estrazione);
-    const costo = calcolaCostoTotale(importiPerSorte, ruoteSelezionate.length, numeroOro);
+    const costo = calcolaCostoTotale(importiPerSorte, ruoteSelezionate.length);
 
     setTimeout(() => {
       setRisultatoCorrente(risultato);
@@ -83,21 +82,20 @@ export function useLotto() {
       }));
       setIsEstracting(false);
     }, 2000);
-  }, [puoGiocare, numeriSelezionati, ruoteSelezionate, importiPerSorte, numeroOro]);
+  }, [puoGiocare, numeriSelezionati, ruoteSelezionate, importiPerSorte]);
 
   const reset = useCallback(() => {
     setNumeriSelezionati([]);
     setRuoteSelezionate([]);
     setImportiPerSorte({});
-    setNumeroOro(false);
     setRisultatoCorrente(null);
   }, []);
 
   return {
-    numeriSelezionati, ruoteSelezionate, importiPerSorte, numeroOro,
+    numeriSelezionati, ruoteSelezionate, importiPerSorte,
     risultatoCorrente, storico, isEstracting, statistiche,
     sortiAttive, costoTotale, puoGiocare,
     toggleNumero, toggleRuota, selezionaTutteRuote,
-    setImportoSorte, setNumeroOro, gioca, reset,
+    setImportoSorte, gioca, reset,
   };
 }
