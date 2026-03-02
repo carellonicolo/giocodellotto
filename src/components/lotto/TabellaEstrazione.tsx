@@ -15,7 +15,7 @@ export function TabellaEstrazione({ estrazione, numeriGiocati, ruoteGiocate, isA
     <div className="overflow-x-auto">
       <table className="w-full text-sm border-collapse">
         <thead>
-          <tr className="bg-[hsl(var(--lotto-salmon))] text-white" role="row">
+          <tr className="bg-gradient-to-r from-[hsl(var(--lotto-salmon))] to-[hsl(15_50%_40%)] text-white" role="row">
             <th className="text-left py-1.5 px-2 text-[10px] font-bold uppercase tracking-wider">Ruota</th>
             {[1, 2, 3, 4, 5].map(i => (
               <th key={i} className="text-center py-1.5 px-1 text-[10px] font-bold">{i}°</th>
@@ -30,9 +30,10 @@ export function TabellaEstrazione({ estrazione, numeriGiocati, ruoteGiocate, isA
             const hsl = COLORI_RUOTE[ruota];
             return (
               <tr key={ruota} className={cn(
-                'border-b border-[hsl(var(--lotto-salmon)/0.2)]',
-                isGiocata && 'bg-[hsl(var(--lotto-peach)/0.5)]',
-                rIdx % 2 === 0 && !isGiocata && 'bg-white/30'
+                'border-b border-[hsl(var(--lotto-salmon)/0.2)] transition-colors',
+                isGiocata && 'bg-[hsl(var(--lotto-peach)/0.5)] hover:bg-[hsl(var(--lotto-peach)/0.7)]',
+                rIdx % 2 === 0 && !isGiocata && 'bg-white/30',
+                !isGiocata && 'hover:bg-[hsl(var(--lotto-peach)/0.2)]'
               )}>
                 <td className="py-1 px-2 font-bold text-[10px] uppercase tracking-wide"
                     style={{ color: `hsl(${hsl})` }}>
@@ -51,15 +52,18 @@ export function TabellaEstrazione({ estrazione, numeriGiocati, ruoteGiocate, isA
                       return (
                         <td key={idx} className="text-center py-1 px-1">
                           <span className={cn(
-                            "inline-flex items-center justify-center w-7 h-7 rounded-full text-[10px] font-bold",
+                            "inline-flex items-center justify-center w-7 h-7 rounded-full text-[10px] font-bold tabular-nums tracking-wide",
                             indovinato
-                              ? 'bg-[hsl(var(--lotto-green))] text-white ring-2 ring-[hsl(var(--lotto-gold))] scale-110 shadow-md'
+                              ? 'bg-[hsl(var(--lotto-green))] text-white scale-110 shadow-md gold-ring-pulse'
                               : isGiocata
                                 ? 'bg-white border border-[hsl(var(--lotto-salmon)/0.4)] text-foreground'
                                 : 'text-muted-foreground',
                             isAnimating && 'animate-scale-in'
                           )}
-                          style={isAnimating ? { animationDelay: `${(rIdx * 5 + idx) * 50}ms`, animationFillMode: 'both' } : undefined}
+                          style={{
+                            ...(isAnimating ? { animationDelay: `${(rIdx * 5 + idx) * 50}ms`, animationFillMode: 'both' } : {}),
+                            ...(indovinato ? { animation: 'gold-ring 1.5s ease-in-out infinite' } : {})
+                          }}
                           >
                             {n}
                           </span>

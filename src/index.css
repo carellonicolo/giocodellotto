@@ -45,6 +45,9 @@
     --lotto-cream: 35 40% 94%;
     --lotto-red: 0 70% 42%;
 
+    --glass-bg: 0 0% 100% / 0.45;
+    --glass-border: 0 0% 100% / 0.25;
+
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
     --sidebar-primary: 240 5.9% 10%;
@@ -83,6 +86,8 @@
     --lotto-green: 145 50% 35%;
     --lotto-cream: 220 15% 15%;
     --lotto-red: 0 65% 45%;
+    --glass-bg: 220 18% 12% / 0.5;
+    --glass-border: 220 15% 30% / 0.3;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -105,41 +110,129 @@
 }
 
 @layer components {
+  /* ===== Glass Panel ===== */
+  .glass-panel {
+    background: hsl(var(--glass-bg));
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid hsl(var(--glass-border));
+    border-radius: 12px;
+    box-shadow: 0 4px 24px hsl(0 0% 0% / 0.08), inset 0 1px 0 hsl(0 0% 100% / 0.15);
+  }
+
+  /* ===== Schedina Card ===== */
   .schedina-card {
     background: linear-gradient(180deg, hsl(var(--lotto-peach)), hsl(var(--lotto-cream)));
     border: 2px solid hsl(var(--lotto-orange));
-    border-radius: 8px;
-    box-shadow: 0 4px 20px hsl(var(--lotto-orange) / 0.2);
+    border-radius: 12px;
+    box-shadow:
+      0 8px 32px hsl(var(--lotto-orange) / 0.15),
+      0 2px 8px hsl(0 0% 0% / 0.06),
+      inset 0 1px 0 hsl(0 0% 100% / 0.3);
+    ring: 1px;
+    --tw-ring-color: hsl(0 0% 100% / 0.2);
   }
   .schedina-header {
-    background: linear-gradient(135deg, hsl(var(--lotto-orange)), hsl(15 80% 48%));
+    background: linear-gradient(135deg, hsl(15 75% 38%), hsl(var(--lotto-orange)), hsl(15 85% 62%));
     font-family: 'DM Sans', sans-serif;
+    box-shadow: inset 0 -2px 6px hsl(0 0% 0% / 0.12);
   }
   .schedina-section-title {
     @apply text-[10px] font-bold uppercase tracking-widest py-1 px-2 text-center;
     font-family: 'DM Sans', sans-serif;
-    background: hsl(var(--lotto-salmon));
+    background: linear-gradient(135deg, hsl(var(--lotto-salmon)), hsl(15 50% 40%));
     color: white;
   }
+
+  /* ===== Lotto Bubble ===== */
   .lotto-bubble {
-    @apply w-6 h-6 rounded-full border-2 flex items-center justify-center text-[9px] font-bold cursor-pointer select-none transition-all;
+    @apply w-6 h-6 rounded-full border-2 flex items-center justify-center text-[9px] font-bold cursor-pointer select-none;
     font-family: 'DM Sans', sans-serif;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    box-shadow: 0 1px 3px hsl(0 0% 0% / 0.08);
   }
   .lotto-bubble:hover:not(:disabled) {
-    transform: scale(1.1);
+    transform: scale(1.12);
+    box-shadow: 0 2px 8px hsl(var(--lotto-orange) / 0.25);
   }
   .lotto-bubble.selected {
     background: hsl(var(--lotto-orange));
     color: white;
     border-color: hsl(15 70% 40%);
+    box-shadow: 0 0 0 2px hsl(0 0% 100% / 0.4), 0 2px 8px hsl(var(--lotto-orange) / 0.35);
   }
   .lotto-bubble.matched {
     background: hsl(var(--lotto-green));
     color: white;
     border-color: hsl(145 50% 30%);
+    animation: glow-pulse 1.5s ease-in-out infinite;
   }
+
+  /* ===== Ruota Row ===== */
   .ruota-row {
     @apply flex items-center gap-1 py-0.5;
     font-family: 'DM Sans', sans-serif;
+  }
+
+  /* ===== Keyframes ===== */
+  @keyframes glow-pulse {
+    0%, 100% {
+      box-shadow: 0 0 0 2px hsl(var(--lotto-gold) / 0.4), 0 0 8px hsl(var(--lotto-gold) / 0.2);
+    }
+    50% {
+      box-shadow: 0 0 0 3px hsl(var(--lotto-gold) / 0.6), 0 0 16px hsl(var(--lotto-gold) / 0.35);
+    }
+  }
+
+  @keyframes gradient-shift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  @keyframes gold-ring {
+    0%, 100% {
+      box-shadow: 0 0 0 2px hsl(var(--lotto-gold) / 0.5), 0 0 6px hsl(var(--lotto-gold) / 0.2);
+    }
+    50% {
+      box-shadow: 0 0 0 3px hsl(var(--lotto-gold) / 0.7), 0 0 14px hsl(var(--lotto-gold) / 0.35);
+    }
+  }
+
+  /* ===== Respect reduced motion ===== */
+  @media (prefers-reduced-motion: reduce) {
+    .lotto-bubble.matched,
+    .gold-ring-pulse {
+      animation: none !important;
+    }
+    .lotto-bubble,
+    .btn-gioca {
+      transition: none !important;
+    }
+  }
+
+  /* ===== GIOCA button ===== */
+  .btn-gioca {
+    background: linear-gradient(135deg, hsl(var(--lotto-orange)), hsl(15 80% 48%), hsl(var(--lotto-orange)));
+    background-size: 200% 200%;
+    animation: gradient-shift 3s ease infinite;
+    box-shadow: 0 4px 16px hsl(var(--lotto-orange) / 0.35);
+    transition: box-shadow 0.2s ease, transform 0.1s ease;
+  }
+  .btn-gioca:hover:not(:disabled) {
+    box-shadow: 0 6px 24px hsl(var(--lotto-orange) / 0.45);
+  }
+  .btn-gioca:active:not(:disabled) {
+    transform: scale(0.98);
+  }
+
+  /* ===== Disclaimer cards ===== */
+  .disclaimer-card {
+    background: hsl(var(--glass-bg));
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid hsl(var(--glass-border));
+    border-radius: 10px;
+    padding: 1rem;
   }
 }

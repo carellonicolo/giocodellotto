@@ -1,5 +1,6 @@
 import { cn } from '@/lib/utils';
-import { TIPI_GIOCATA, NUMERI_MINIMI, IMPORTI_DISPONIBILI, type TipoGiocata, type ImportiPerSorte } from '@/lib/lotto/types';
+import { Star } from 'lucide-react';
+import { TIPI_GIOCATA, NUMERI_MINIMI, type TipoGiocata, type ImportiPerSorte } from '@/lib/lotto/types';
 
 interface SelettoreSorteImportiProps {
   importiPerSorte: ImportiPerSorte;
@@ -10,7 +11,6 @@ interface SelettoreSorteImportiProps {
   disabled?: boolean;
 }
 
-// Compact importi for the schedina (fits in 340px)
 const IMPORTI_COMPATTI = [20, 10, 5, 3, 2, 1, 0.50, 0.25] as const;
 
 export function SelettoreSorteImporti({
@@ -42,8 +42,9 @@ export function SelettoreSorteImporti({
 
         return (
           <div key={tipo} className={cn(
-            "flex items-center gap-0 rounded-sm overflow-hidden",
-            !abilitata && "opacity-40"
+            "flex items-center gap-0 rounded-md overflow-hidden",
+            !abilitata && "opacity-40",
+            importoAttuale && "border-l-2 border-l-[hsl(var(--lotto-orange))]"
           )}>
             <div className={cn(
               "w-[58px] sm:w-[68px] shrink-0 text-[8px] sm:text-[9px] font-bold uppercase tracking-wide py-1.5 px-1.5 truncate",
@@ -59,10 +60,10 @@ export function SelettoreSorteImporti({
                   disabled={disabled || !abilitata}
                   onClick={() => onSetImporto(tipo, selected ? undefined : imp)}
                   className={cn(
-                    "flex-1 h-6 sm:h-7 border border-[hsl(var(--lotto-salmon)/0.3)] text-[7px] sm:text-[8px] font-bold transition-all",
+                    "flex-1 h-6 sm:h-7 border border-[hsl(var(--lotto-salmon)/0.3)] text-[7px] sm:text-[8px] font-bold transition-all rounded-sm",
                     "hover:bg-[hsl(var(--lotto-peach))]",
                     selected
-                      ? "bg-[hsl(var(--lotto-orange))] text-white border-[hsl(var(--lotto-orange))]"
+                      ? "bg-[hsl(var(--lotto-orange))] text-white border-[hsl(var(--lotto-orange))] shadow-sm"
                       : "bg-white/60 text-foreground/40",
                     !abilitata && "cursor-not-allowed",
                     disabled && "cursor-not-allowed opacity-50"
@@ -85,13 +86,13 @@ export function SelettoreSorteImporti({
           disabled={disabled || !hasOroEligible}
           onClick={() => onSetNumeroOro(!numeroOro)}
           className={cn(
-            "w-4 h-4 rounded border-2 flex items-center justify-center text-[8px] font-bold transition-all",
+            "w-5 h-5 rounded-md flex items-center justify-center transition-all",
             numeroOro
-              ? "bg-[hsl(var(--lotto-gold))] border-[hsl(var(--lotto-gold))] text-white"
-              : "border-[hsl(var(--lotto-salmon)/0.5)] bg-white/60"
+              ? "bg-[hsl(var(--lotto-gold))] text-white shadow-sm"
+              : "border-2 border-[hsl(var(--lotto-salmon)/0.5)] bg-white/60 text-transparent"
           )}
         >
-          {numeroOro ? '✓' : ''}
+          <Star className="h-3 w-3" fill={numeroOro ? 'currentColor' : 'none'} />
         </button>
         <span className="text-[8px] sm:text-[9px] font-bold uppercase tracking-wide text-foreground/60">
           Numero Oro <span className="text-[6px] font-normal">(raddoppia il costo)</span>
