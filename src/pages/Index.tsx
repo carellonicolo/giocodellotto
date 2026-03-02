@@ -20,7 +20,7 @@ const Index = () => {
     : [];
 
   return (
-    <div className="min-h-screen bg-background py-3 sm:py-6" style={{ backgroundImage: `url(${wallpaperBg})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed' }}>
+    <main className="min-h-screen bg-background py-3 sm:py-6" style={{ backgroundImage: `url(${wallpaperBg})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed' }}>
       <DisclaimerModal />
       <div className="max-w-5xl mx-auto px-2 sm:px-4">
         <h1 className="text-center text-xl sm:text-2xl font-bold uppercase tracking-widest text-white mb-4 sm:mb-6 drop-shadow-[0_2px_8px_hsl(0_0%_0%/0.4)]">
@@ -74,9 +74,7 @@ const Index = () => {
                 <SelettoreSorteImporti
                   importiPerSorte={lotto.importiPerSorte}
                   numeriSelezionati={lotto.numeriSelezionati.length}
-                  numeroOro={lotto.numeroOro}
                   onSetImporto={lotto.setImportoSorte}
-                  onSetNumeroOro={lotto.setNumeroOro}
                   disabled={lotto.isEstracting}
                 />
               </div>
@@ -225,7 +223,7 @@ const Index = () => {
           </div>
         </div>
       </div>
-    </div>
+    </main>
   );
 };
 

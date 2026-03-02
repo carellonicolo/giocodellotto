@@ -60,12 +60,14 @@ export function tipoToNumero(tipo: TipoGiocata): number {
 }
 
 // Moltiplicatori di vincita reali del Lotto italiano (per 1€ di puntata)
+// Moltiplicatori ufficiali del Lotto italiano (fonte: lotto-italia.it)
+// Rappresentano la vincita lorda per 1€ di puntata su una singola combinazione
 const MOLTIPLICATORI: Record<TipoGiocata, Record<number, number>> = {
-  Estratto: { 1: 11.23, 2: 5.615, 3: 3.743, 4: 2.808, 5: 2.246, 6: 1.872, 7: 1.604, 8: 1.403, 9: 1.247, 10: 1.123 },
-  Ambo: { 2: 250, 3: 83.33, 4: 41.67, 5: 25, 6: 16.67, 7: 11.9, 8: 8.93, 9: 6.94, 10: 5.56 },
-  Terno: { 3: 4500, 4: 1125, 5: 450, 6: 225, 7: 128.57, 8: 80.36, 9: 53.57, 10: 37.5 },
-  Quaterna: { 4: 120000, 5: 24000, 6: 8000, 7: 3428.57, 8: 1714.29, 9: 952.38, 10: 571.43 },
-  Cinquina: { 5: 6000000, 6: 1000000, 7: 285714.29, 8: 107142.86, 9: 47619.05, 10: 23809.52 },
+  Estratto: { 1: 11.23, 2: 5.61, 3: 3.74, 4: 2.80, 5: 2.24, 6: 1.87, 7: 1.60, 8: 1.40, 9: 1.24, 10: 1.12 },
+  Ambo: { 2: 250, 3: 83.33, 4: 41.66, 5: 25, 6: 16.66, 7: 11.90, 8: 8.92, 9: 6.94, 10: 5.55 },
+  Terno: { 3: 4500, 4: 1125, 5: 450, 6: 225, 7: 128.57, 8: 80.35, 9: 53.57, 10: 37.50 },
+  Quaterna: { 4: 120000, 5: 24000, 6: 8000, 7: 3428.57, 8: 1714.28, 9: 952.38, 10: 571.42 },
+  Cinquina: { 5: 6000000, 6: 1000000, 7: 285714.28, 8: 107142.85, 9: 47619.04, 10: 23809.52 },
 };
 
 export function getMoltiplicatore(tipo: TipoGiocata, numeriGiocati: number): number {
@@ -86,9 +88,11 @@ function calcolaVincitaRuota(
     return { numeriIndovinati: indovinati, importoVinto: 0 };
   }
 
+  // I moltiplicatori ufficiali sono già normalizzati per C(k,t).
+  // La vincita è: importo × moltiplicatore × numero di combinazioni vincenti tra i numeri indovinati
   const combVincenti = combinazioni(indovinati.length, t);
   const moltiplicatore = getMoltiplicatore(tipo, numeriGiocati.length);
-  const vincita = importo * moltiplicatore * combVincenti / combinazioni(numeriGiocati.length, t);
+  const vincita = Math.round(importo * moltiplicatore * combVincenti * 100) / 100;
 
   return { numeriIndovinati: indovinati, importoVinto: vincita };
 }
@@ -127,9 +131,9 @@ export function calcolaRisultato(giocata: Giocata, estrazione: RisultatoEstrazio
 }
 
 // Calcola il costo totale di una giocata
-export function calcolaCostoTotale(importiPerSorte: Partial<Record<TipoGiocata, number>>, numRuote: number, _numeroOro: boolean): number {
+export function calcolaCostoTotale(importiPerSorte: Partial<Record<TipoGiocata, number>>, numRuote: number): number {
   const sommaImporti = Object.values(importiPerSorte).reduce((acc, v) => acc + (v || 0), 0);
-  return sommaImporti * numRuote;
+  return Math.round(sommaImporti * numRuote * 100) / 100;
 }
 
 // Formule in formato leggibile

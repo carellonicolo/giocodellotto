@@ -19,6 +19,8 @@ export function SelettoreRuote({ ruoteSelezionate, onToggle, onToggleTutte, disa
             <button
               disabled={disabled}
               onClick={() => onToggle(ruota)}
+              aria-label={`Seleziona ruota ${ruota}`}
+              aria-pressed={sel}
               className={cn(
                 'w-3 h-3 sm:w-4 sm:h-4 rounded-full border-2 border-[hsl(var(--lotto-salmon))] flex-shrink-0 transition-all',
                 sel ? 'bg-[hsl(var(--lotto-orange))]' : 'bg-white/80',
@@ -38,6 +40,8 @@ export function SelettoreRuote({ ruoteSelezionate, onToggle, onToggleTutte, disa
         <button
           disabled={disabled}
           onClick={onToggleTutte}
+          aria-label="Seleziona tutte le ruote"
+          aria-pressed={tutteSelezionate}
           className={cn(
             'w-3 h-3 sm:w-4 sm:h-4 rounded-full border-2 border-[hsl(var(--lotto-salmon))] flex-shrink-0 transition-all',
             tutteSelezionate ? 'bg-[hsl(var(--lotto-orange))]' : 'bg-white/80',

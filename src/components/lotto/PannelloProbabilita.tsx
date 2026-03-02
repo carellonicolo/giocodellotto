@@ -68,6 +68,8 @@ function SorteAnalisi({ tipo, numeriGiocati, importo, numRuote }: { tipo: TipoGi
   const moltiplicatore = getMoltiplicatore(tipo, numeriGiocati);
   const vincitaPotenziale = importo * moltiplicatore;
   const costoTotale = importo * numRuote;
+  // Valore atteso corretto: EV = prob × vincita_per_ruota × numRuote - costo
+  // La vincita per ruota tiene conto del moltiplicatore già normalizzato
   const valoreAtteso = prob * vincitaPotenziale * numRuote - costoTotale;
   const minNumeri = NUMERI_MINIMI[tipo];
   const hasFormula = numeriGiocati >= minNumeri;
@@ -164,7 +166,7 @@ export function PannelloProbabilita({ importiPerSorte, numeriGiocati, numRuote }
               <span className="text-muted-foreground">=</span>
               <span className="text-sm">Σ</span>
               <Frac
-                num={<span className="flex items-center gap-0.5"><Comb n={'k' as any} k={'j' as any} /><span className="text-muted-foreground">×</span><Comb n={'90-k' as any} k={'5-j' as any} /></span>}
+                num={<span className="flex items-center gap-0.5"><span className="italic">C(k,j)</span><span className="text-muted-foreground">×</span><span className="italic">C(90-k,5-j)</span></span>}
                 den={<Comb n={90} k={5} />}
               />
             </div>

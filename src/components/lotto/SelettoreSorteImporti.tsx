@@ -1,26 +1,20 @@
 import { cn } from '@/lib/utils';
-import { Star } from 'lucide-react';
 import { TIPI_GIOCATA, NUMERI_MINIMI, type TipoGiocata, type ImportiPerSorte } from '@/lib/lotto/types';
 
 interface SelettoreSorteImportiProps {
   importiPerSorte: ImportiPerSorte;
   numeriSelezionati: number;
-  numeroOro: boolean;
   onSetImporto: (tipo: TipoGiocata, importo: number | undefined) => void;
-  onSetNumeroOro: (v: boolean) => void;
   disabled?: boolean;
 }
 
-const IMPORTI_COMPATTI = [20, 10, 5, 3, 2, 1, 0.50, 0.25] as const;
+// Importi conformi al regolamento: minimo €1, massimo €200
+const IMPORTI_COMPATTI = [200, 100, 50, 20, 10, 5, 3, 2, 1] as const;
 
 export function SelettoreSorteImporti({
-  importiPerSorte, numeriSelezionati, numeroOro,
-  onSetImporto, onSetNumeroOro, disabled
+  importiPerSorte, numeriSelezionati,
+  onSetImporto, disabled
 }: SelettoreSorteImportiProps) {
-
-  const hasOroEligible = (['Ambo', 'Terno', 'Quaterna'] as TipoGiocata[]).some(
-    s => (importiPerSorte[s] ?? 0) > 0
-  );
 
   return (
     <div className="space-y-1">
@@ -28,8 +22,8 @@ export function SelettoreSorteImporti({
       <div className="flex items-end gap-0">
         <div className="w-[58px] sm:w-[68px] shrink-0" />
         {IMPORTI_COMPATTI.map(imp => (
-          <div key={imp} className="flex-1 text-center text-[7px] sm:text-[8px] font-bold text-foreground/60 leading-tight pb-0.5">
-            {imp >= 1 ? imp : imp.toFixed(2).replace('0.', '.')}
+          <div key={imp} className="flex-1 text-center text-[6px] sm:text-[7px] font-bold text-foreground/60 leading-tight pb-0.5">
+            {imp}
           </div>
         ))}
       </div>
@@ -59,6 +53,7 @@ export function SelettoreSorteImporti({
                   key={imp}
                   disabled={disabled || !abilitata}
                   onClick={() => onSetImporto(tipo, selected ? undefined : imp)}
+                  aria-label={`${tipo} €${imp}`}
                   className={cn(
                     "flex-1 h-6 sm:h-7 border border-[hsl(var(--lotto-salmon)/0.3)] text-[7px] sm:text-[8px] font-bold transition-all rounded-sm",
                     "hover:bg-[hsl(var(--lotto-peach))]",
@@ -76,28 +71,6 @@ export function SelettoreSorteImporti({
           </div>
         );
       })}
-
-      {/* Numero Oro toggle */}
-      <div className={cn(
-        "flex items-center gap-1.5 pt-1 px-1",
-        !hasOroEligible && "opacity-40"
-      )}>
-        <button
-          disabled={disabled || !hasOroEligible}
-          onClick={() => onSetNumeroOro(!numeroOro)}
-          className={cn(
-            "w-5 h-5 rounded-md flex items-center justify-center transition-all",
-            numeroOro
-              ? "bg-[hsl(var(--lotto-gold))] text-white shadow-sm"
-              : "border-2 border-[hsl(var(--lotto-salmon)/0.5)] bg-white/60 text-transparent"
-          )}
-        >
-          <Star className="h-3 w-3" fill={numeroOro ? 'currentColor' : 'none'} />
-        </button>
-        <span className="text-[8px] sm:text-[9px] font-bold uppercase tracking-wide text-foreground/60">
-          Numero Oro <span className="text-[6px] font-normal">(raddoppia il costo)</span>
-        </span>
-      </div>
     </div>
   );
 }
