@@ -14,7 +14,7 @@ function CollapsibleChart({ title, icon, defaultOpen = true, children }: { title
     <div className="glass-panel !rounded-lg overflow-hidden">
       <button
         onClick={() => setOpen(o => !o)}
-        className="w-full flex items-center justify-between px-3 py-2 bg-[hsl(var(--lotto-cream)/0.6)] hover:bg-[hsl(var(--lotto-cream)/0.9)] transition-colors text-left"
+        className="w-full flex items-center justify-between px-3 py-2 bg-lotto-cream/60 hover:bg-lotto-cream/90 transition-colors text-left"
       >
         <h3 className="font-medium text-[10px] uppercase text-muted-foreground tracking-wider flex items-center gap-1.5">
           {icon} {title}
@@ -33,7 +33,6 @@ function CollapsibleChart({ title, icon, defaultOpen = true, children }: { title
 }
 
 export function GraficiStatistiche({ storico }: GraficiStatisticheProps) {
-  // Build balance over time data (reversed so oldest first)
   const datiBilancio = useMemo(() => {
     if (storico.length === 0) return [];
     const reversed = [...storico].reverse();
@@ -54,7 +53,6 @@ export function GraficiStatistiche({ storico }: GraficiStatisticheProps) {
     });
   }, [storico]);
 
-  // Build number frequency data
   const datiFrequenza = useMemo(() => {
     if (storico.length === 0) return [];
     const freq = new Array(90).fill(0);
@@ -75,30 +73,31 @@ export function GraficiStatistiche({ storico }: GraficiStatisticheProps) {
 
   return (
     <div className="schedina-card overflow-hidden">
-      <div className="bg-gradient-to-r from-[hsl(var(--lotto-blue))] to-[hsl(210_50%_35%)] px-3 py-2">
+      <div className="bg-gradient-to-r from-lotto-blue to-[hsl(210_50%_35%)] px-3 py-2">
         <h2 className="text-white font-bold text-xs uppercase tracking-widest">
           📉 Grafici & Andamento
         </h2>
       </div>
-      <div className="p-3 bg-white/60 dark:bg-card/60 space-y-3">
+      <div className="p-3 bg-card/60 space-y-3">
         {/* Balance chart */}
         <CollapsibleChart title="Andamento Bilancio" icon={<TrendingDown className="h-3 w-3" />}>
           <p className="text-[10px] text-muted-foreground mb-2">
-            Il bilancio converge verso il negativo: è la <strong>legge dei grandi numeri</strong> che dimostra il vantaggio del banco.
+            Il bilancio converge verso il negativo: è la <strong className="text-foreground">legge dei grandi numeri</strong> che dimostra il vantaggio del banco.
           </p>
           <div className="h-44">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={datiBilancio} margin={{ top: 5, right: 5, left: -15, bottom: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-                <XAxis dataKey="n" tick={{ fontSize: 9 }} stroke="hsl(var(--muted-foreground))" />
-                <YAxis tick={{ fontSize: 9 }} stroke="hsl(var(--muted-foreground))" />
+                <XAxis dataKey="n" tick={{ fontSize: 9, fill: 'hsl(var(--muted-foreground))' }} stroke="hsl(var(--muted-foreground))" />
+                <YAxis tick={{ fontSize: 9, fill: 'hsl(var(--muted-foreground))' }} stroke="hsl(var(--muted-foreground))" />
                 <Tooltip
-                  contentStyle={{ fontSize: 11, borderRadius: 8, background: 'hsl(var(--card))', border: '1px solid hsl(var(--border))' }}
+                  contentStyle={{ fontSize: 11, borderRadius: 8, background: 'hsl(var(--card))', border: '1px solid hsl(var(--border))', color: 'hsl(var(--foreground))' }}
                   formatter={(value: number, name: string) => [
                     `€${value.toFixed(2)}`,
                     name === 'bilancio' ? 'Bilancio' : name === 'speso' ? 'Speso' : 'Vinto'
                   ]}
                   labelFormatter={(l) => `Giocata #${l}`}
+                  labelStyle={{ color: 'hsl(var(--foreground))' }}
                 />
                 <ReferenceLine y={0} stroke="hsl(var(--muted-foreground))" strokeDasharray="3 3" />
                 <Line type="monotone" dataKey="bilancio" stroke="hsl(var(--lotto-red))" strokeWidth={2} dot={false} />
@@ -110,25 +109,26 @@ export function GraficiStatistiche({ storico }: GraficiStatisticheProps) {
           <div className="flex justify-center gap-4 mt-1.5 text-[9px] text-muted-foreground">
             <span className="flex items-center gap-1"><span className="w-3 h-0.5 bg-lotto-red inline-block rounded" /> Bilancio</span>
             <span className="flex items-center gap-1"><span className="w-3 h-0.5 bg-lotto-green inline-block rounded" /> Vinto</span>
-            <span className="flex items-center gap-1"><span className="w-3 h-0.5 bg-primary inline-block rounded" /> Speso</span>
+            <span className="flex items-center gap-1"><span className="w-3 h-0.5 bg-lotto-orange inline-block rounded" /> Speso</span>
           </div>
         </CollapsibleChart>
 
         {/* Frequency chart */}
         <CollapsibleChart title="Frequenza Numeri Estratti" icon={<BarChart3 className="h-3 w-3" />} defaultOpen={false}>
           <p className="text-[10px] text-muted-foreground mb-2">
-            Con molte estrazioni, ogni numero tende a uscire con la stessa frequenza: <strong>non esistono numeri "caldi" o "freddi"</strong>.
+            Con molte estrazioni, ogni numero tende a uscire con la stessa frequenza: <strong className="text-foreground">non esistono numeri "caldi" o "freddi"</strong>.
           </p>
           <div className="h-44">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={datiFrequenza} margin={{ top: 5, right: 5, left: -15, bottom: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-                <XAxis dataKey="numero" tick={{ fontSize: 7 }} interval={8} stroke="hsl(var(--muted-foreground))" />
-                <YAxis tick={{ fontSize: 9 }} stroke="hsl(var(--muted-foreground))" />
+                <XAxis dataKey="numero" tick={{ fontSize: 7, fill: 'hsl(var(--muted-foreground))' }} interval={8} stroke="hsl(var(--muted-foreground))" />
+                <YAxis tick={{ fontSize: 9, fill: 'hsl(var(--muted-foreground))' }} stroke="hsl(var(--muted-foreground))" />
                 <Tooltip
-                  contentStyle={{ fontSize: 11, borderRadius: 8, background: 'hsl(var(--card))', border: '1px solid hsl(var(--border))' }}
+                  contentStyle={{ fontSize: 11, borderRadius: 8, background: 'hsl(var(--card))', border: '1px solid hsl(var(--border))', color: 'hsl(var(--foreground))' }}
                   formatter={(value: number, name: string) => [value, name === 'frequenza' ? 'Uscite' : 'Media']}
                   labelFormatter={(l) => `Numero ${l}`}
+                  labelStyle={{ color: 'hsl(var(--foreground))' }}
                 />
                 <Bar dataKey="frequenza" fill="hsl(var(--lotto-blue))" radius={[1, 1, 0, 0]} />
                 <ReferenceLine y={datiFrequenza[0]?.media ?? 0} stroke="hsl(var(--lotto-red))" strokeDasharray="4 2" label={{ value: 'Media', fontSize: 9, fill: 'hsl(var(--lotto-red))' }} />

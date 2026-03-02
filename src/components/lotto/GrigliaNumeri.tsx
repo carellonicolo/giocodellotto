@@ -24,10 +24,10 @@ export const GrigliaNumeri = memo(function GrigliaNumeri({ numeriSelezionati, nu
             aria-label={`Numero ${n}${selezionato ? ', selezionato' : ''}${indovinato ? ', indovinato' : ''}`}
             aria-pressed={selezionato}
             className={cn(
-              'lotto-bubble border-[hsl(var(--lotto-salmon))] w-6 h-6 text-[8px] sm:w-7 sm:h-7 sm:text-[10px]',
+              'lotto-bubble border-lotto-salmon w-6 h-6 text-[8px] sm:w-7 sm:h-7 sm:text-[10px]',
               selezionato && indovinato && 'matched',
               selezionato && !indovinato && 'selected',
-              !selezionato && 'bg-white/80 text-foreground hover:bg-[hsl(var(--lotto-peach))]',
+              !selezionato && 'bg-surface text-foreground hover:bg-lotto-peach',
               disabled && 'opacity-50 cursor-not-allowed hover:!scale-100',
             )}
           >
