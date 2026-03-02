@@ -119,6 +119,41 @@ export function useLotto() {
     }, 2000);
   }, [puoGiocare, numeriSelezionati, ruoteSelezionate, importiPerSorte]);
 
+  const simulaRapida = useCallback((n: number) => {
+    if (!puoGiocare) return;
+
+    const giocata = {
+      numeri: [...numeriSelezionati],
+      ruote: [...ruoteSelezionate],
+      importiPerSorte: { ...importiPerSorte },
+      numeroOro: false,
+    };
+    const costo = calcolaCostoTotale(importiPerSorte, ruoteSelezionate.length);
+
+    let totSpeso = 0;
+    let totVinto = 0;
+    let vittorie = 0;
+    const nuoviRisultati: RisultatoGiocata[] = [];
+
+    for (let i = 0; i < n; i++) {
+      const estrazione = eseguiEstrazione(RUOTE);
+      const risultato = calcolaRisultato(giocata, estrazione);
+      totSpeso += costo;
+      totVinto += risultato.totaleVinto;
+      if (risultato.totaleVinto > 0) vittorie++;
+      if (i < 50) nuoviRisultati.push(risultato);
+    }
+
+    setRisultatoCorrente(nuoviRisultati[0] || null);
+    setStorico(prev => [...nuoviRisultati, ...prev].slice(0, 50));
+    setStatistiche(prev => ({
+      totaleGiocate: prev.totaleGiocate + n,
+      totaleSpeso: prev.totaleSpeso + totSpeso,
+      totaleVinto: prev.totaleVinto + totVinto,
+      vittorie: prev.vittorie + vittorie,
+    }));
+  }, [puoGiocare, numeriSelezionati, ruoteSelezionate, importiPerSorte]);
+
   const reset = useCallback(() => {
     setNumeriSelezionati([]);
     setRuoteSelezionate([]);
@@ -140,6 +175,6 @@ export function useLotto() {
     risultatoCorrente, storico, isEstracting, statistiche,
     sortiAttive, costoTotale, puoGiocare,
     toggleNumero, toggleRuota, selezionaTutteRuote,
-    setImportoSorte, gioca, reset, generaNumeriCasuali, resetStatistiche,
+    setImportoSorte, gioca, simulaRapida, reset, generaNumeriCasuali, resetStatistiche,
   };
 }
