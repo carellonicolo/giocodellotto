@@ -97,9 +97,19 @@ function calcolaVincitaRuota(
   return { numeriIndovinati: indovinati, importoVinto: vincita };
 }
 
+// Tetto massimo vincita ufficiale del Lotto italiano
+const TETTO_VINCITA = 6_000_000;
+
+// Tassazione 8% sulle vincite superiori a €500 (art. 6 D.L. 78/2010)
+export function applicaTassazione(vincitaLorda: number): { vincitaNetta: number; tasse: number } {
+  if (vincitaLorda <= 500) return { vincitaNetta: vincitaLorda, tasse: 0 };
+  const tasse = Math.round(vincitaLorda * 0.08 * 100) / 100;
+  return { vincitaNetta: Math.round((vincitaLorda - tasse) * 100) / 100, tasse };
+}
+
 export function calcolaRisultato(giocata: Giocata, estrazione: RisultatoEstrazione): RisultatoGiocata {
   const vincite: VincitaDettaglio[] = [];
-  let totaleVinto = 0;
+  let totaleVintoLordo = 0;
 
   const sortiAttive = Object.entries(giocata.importiPerSorte) as [TipoGiocata, number][];
 
@@ -117,15 +127,22 @@ export function calcolaRisultato(giocata: Giocata, estrazione: RisultatoEstrazio
       if (importoVinto > 0 || numeriIndovinati.length > 0) {
         vincite.push({ sorte, ruota, numeriIndovinati, importoVinto });
       }
-      totaleVinto += importoVinto;
+      totaleVintoLordo += importoVinto;
     }
   }
+
+  // Applica tetto vincita €6M
+  const vintoConTetto = Math.min(totaleVintoLordo, TETTO_VINCITA);
+  // Applica tassazione 8% su vincite >€500
+  const { vincitaNetta, tasse } = applicaTassazione(vintoConTetto);
 
   return {
     giocata,
     estrazione,
     vincite,
-    totaleVinto,
+    totaleVintoLordo: vintoConTetto,
+    totaleVinto: vincitaNetta,
+    tasse,
     timestamp: new Date(),
   };
 }
