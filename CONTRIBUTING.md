@@ -39,7 +39,7 @@ cd giocodellotto
 ### 3. Configura l'upstream
 
 ```bash
-git remote add upstream https://github.com/niccolfrancioni/giocodellotto.git
+git remote add upstream https://github.com/carellonicolo/giocodellotto.git
 ```
 
 ### 4. Crea un branch
@@ -196,7 +196,7 @@ Prima di aprire una PR, verifica:
 
 ## Segnalare Bug
 
-Apri una [nuova issue](https://github.com/niccolfrancioni/giocodellotto/issues/new) con:
+Apri una [nuova issue](https://github.com/carellonicolo/giocodellotto/issues/new) con:
 
 1. **Titolo descrittivo**: `[Bug] Il calcolo dell'ambo non considera i numeri doppi`
 2. **Ambiente**: Browser, OS, versione Node.js
@@ -209,7 +209,7 @@ Apri una [nuova issue](https://github.com/niccolfrancioni/giocodellotto/issues/n
 
 ## Richiedere Funzionalità
 
-Apri una [nuova issue](https://github.com/niccolfrancioni/giocodellotto/issues/new) con:
+Apri una [nuova issue](https://github.com/carellonicolo/giocodellotto/issues/new) con:
 
 1. **Titolo**: `[Feature] Descrizione breve della feature`
 2. **Problema**: Quale necessità risolve?

@@ -75,7 +75,7 @@ Su Windows, usa [nvm-windows](https://github.com/coreybutler/nvm-windows).
 ### 1. Clona il repository
 
 ```bash
-git clone https://github.com/niccolfrancioni/giocodellotto.git
+git clone https://github.com/carellonicolo/giocodellotto.git
 cd giocodellotto
 ```
 
@@ -285,7 +285,7 @@ NODE_OPTIONS=--max-old-space-size=4096 npm run build
 
 Se riscontri problemi non coperti da questa guida:
 
-1. Cerca tra le [Issues esistenti](https://github.com/niccolfrancioni/giocodellotto/issues)
+1. Cerca tra le [Issues esistenti](https://github.com/carellonicolo/giocodellotto/issues)
 2. Apri una nuova issue con:
    - Sistema operativo e versione
    - Versione di Node.js (`node --version`)
