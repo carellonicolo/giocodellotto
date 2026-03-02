@@ -137,7 +137,7 @@ const Index = () => {
                 </span>
                 <div className="flex items-center gap-1 sm:gap-2">
                   <a
-                    href="https://github.com/niccolfrancioni/giocodellotto"
+                    href="https://github.com/carellonicolo/giocodellotto"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1 text-white/90 hover:text-white hover:bg-white/20 text-[10px] sm:text-xs uppercase tracking-wider px-2 h-7 rounded-md transition-colors"
