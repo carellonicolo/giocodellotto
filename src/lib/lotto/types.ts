@@ -16,7 +16,8 @@ export const NUMERI_MINIMI: Record<TipoGiocata, number> = {
   Cinquina: 5,
 };
 
-export const IMPORTI_DISPONIBILI = [200, 100, 50, 20, 10, 5, 3, 2, 1, 0.50, 0.25] as const;
+// Importi conformi al regolamento ufficiale: minimo €1, massimo €200, step €0.50
+export const IMPORTI_DISPONIBILI = [200, 100, 50, 20, 10, 5, 3, 2, 1] as const;
 
 export type ImportiPerSorte = Partial<Record<TipoGiocata, number>>;
 
