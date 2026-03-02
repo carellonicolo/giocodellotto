@@ -8,6 +8,7 @@ import { TabellaEstrazione } from '@/components/lotto/TabellaEstrazione';
 import { PannelloProbabilita } from '@/components/lotto/PannelloProbabilita';
 import { StoricoGiocate } from '@/components/lotto/StoricoGiocate';
 import { RegoleLottoModal } from '@/components/lotto/RegoleLottoModal';
+import { DisclaimerModal } from '@/components/lotto/DisclaimerModal';
 import { Button } from '@/components/ui/button';
 import { ShieldAlert, Landmark, Bot } from 'lucide-react';
 
