@@ -53,7 +53,10 @@ export function SelettoreSorteImporti({
                   key={imp}
                   disabled={disabled || !abilitata}
                   onClick={() => onSetImporto(tipo, selected ? undefined : imp)}
-                  aria-label={`${tipo} €${imp}`}
+                  aria-label={`${tipo} ${imp} euro`}
+                  title={`${tipo} €${imp}`}
+                  role="checkbox"
+                  aria-checked={selected}
                   className={cn(
                     "flex-1 h-6 sm:h-7 border border-[hsl(var(--lotto-salmon)/0.3)] text-[7px] sm:text-[8px] font-bold transition-all rounded-sm",
                     "hover:bg-[hsl(var(--lotto-peach))]",
