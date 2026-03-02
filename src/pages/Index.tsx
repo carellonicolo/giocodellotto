@@ -9,11 +9,14 @@ import { SelettoreSorteImporti } from '@/components/lotto/SelettoreSorteImporti'
 import { TabellaEstrazione } from '@/components/lotto/TabellaEstrazione';
 import { RegoleLottoModal } from '@/components/lotto/RegoleLottoModal';
 import { DisclaimerModal } from '@/components/lotto/DisclaimerModal';
+import { DarkModeToggle } from '@/components/lotto/DarkModeToggle';
 import { Button } from '@/components/ui/button';
-import { ShieldAlert, Landmark, Bot, Shuffle } from 'lucide-react';
+import { ShieldAlert, Landmark, Bot, Shuffle, Zap } from 'lucide-react';
 
 const PannelloProbabilita = lazy(() => import('@/components/lotto/PannelloProbabilita').then(m => ({ default: m.PannelloProbabilita })));
 const StoricoGiocate = lazy(() => import('@/components/lotto/StoricoGiocate').then(m => ({ default: m.StoricoGiocate })));
+const GraficiStatistiche = lazy(() => import('@/components/lotto/GraficiStatistiche').then(m => ({ default: m.GraficiStatistiche })));
+const SezioneDidattica = lazy(() => import('@/components/lotto/SezioneDidattica').then(m => ({ default: m.SezioneDidattica })));
 
 const Index = () => {
   const lotto = useLotto();
@@ -41,9 +44,12 @@ const Index = () => {
     <main className="min-h-screen bg-background py-3 sm:py-6" style={{ backgroundImage: `url(${wallpaperBg})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed' }}>
       <DisclaimerModal />
       <div className="max-w-5xl mx-auto px-2 sm:px-4">
-        <h1 className="text-center text-xl sm:text-2xl font-bold uppercase tracking-widest text-white mb-4 sm:mb-6 drop-shadow-[0_2px_8px_hsl(0_0%_0%/0.4)]">
-          🎱 Simulatore del Gioco del Lotto
-        </h1>
+        <div className="flex items-center justify-center gap-3 mb-4 sm:mb-6">
+          <h1 className="text-center text-xl sm:text-2xl font-bold uppercase tracking-widest text-white drop-shadow-[0_2px_8px_hsl(0_0%_0%/0.4)]">
+            🎱 Simulatore del Gioco del Lotto
+          </h1>
+          <DarkModeToggle />
+        </div>
         <div className="grid grid-cols-1 lg:grid-cols-[400px_1fr] gap-4 sm:gap-6">
 
           {/* ===== SCHEDINA ===== */}
@@ -72,7 +78,7 @@ const Index = () => {
                   RUOTE
                 </div>
               </div>
-              <div className="bg-white/40 rounded-b p-1.5 sm:p-2 flex gap-1.5 sm:gap-2">
+              <div className="bg-white/40 dark:bg-card/40 rounded-b p-1.5 sm:p-2 flex gap-1.5 sm:gap-2">
                 <div className="flex-1 min-w-0">
                   <GrigliaNumeri
                     numeriSelezionati={lotto.numeriSelezionati}
@@ -97,7 +103,7 @@ const Index = () => {
               <div className="schedina-section-title rounded-t text-[8px] sm:text-[10px]">
                 IMPORTO DI GIOCATA PER SORTE
               </div>
-              <div className="bg-white/40 rounded-b p-1.5 sm:p-2">
+              <div className="bg-white/40 dark:bg-card/40 rounded-b p-1.5 sm:p-2">
                 <SelettoreSorteImporti
                   importiPerSorte={lotto.importiPerSorte}
                   numeriSelezionati={lotto.numeriSelezionati.length}
@@ -135,7 +141,7 @@ const Index = () => {
                   <span className="ml-1">({lotto.ruoteSelezionate.length} ruote)</span>
                 </div>
               </div>
-              <div className="flex gap-2 px-1">
+              <div className="flex gap-1.5 px-1">
                 <Button
                   onClick={lotto.gioca}
                   disabled={!lotto.puoGiocare}
@@ -143,6 +149,26 @@ const Index = () => {
                   size="sm"
                 >
                   {lotto.isEstracting ? '🎰 Estrazione...' : '🎯 GIOCA!'}
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => lotto.simulaRapida(100)}
+                  disabled={!lotto.puoGiocare || lotto.isEstracting}
+                  className="font-bold text-[9px] sm:text-[10px] border-2 border-[hsl(var(--lotto-blue))] text-[hsl(var(--lotto-blue))] hover:bg-[hsl(var(--lotto-blue)/0.1)] px-2"
+                  title="Simula 100 estrazioni istantaneamente"
+                >
+                  <Zap className="h-3 w-3" />×100
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => lotto.simulaRapida(1000)}
+                  disabled={!lotto.puoGiocare || lotto.isEstracting}
+                  className="font-bold text-[9px] sm:text-[10px] border-2 border-[hsl(var(--lotto-gold))] text-[hsl(var(--lotto-gold))] hover:bg-[hsl(var(--lotto-gold)/0.1)] px-2"
+                  title="Simula 1000 estrazioni istantaneamente"
+                >
+                  <Zap className="h-3 w-3" />×1K
                 </Button>
                 <Button
                   variant="outline"
@@ -181,7 +207,7 @@ const Index = () => {
                   <RegoleLottoModal />
                 </div>
               </div>
-              <div className="p-2 sm:p-3 bg-white/60">
+              <div className="p-2 sm:p-3 bg-white/60 dark:bg-card/60">
                 {/* Risultato vincita con aria-live */}
                 <div aria-live="polite" aria-atomic="true" className="sr-only">
                   {lotto.risultatoCorrente && (
@@ -247,6 +273,8 @@ const Index = () => {
                 statistiche={lotto.statistiche}
                 onResetStatistiche={lotto.resetStatistiche}
               />
+              <GraficiStatistiche storico={lotto.storico} />
+              <SezioneDidattica />
             </Suspense>
           </div>
         </div>
