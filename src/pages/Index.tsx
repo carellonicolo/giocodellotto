@@ -9,6 +9,7 @@ import { PannelloProbabilita } from '@/components/lotto/PannelloProbabilita';
 import { StoricoGiocate } from '@/components/lotto/StoricoGiocate';
 import { RegoleLottoModal } from '@/components/lotto/RegoleLottoModal';
 import { Button } from '@/components/ui/button';
+import { ShieldAlert, Landmark, Bot } from 'lucide-react';
 
 const Index = () => {
   const lotto = useLotto();
@@ -82,7 +83,7 @@ const Index = () => {
                 <div className="flex items-center gap-0.5 sm:gap-1 flex-wrap px-1">
                   <span className="text-[9px] sm:text-[10px] text-foreground/50 uppercase">Numeri:</span>
                   {[...lotto.numeriSelezionati].sort((a, b) => a - b).map(n => (
-                    <span key={n} className="inline-flex items-center justify-center w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-[hsl(var(--lotto-orange))] text-white text-[8px] sm:text-[10px] font-bold">
+                    <span key={n} className="inline-flex items-center justify-center w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-[hsl(var(--lotto-orange))] text-white text-[8px] sm:text-[10px] font-bold shadow-sm">
                       {n}
                     </span>
                   ))}
@@ -108,7 +109,7 @@ const Index = () => {
                 <Button
                   onClick={lotto.gioca}
                   disabled={!lotto.puoGiocare}
-                  className="flex-1 font-bold uppercase tracking-wider text-xs sm:text-sm shadow-lg bg-[hsl(var(--lotto-orange))] hover:bg-[hsl(15_80%_48%)] text-white"
+                  className="btn-gioca flex-1 font-bold uppercase tracking-wider text-xs sm:text-sm text-white border-0"
                   size="sm"
                 >
                   {lotto.isEstracting ? '🎰 Estrazione...' : '🎯 GIOCA!'}
@@ -193,22 +194,30 @@ const Index = () => {
         </div>
 
         {/* Disclaimer */}
-        <div className="mt-6 sm:mt-8 border-t border-border pt-4 pb-6 px-2 space-y-2 text-center text-[9px] sm:text-[10px] text-muted-foreground leading-relaxed">
-          <p>
-            <strong className="text-foreground/70">⚠️ AVVERTENZA SUL GIOCO D'AZZARDO:</strong> Il gioco d'azzardo può causare dipendenza patologica. 
-            Gioca responsabilmente e solo se maggiorenne. Per informazioni e aiuto chiama il 
-            <strong className="text-foreground/70"> Telefono Verde 800 558 822</strong> (ISS – Istituto Superiore di Sanità).
-          </p>
-          <p>
-            Il marchio <strong className="text-foreground/70">"Gioco del Lotto"</strong> è di proprietà esclusiva dello Stato italiano, 
-            gestito da <strong className="text-foreground/70">Lottomatica S.p.A.</strong> su concessione dell'Agenzia delle Dogane e dei Monopoli. 
-            Questa applicazione non è affiliata né autorizzata da tali enti.
-          </p>
-          <p>
-            Questo software è stato <strong className="text-foreground/70">generato con l'ausilio dell'intelligenza artificiale</strong> e ha 
-            il <strong className="text-foreground/70">solo scopo di studio della probabilità e della statistica</strong>. Non incoraggia né promuove il gioco d'azzardo in alcuna forma. 
-            Nessuna somma di denaro reale è coinvolta.
-          </p>
+        <div className="mt-6 sm:mt-8 grid grid-cols-1 sm:grid-cols-3 gap-3 px-2 pb-6">
+          <div className="disclaimer-card text-center space-y-1.5">
+            <ShieldAlert className="h-5 w-5 mx-auto text-[hsl(var(--lotto-red))]" />
+            <p className="text-[9px] sm:text-[10px] text-muted-foreground leading-relaxed">
+              <strong className="text-foreground/70">⚠️ AVVERTENZA SUL GIOCO D'AZZARDO:</strong> Il gioco d'azzardo può causare dipendenza patologica. 
+              Gioca responsabilmente e solo se maggiorenne. Per informazioni e aiuto chiama il 
+              <strong className="text-foreground/70"> Telefono Verde 800 558 822</strong> (ISS).
+            </p>
+          </div>
+          <div className="disclaimer-card text-center space-y-1.5">
+            <Landmark className="h-5 w-5 mx-auto text-[hsl(var(--lotto-blue))]" />
+            <p className="text-[9px] sm:text-[10px] text-muted-foreground leading-relaxed">
+              Il marchio <strong className="text-foreground/70">"Gioco del Lotto"</strong> è di proprietà esclusiva dello Stato italiano, 
+              gestito da <strong className="text-foreground/70">Lottomatica S.p.A.</strong> su concessione dell'Agenzia delle Dogane e dei Monopoli. 
+              Questa applicazione non è affiliata né autorizzata.
+            </p>
+          </div>
+          <div className="disclaimer-card text-center space-y-1.5">
+            <Bot className="h-5 w-5 mx-auto text-[hsl(var(--lotto-green))]" />
+            <p className="text-[9px] sm:text-[10px] text-muted-foreground leading-relaxed">
+              Questo software è stato <strong className="text-foreground/70">generato con l'ausilio dell'intelligenza artificiale</strong> e ha 
+              il <strong className="text-foreground/70">solo scopo di studio della probabilità e della statistica</strong>. Nessuna somma di denaro reale è coinvolta.
+            </p>
+          </div>
         </div>
       </div>
     </div>
