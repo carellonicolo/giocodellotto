@@ -11,7 +11,8 @@ import { RegoleLottoModal } from '@/components/lotto/RegoleLottoModal';
 import { DisclaimerModal } from '@/components/lotto/DisclaimerModal';
 import { DarkModeToggle } from '@/components/lotto/DarkModeToggle';
 import { Button } from '@/components/ui/button';
-import { ShieldAlert, Landmark, Bot, Shuffle, Zap } from 'lucide-react';
+import { ShieldAlert, Landmark, Bot, Shuffle, Zap, ArrowLeft } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const PannelloProbabilita = lazy(() => import('@/components/lotto/PannelloProbabilita').then(m => ({ default: m.PannelloProbabilita })));
 const StoricoGiocate = lazy(() => import('@/components/lotto/StoricoGiocate').then(m => ({ default: m.StoricoGiocate })));
@@ -44,7 +45,13 @@ const Index = () => {
     <main className="min-h-screen bg-background py-3 sm:py-6" style={{ backgroundImage: `url(${wallpaperBg})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed' }}>
       <DisclaimerModal />
       <div className="max-w-5xl mx-auto px-2 sm:px-4">
-        <div className="flex items-center justify-center gap-3 mb-4 sm:mb-6">
+        <div className="relative flex items-center justify-center gap-3 mb-4 sm:mb-6">
+          <Link
+            to="/"
+            className="absolute left-0 flex items-center gap-1.5 text-sm text-white/60 hover:text-white transition-colors drop-shadow-[0_1px_4px_hsl(0_0%_0%/0.5)]"
+          >
+            <ArrowLeft className="w-4 h-4" /> Home
+          </Link>
           <h1 className="text-center text-xl sm:text-2xl font-bold uppercase tracking-widest text-white drop-shadow-[0_2px_8px_hsl(0_0%_0%/0.4)]">
             🎱 Simulatore del Gioco del Lotto
           </h1>

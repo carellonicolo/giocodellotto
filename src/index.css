@@ -219,8 +219,7 @@
 
   /* ===== Respect reduced motion ===== */
   @media (prefers-reduced-motion: reduce) {
-    .lotto-bubble.matched,
-    .gold-ring-pulse {
+    .lotto-bubble.matched {
       animation: none !important;
     }
     .lotto-bubble,
@@ -270,4 +269,61 @@
   .dark .lotto-bubble:hover:not(:disabled):not(.selected):not(.matched) {
     background: hsl(var(--lotto-peach));
   }
+
+  /* ===== SuperEnalotto Glass Card ===== */
+  .glass-card {
+    @apply rounded-2xl border;
+    background: hsl(var(--glass) / 0.6);
+    border-color: hsl(var(--glass-border) / 0.5);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  .glow-gold {
+    box-shadow: 0 0 40px hsl(45 100% 51% / 0.15), 0 0 80px hsl(45 100% 51% / 0.05);
+  }
+
+  .glow-green {
+    box-shadow: 0 0 40px hsl(145 60% 42% / 0.15), 0 0 80px hsl(145 60% 42% / 0.05);
+  }
+}
+
+/* ===== SuperEnalotto Scoped Theme ===== */
+.theme-superenalotto {
+  --background: 225 25% 8%;
+  --foreground: 210 40% 95%;
+
+  --card: 225 20% 12%;
+  --card-foreground: 210 40% 95%;
+
+  --popover: 225 20% 12%;
+  --popover-foreground: 210 40% 95%;
+
+  --primary: 45 100% 51%;
+  --primary-foreground: 225 25% 8%;
+
+  --secondary: 225 15% 18%;
+  --secondary-foreground: 210 40% 90%;
+
+  --muted: 225 15% 18%;
+  --muted-foreground: 215 15% 55%;
+
+  --accent: 145 60% 42%;
+  --accent-foreground: 0 0% 100%;
+
+  --destructive: 0 72% 51%;
+  --destructive-foreground: 210 40% 98%;
+
+  --border: 225 15% 20%;
+  --input: 225 15% 20%;
+  --ring: 45 100% 51%;
+
+  --radius: 0.75rem;
+
+  --glass: 225 20% 14%;
+  --glass-border: 225 15% 22%;
+
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  color: hsl(210 40% 95%);
+  background: hsl(225 25% 8%);
 }

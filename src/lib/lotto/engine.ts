@@ -1,4 +1,8 @@
 import type { Giocata, RisultatoEstrazione, RisultatoGiocata, Ruota, TipoGiocata, VincitaDettaglio } from './types';
+import { binomial } from '@/lib/shared/math';
+
+// Re-export binomial as combinazioni for backward compatibility
+export const combinazioni = binomial;
 
 // Estrae 5 numeri casuali da 1 a 90 senza ripetizioni per ogni ruota
 export function eseguiEstrazione(ruote: readonly Ruota[]): RisultatoEstrazione {
@@ -13,20 +17,6 @@ export function eseguiEstrazione(ruote: readonly Ruota[]): RisultatoEstrazione {
     risultato[ruota] = numeri;
   }
   return risultato;
-}
-
-// Calcola il fattoriale
-function fattoriale(n: number): number {
-  if (n <= 1) return 1;
-  let r = 1;
-  for (let i = 2; i <= n; i++) r *= i;
-  return r;
-}
-
-// Combinazioni C(n, k)
-export function combinazioni(n: number, k: number): number {
-  if (k > n || k < 0) return 0;
-  return fattoriale(n) / (fattoriale(k) * fattoriale(n - k));
 }
 
 // Probabilità di vincita per tipo di giocata con k numeri giocati su 1 ruota
