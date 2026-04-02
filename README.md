@@ -1,379 +1,170 @@
-<p align="center">
-  <img src="src/assets/lotto-logo.png" alt="Il Gioco del Lotto – Simulatore" width="320" />
-</p>
+# Simulatori Lotto Italia
 
-<h1 align="center">🎱 Il Gioco del Lotto – Simulatore Didattico</h1>
+> Simulatori didattici del Gioco del Lotto e del SuperEnalotto per lo studio della probabilita
 
-<p align="center">
-  <strong>Un simulatore interattivo e fedele del Gioco del Lotto italiano, pensato per lo studio della probabilità e della statistica.</strong>
-</p>
+[![Licenza MIT](https://img.shields.io/badge/Licenza-MIT-blue.svg)](LICENSE)
+[![React](https://img.shields.io/badge/React-18-61dafb?logo=react&logoColor=white)](https://reactjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178c6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Vite](https://img.shields.io/badge/Vite-5-646cff?logo=vite&logoColor=white)](https://vitejs.dev/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3-06b6d4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+[![Cloudflare Pages](https://img.shields.io/badge/Cloudflare_Pages-f38020?logo=cloudflare&logoColor=white)](https://pages.cloudflare.com/)
+[![Vitest](https://img.shields.io/badge/Vitest-6e9f18?logo=vitest&logoColor=white)](https://vitest.dev/)
+[![GitHub stars](https://img.shields.io/github/stars/carellonicolo/giocodellotto?style=social)](https://github.com/carellonicolo/giocodellotto)
+[![GitHub issues](https://img.shields.io/github/issues/carellonicolo/giocodellotto)](https://github.com/carellonicolo/giocodellotto/issues)
 
-<p align="center">
-  <a href="https://giocodellotto.lovable.app">🌐 Demo Live</a> ·
-  <a href="INSTALLING.md">📦 Installazione</a> ·
-  <a href="CONTRIBUTING.md">🤝 Contribuire</a> ·
-  <a href="LICENSE">📜 Licenza</a>
-</p>
+## Panoramica
 
-<p align="center">
-  <img src="https://img.shields.io/badge/React-18.3-61DAFB?logo=react&logoColor=white" alt="React" />
-  <img src="https://img.shields.io/badge/TypeScript-5.8-3178C6?logo=typescript&logoColor=white" alt="TypeScript" />
-  <img src="https://img.shields.io/badge/Vite-5.4-646CFF?logo=vite&logoColor=white" alt="Vite" />
-  <img src="https://img.shields.io/badge/Tailwind_CSS-3.4-06B6D4?logo=tailwindcss&logoColor=white" alt="Tailwind CSS" />
-  <img src="https://img.shields.io/badge/License-MIT-green" alt="License" />
-  <img src="https://img.shields.io/badge/Vibe_Coding-AI_Assisted-blueviolet" alt="Vibe Coding" />
-</p>
+Simulatori Lotto Italia e un'applicazione web che riunisce due simulatori didattici in un'unica piattaforma: il **Gioco del Lotto** e il **SuperEnalotto**. Entrambi i simulatori sono progettati per lo studio della probabilita, della statistica e del calcolo combinatorio, riproducendo fedelmente le meccaniche dei giochi ufficiali italiani senza coinvolgere denaro reale.
 
----
+L'applicazione e organizzata con routing separato — ogni simulatore mantiene la propria identita visiva e le proprie funzionalita, accessibili da una landing page comune. Il deploy avviene tramite Cloudflare Pages.
 
-## 📋 Indice
+**Questo progetto ha finalita esclusivamente didattiche e non promuove il gioco d'azzardo.**
 
-- [Panoramica](#-panoramica)
-- [Funzionalità](#-funzionalità)
-- [Demo](#-demo)
-- [Architettura](#-architettura)
-- [Stack Tecnologico](#-stack-tecnologico)
-- [Installazione Rapida](#-installazione-rapida)
-- [Struttura del Progetto](#-struttura-del-progetto)
-- [Motore Matematico](#-motore-matematico)
-- [Design System](#-design-system)
-- [Accessibilità](#-accessibilità)
-- [Testing](#-testing)
-- [Vibe Coding & AI](#-vibe-coding--ai)
-- [Contribuire](#-contribuire)
-- [Licenza](#-licenza)
-- [Disclaimer](#%EF%B8%8F-disclaimer)
+## Funzionalita Principali
 
----
+### Gioco del Lotto (`/giocodellotto`)
+- **Schedina interattiva** — Selezione numeri, ruote e importi per sorte con interfaccia fedele all'originale
+- **11 ruote ufficiali** — Bari, Cagliari, Firenze, Genova, Milano, Napoli, Palermo, Roma, Torino, Venezia, Nazionale
+- **5 sorti di gioco** — Estratto, Ambo, Terno, Quaterna, Cinquina con moltiplicatori ufficiali
+- **Simulazione rapida** — Esecuzione istantanea di 100 o 1000 estrazioni
+- **Pannello probabilita** — Calcolo in tempo reale delle probabilita per ogni combinazione
+- **Storico e grafici** — Registro completo delle giocate con statistiche e grafici Recharts
+- **Tassazione realistica** — Applicazione dell'8% sulle vincite superiori a 500 euro
 
-## 🎯 Panoramica
+### SuperEnalotto (`/superenalotto`)
+- **Schedina multi-colonna** — Fino a 4 colonne con selezione di 6 numeri e SuperStar
+- **Estrazione animata** — Rivelazione progressiva dei numeri con effetti visivi
+- **Simulazione Monte Carlo** — Simulazione di migliaia di estrazioni per analisi statistica
+- **Formule combinatorie** — Visualizzazione interattiva delle formule con rendering KaTeX
+- **Dashboard statistiche** — Analisi delle vincite per categoria con grafici
+- **Probabilita dettagliate** — Tabella completa per ogni categoria di vincita (dal 2 al 6+1)
 
-Questo progetto è un **simulatore completamente funzionale del Gioco del Lotto italiano**, costruito come applicazione web moderna single-page. Non coinvolge denaro reale: il suo scopo è puramente **educativo e didattico**, permettendo di esplorare concetti di probabilità, combinatoria e statistica in modo interattivo e visivamente accattivante.
+### Funzionalita comuni
+- **Landing page** — Hub di accesso rapido ai due simulatori
+- **Tema chiaro/scuro** — Dark mode per il Lotto, tema scuro nativo per il SuperEnalotto
+- **Responsive design** — Ottimizzato per ogni dimensione di schermo
+- **Lazy loading** — Caricamento on-demand delle pagine per performance ottimali
+- **Code splitting** — Bundle suddiviso in chunk per caching efficiente
 
-Il simulatore riproduce fedelmente le meccaniche ufficiali del Lotto gestito dall'Agenzia delle Dogane e dei Monopoli:
+## Tech Stack
 
-- **11 ruote** (Bari, Cagliari, Firenze, Genova, Milano, Napoli, Palermo, Roma, Torino, Venezia, Nazionale)
-- **5 tipi di sorte** (Estratto, Ambo, Terno, Quaterna, Cinquina)
-- **Moltiplicatori di vincita reali** basati sulle tabelle ufficiali
-- **Calcolo probabilistico esatto** tramite combinatoria
+| Tecnologia | Utilizzo |
+|:--|:--|
+| ![React](https://img.shields.io/badge/React_18-61dafb?logo=react&logoColor=white) | Framework UI |
+| ![TypeScript](https://img.shields.io/badge/TypeScript_5-3178c6?logo=typescript&logoColor=white) | Linguaggio tipizzato |
+| ![Vite](https://img.shields.io/badge/Vite_5-646cff?logo=vite&logoColor=white) | Build tool |
+| ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-06b6d4?logo=tailwindcss&logoColor=white) | Styling |
+| ![Recharts](https://img.shields.io/badge/Recharts-22b5bf) | Grafici e statistiche |
+| ![Framer Motion](https://img.shields.io/badge/Framer_Motion-e91e63) | Animazioni (SuperEnalotto) |
+| ![KaTeX](https://img.shields.io/badge/KaTeX-44cc11) | Formule matematiche |
+| ![Vitest](https://img.shields.io/badge/Vitest-6e9f18?logo=vitest&logoColor=white) | Testing |
+| ![Cloudflare](https://img.shields.io/badge/Cloudflare_Pages-f38020?logo=cloudflare&logoColor=white) | Deploy |
 
----
+## Requisiti
 
-## ✨ Funzionalità
+- **Node.js** >= 18
+- **npm** >= 9 (oppure bun)
 
-### 🎮 Gioco
-| Funzione | Descrizione |
-|----------|-------------|
-| **Selezione numeri** | Griglia interattiva 1–90, fino a 10 numeri selezionabili |
-| **Selezione ruote** | Toggle singola o "Tutte" per le 11 ruote |
-| **Importi per sorte** | Configurazione indipendente per ciascun tipo di sorte (€0,25 – €200) |
-| **Estrazione animata** | Simulazione con animazione di 2 secondi |
-| **Evidenziazione vincite** | Numeri indovinati evidenziati in verde nella griglia e nella tabella |
-
-### 📊 Statistiche e Probabilità
-| Funzione | Descrizione |
-|----------|-------------|
-| **Pannello probabilità** | Calcolo in tempo reale con formule combinatorie visibili |
-| **Storico giocate** | Registro delle ultime 50 giocate con dettagli vincite |
-| **Statistiche sessione** | Totale speso, vinto, numero giocate, percentuale vittorie |
-| **ROI sessione** | Indicatore di rendimento con colore dinamico |
-
-### 📖 Informativa
-| Funzione | Descrizione |
-|----------|-------------|
-| **Modale regole** | Regolamento completo del Lotto con esempi di vincita |
-| **Disclaimer responsabile** | Avvertenze sul gioco d'azzardo con numero verde |
-| **Footer informativo** | Tre card tematiche: avvertenza, proprietà intellettuale, nota AI |
-
----
-
-## 🌐 Demo
-
-**[▶ Prova il simulatore live](https://giocodellotto.lovable.app)**
-
-L'applicazione è completamente client-side: nessun dato viene inviato a server esterni. Tutto il calcolo avviene nel browser.
-
----
-
-## 🏗 Architettura
-
-Il progetto segue un'architettura **component-based** con separazione netta tra logica, presentazione e tipi:
-
-```
-┌─────────────────────────────────────────────┐
-│                   Index.tsx                  │  ← Pagina principale (layout)
-│  ┌──────────────┐  ┌─────────────────────┐  │
-│  │   Schedina    │  │  Colonna Risultati  │  │
-│  │  ┌──────────┐ │  │  ┌───────────────┐  │  │
-│  │  │ Griglia  │ │  │  │  Tabella      │  │  │
-│  │  │ Numeri   │ │  │  │  Estrazione   │  │  │
-│  │  └──────────┘ │  │  └───────────────┘  │  │
-│  │  ┌──────────┐ │  │  ┌───────────────┐  │  │
-│  │  │ Selettore│ │  │  │  Pannello     │  │  │
-│  │  │ Ruote    │ │  │  │  Probabilità  │  │  │
-│  │  └──────────┘ │  │  └───────────────┘  │  │
-│  │  ┌──────────┐ │  │  ┌───────────────┐  │  │
-│  │  │ Importi  │ │  │  │  Storico      │  │  │
-│  │  │ Sorte    │ │  │  │  Giocate      │  │  │
-│  │  └──────────┘ │  │  └───────────────┘  │  │
-│  └──────────────┘  └─────────────────────┘  │
-└─────────────────────────────────────────────┘
-         │                      │
-    ┌────▼──────────────────────▼────┐
-    │         useLotto() Hook        │  ← State management centralizzato
-    │  ┌─────────────────────────┐   │
-    │  │      engine.ts          │   │  ← Motore matematico puro
-    │  │  (probabilità, vincite) │   │
-    │  └─────────────────────────┘   │
-    │  ┌─────────────────────────┐   │
-    │  │      types.ts           │   │  ← TypeScript types e costanti
-    │  └─────────────────────────┘   │
-    └────────────────────────────────┘
-```
-
-### Principi di design
-
-- **Separazione dei concern**: Il motore matematico (`engine.ts`) è una libreria pura senza dipendenze React
-- **Custom hook centralizzato**: `useLotto()` gestisce tutto lo stato dell'applicazione
-- **Componenti presentazionali**: I componenti UI ricevono dati via props e sono facilmente testabili
-- **Type-safety**: Tipi TypeScript rigorosi per ruote, sorti, importi e risultati
-- **Design system coerente**: Token CSS semantici e componenti shadcn/ui personalizzati
-
----
-
-## 🛠 Stack Tecnologico
-
-| Tecnologia | Versione | Utilizzo |
-|-----------|---------|----------|
-| [React](https://react.dev) | 18.3 | Framework UI con hooks |
-| [TypeScript](https://typescriptlang.org) | 5.8 | Type safety e DX |
-| [Vite](https://vite.dev) | 5.4 | Build tool e dev server |
-| [Tailwind CSS](https://tailwindcss.com) | 3.4 | Utility-first CSS |
-| [shadcn/ui](https://ui.shadcn.com) | latest | Componenti UI accessibili (Radix) |
-| [Radix UI](https://radix-ui.com) | latest | Primitive UI headless |
-| [Lucide React](https://lucide.dev) | 0.462 | Iconografia |
-| [React Router](https://reactrouter.com) | 6.30 | Routing client-side |
-| [Recharts](https://recharts.org) | 2.15 | Grafici e visualizzazioni |
-| [Vitest](https://vitest.dev) | 3.2 | Testing framework |
-| [DM Sans](https://fonts.google.com/specimen/DM+Sans) | — | Font principale |
-
----
-
-## 🚀 Installazione Rapida
+## Installazione
 
 ```bash
-# Clona il repository
 git clone https://github.com/carellonicolo/giocodellotto.git
 cd giocodellotto
-
-# Installa le dipendenze
 npm install
-
-# Avvia il server di sviluppo
 npm run dev
 ```
 
-Per istruzioni dettagliate, requisiti di sistema e configurazione avanzata, consulta **[INSTALLING.md](INSTALLING.md)**.
+L'applicazione sara disponibile su `http://localhost:8080`.
 
----
+## Utilizzo
 
-## 📁 Struttura del Progetto
+- **`/`** — Landing page con accesso ai due simulatori
+- **`/giocodellotto`** — Simulatore del Gioco del Lotto
+- **`/superenalotto`** — Simulatore del SuperEnalotto
 
-```
-src/
-├── assets/                    # Risorse statiche (logo, sfondo)
-│   ├── lotto-logo.png        # Logo ufficiale
-│   └── wallpaper-bg.jpg      # Sfondo decorativo
-├── components/
-│   ├── lotto/                # Componenti specifici del gioco
-│   │   ├── GrigliaNumeri.tsx       # Griglia 1-90 interattiva
-│   │   ├── SelettoreRuote.tsx      # Selettore delle 11 ruote
-│   │   ├── SelettoreSorteImporti.tsx  # Configurazione importi per sorte
-│   │   ├── SelettoreImporto.tsx    # Singolo selettore importo
-│   │   ├── SelettoreTipo.tsx       # Selettore tipo giocata
-│   │   ├── TabellaEstrazione.tsx   # Tabella risultati estrazione
-│   │   ├── PannelloProbabilita.tsx # Pannello analisi probabilistica
-│   │   ├── StoricoGiocate.tsx      # Registro storico giocate
-│   │   └── RegoleLottoModal.tsx    # Modale con regolamento completo
-│   └── ui/                   # Componenti shadcn/ui (design system)
-│       ├── button.tsx
-│       ├── dialog.tsx
-│       ├── card.tsx
-│       └── ... (30+ componenti)
-├── hooks/
-│   ├── use-lotto.ts          # Hook principale – stato e logica di gioco
-│   └── use-mobile.tsx        # Rilevamento viewport mobile
-├── lib/
-│   ├── lotto/
-│   │   ├── engine.ts         # 🧮 Motore matematico (probabilità, vincite, formule)
-│   │   └── types.ts          # TypeScript types, costanti, interfacce
-│   └── utils.ts              # Utility generiche (cn, classnames)
-├── pages/
-│   ├── Index.tsx             # Pagina principale del simulatore
-│   └── NotFound.tsx          # Pagina 404
-├── test/
-│   ├── example.test.ts       # Test di esempio
-│   └── setup.ts              # Configurazione test
-├── App.tsx                   # Root component con router
-├── App.css                   # Stili globali aggiuntivi
-├── index.css                 # Design system (CSS custom properties)
-└── main.tsx                  # Entry point
-```
-
----
-
-## 🧮 Motore Matematico
-
-Il cuore del simulatore è il file `engine.ts`, una libreria matematica pura che implementa:
-
-### Combinatoria
+## Struttura del Progetto
 
 ```
-C(n, k) = n! / (k! × (n - k)!)
+giocodellotto/
+├── src/
+│   ├── components/
+│   │   ├── lotto/              # Componenti specifici del Lotto
+│   │   ├── superenalotto/      # Componenti specifici del SuperEnalotto
+│   │   └── ui/                 # Componenti UI condivisi (shadcn/ui)
+│   ├── lib/
+│   │   ├── lotto/              # Motore di gioco del Lotto
+│   │   ├── superenalotto/      # Motore di gioco del SuperEnalotto
+│   │   └── shared/             # Utilita condivise (matematica, formattazione)
+│   ├── pages/
+│   │   ├── Home.tsx            # Landing page
+│   │   ├── LottoIndex.tsx      # Pagina Gioco del Lotto
+│   │   └── SuperenalottoIndex.tsx  # Pagina SuperEnalotto
+│   ├── hooks/                  # Custom hooks
+│   ├── assets/                 # Logo e immagini
+│   └── App.tsx                 # Router principale
+├── public/
+│   ├── _redirects              # SPA routing per Cloudflare Pages
+│   └── _headers                # Security headers
+├── index.html
+└── vite.config.ts
 ```
 
-Utilizzata per calcolare le combinazioni possibili di numeri estratti.
-
-### Probabilità di vincita
-
-Per un tipo di sorte *t* con *k* numeri giocati su una singola ruota:
-
-```
-P(vincita) = Σ [C(k, j) × C(90 - k, 5 - j)] / C(90, 5)
-             j=t..min(k,5)
-```
-
-### Moltiplicatori di vincita
-
-I moltiplicatori sono quelli **ufficiali del Lotto italiano** per €1 di puntata:
-
-| Sorte | Min. numeri | Moltiplicatore (con min. numeri) |
-|-------|-------------|----------------------------------|
-| Estratto | 1 | ×11,23 |
-| Ambo | 2 | ×250 |
-| Terno | 3 | ×4.500 |
-| Quaterna | 4 | ×120.000 |
-| Cinquina | 5 | ×6.000.000 |
-
-I moltiplicatori decrescono all'aumentare dei numeri giocati, come nel regolamento ufficiale.
-
-### Calcolo vincita
-
-```
-Vincita = Importo × Moltiplicatore × C(indovinati, t) / C(giocati, t)
-```
-
----
-
-## 🎨 Design System
-
-L'interfaccia è costruita su un **design system custom** ispirato alla schedina cartacea del Lotto:
-
-### Token di colore (HSL)
-
-| Token | Valore | Utilizzo |
-|-------|--------|----------|
-| `--lotto-orange` | `15 85% 55%` | Colore primario, header, CTA |
-| `--lotto-peach` | `25 80% 88%` | Sfondo schedina |
-| `--lotto-salmon` | `15 55% 45%` | Titoli sezione, bordi |
-| `--lotto-gold` | `45 80% 55%` | Vincite, highlight |
-| `--lotto-blue` | `210 60% 45%` | Accenti informativi |
-| `--lotto-green` | `145 55% 32%` | Numeri indovinati |
-| `--lotto-red` | `0 70% 42%` | Avvertenze |
-| `--lotto-cream` | `35 40% 94%` | Sfondo chiaro |
-
-### Classi custom
-
-- `.schedina-card` – Card con gradiente peach→cream e bordo arancione
-- `.schedina-header` – Header con gradiente arancione
-- `.schedina-section-title` – Titoli di sezione stile schedina
-- `.lotto-bubble` – Bolle numeriche interattive con stati (default, selected, matched)
-- `.ruota-row` – Riga selettore ruota
-
-### Supporto Dark Mode
-
-Il design system include una modalità scura completa con tutti i token ricalibrati per leggibilità su sfondo scuro.
-
----
-
-## ♿ Accessibilità
-
-Il progetto è sviluppato con attenzione all'accessibilità (WCAG 2.1):
-
-- ✅ **Landmark semantici**: `<main>` come landmark principale
-- ✅ **ARIA labels**: Tutti i pulsanti interattivi hanno nomi accessibili
-- ✅ **Componenti Radix UI**: Accessibilità built-in (focus management, keyboard navigation)
-- ✅ **Contrasto colori**: Token ottimizzati per rapporti di contrasto adeguati
-- ✅ **Responsive design**: Layout adattivo mobile-first (320px → 1920px)
-- ✅ **Font leggibili**: DM Sans con dimensioni e spaziatura ottimizzate
-
----
-
-## 🧪 Testing
-
-Il progetto utilizza **Vitest** come framework di testing:
+## Deploy
 
 ```bash
-# Esegui tutti i test
-npm test
-
-# Esegui test in modalità watch
-npm run test:watch
+npm run build
 ```
 
-I test coprono il motore matematico (`engine.ts`) e la logica di gioco.
+Il progetto e ottimizzato per Cloudflare Pages. La cartella `dist/` include `_redirects` per il routing SPA e `_headers` per la sicurezza (CSP, X-Frame-Options, etc.).
+
+## Test
+
+```bash
+npm run test          # Esegui i test una volta
+npm run test:watch    # Modalita watch
+```
+
+## Contribuire
+
+I contributi sono benvenuti! Consulta le [linee guida per contribuire](CONTRIBUTING.md) per maggiori dettagli.
+
+## Licenza
+
+Distribuito con licenza MIT. Vedi il file [LICENSE](LICENSE) per i dettagli completi.
+
+## Disclaimer
+
+Questa applicazione e uno strumento esclusivamente didattico per lo studio della probabilita e della statistica. Non promuove ne incentiva il gioco d'azzardo. Nessuna somma di denaro reale e coinvolta. I marchi "Gioco del Lotto" e "SuperEnalotto" sono di proprieta dei rispettivi titolari. Per informazioni sulla ludopatia: **Telefono Verde 800 558 822**.
+
+## Autore
+
+**Nicolo Carello**
+- GitHub: [@carellonicolo](https://github.com/carellonicolo)
+- Website: [nicolocarello.it](https://nicolocarello.it)
 
 ---
 
-## 🤖 Vibe Coding & AI
+<sub>Sviluppato con l'ausilio dell'intelligenza artificiale.</sub>
 
-Questo progetto è stato sviluppato utilizzando la metodologia del **vibe coding**: un approccio alla programmazione in cui il developer guida agenti AI attraverso prompt in linguaggio naturale per generare, iterare e raffinare il codice.
+## Progetti Correlati
 
-### Cosa significa in pratica
+Questo progetto fa parte di una collezione di strumenti didattici e applicazioni open-source:
 
-- La **visione del prodotto**, le **specifiche funzionali** e le **scelte architetturali** sono state definite da un essere umano
-- Il **codice sorgente** è stato generato e raffinato iterativamente tramite agenti AI specializzati nella generazione di codice
-- Il **motore matematico** è stato validato confrontando i risultati con le tabelle ufficiali del Lotto
-- Il **design system** è stato progettato attraverso prompt dettagliati che descrivono l'estetica desiderata
-- Ogni componente è stato **testato e revisionato** dal developer per garantire correttezza e qualità
-
-### Perché menzionarlo
-
-La trasparenza sull'utilizzo dell'AI nella creazione del software è un principio importante. Questo progetto dimostra come il vibe coding possa produrre applicazioni complete, ben strutturate e funzionali, mantenendo il developer nel ruolo di **architetto e supervisore** del processo.
-
----
-
-## 🤝 Contribuire
-
-I contributi sono benvenuti! Consulta **[CONTRIBUTING.md](CONTRIBUTING.md)** per le linee guida complete.
-
-In breve:
-1. Forka il repository
-2. Crea un branch per la tua feature (`git checkout -b feature/nome-feature`)
-3. Committa le modifiche (`git commit -m 'Aggiunge nuova feature'`)
-4. Pusha il branch (`git push origin feature/nome-feature`)
-5. Apri una Pull Request
-
----
-
-## 📜 Licenza
-
-Distribuito con licenza **MIT**. Vedi [LICENSE](LICENSE) per il testo completo.
-
----
-
-## ⚠️ Disclaimer
-
-> **Il gioco d'azzardo può causare dipendenza patologica.** Gioca responsabilmente e solo se maggiorenne.
-> Per informazioni e aiuto: **Telefono Verde 800 558 822** (ISS – Istituto Superiore di Sanità).
-
-- Il marchio "Gioco del Lotto" è di proprietà esclusiva dello Stato italiano, gestito da Lottomatica S.p.A. su concessione dell'Agenzia delle Dogane e dei Monopoli
-- Questa applicazione **non è affiliata né autorizzata** da tali enti
-- Il software ha il **solo scopo di studio della probabilità e della statistica**
-- **Nessuna somma di denaro reale è coinvolta**
-
----
-
-<p align="center">
-  Made with 🎱 in Italy · Powered by vibe coding & AI agents
-</p>
+| Progetto | Descrizione |
+|:--|:--|
+| [DFA Visual Editor](https://github.com/carellonicolo/AFS) | Editor visuale per automi DFA |
+| [Turing Machine](https://github.com/carellonicolo/Turing-Machine) | Simulatore di Macchina di Turing |
+| [Scheduler](https://github.com/carellonicolo/Scheduler) | Simulatore di scheduling CPU |
+| [Subnet Calculator](https://github.com/carellonicolo/Subnet) | Calcolatore subnet IPv4/IPv6 |
+| [Base Converter](https://github.com/carellonicolo/base-converter) | Suite di conversione multi-funzionale |
+| [MicroASM](https://github.com/carellonicolo/microasm) | Simulatore assembly |
+| [Flow Charts](https://github.com/carellonicolo/flow-charts) | Editor di diagrammi di flusso |
+| [Cypher](https://github.com/carellonicolo/cypher) | Toolkit di crittografia |
+| [Snake](https://github.com/carellonicolo/snake) | Snake game retro |
+| [Pong](https://github.com/carellonicolo/pongcarello) | Pong game |
+| [Calculator](https://github.com/carellonicolo/calculator-carello) | Calcolatrice scientifica |
+| [IPSC Score](https://github.com/carellonicolo/IPSC) | Calcolatore punteggi IPSC |
+| [Quiz](https://github.com/carellonicolo/quiz) | Piattaforma quiz scolastici |
+| [Carello Hub](https://github.com/carellonicolo/carello-hub) | Dashboard educativa |
+| [Prof Carello](https://github.com/carellonicolo/prof-carello) | Gestionale lezioni private |
+| [DOCSITE](https://github.com/carellonicolo/DOCSITE) | Piattaforma documentale |
