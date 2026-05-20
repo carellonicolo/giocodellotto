@@ -14,7 +14,7 @@ import { toast } from '@/hooks/use-toast';
 import Schedina from '@/components/millionday/Schedina';
 import Estrazione from '@/components/millionday/Estrazione';
 import ProbabilitaPanel from '@/components/millionday/ProbabilitaPanel';
-import DisclaimerModal from '@/components/millionday/DisclaimerModal';
+import { GlobalDisclaimerModal } from '@/components/shared/GlobalDisclaimerModal';
 
 import {
   type ColumnSelection,
@@ -141,7 +141,7 @@ const MilliondayIndex: React.FC = () => {
   return (
     <div className="theme-millionday min-h-screen">
       <main className="min-h-screen pb-12 relative overflow-hidden">
-        <DisclaimerModal />
+        <GlobalDisclaimerModal />
         {/* Background */}
         <div className="fixed inset-0 -z-10" style={{
           background: 'radial-gradient(ellipse at 50% 0%, hsl(225 50% 18%) 0%, hsl(225 60% 8%) 70%)',
@@ -289,7 +289,7 @@ const MilliondayIndex: React.FC = () => {
             <a href="tel:800558822" className="underline hover:text-primary transition-colors">800 558 822</a>
           </p>
           <button
-            onClick={() => { localStorage.removeItem('millionday-disclaimer-accepted'); window.location.reload(); }}
+            onClick={() => { localStorage.removeItem('global-disclaimer-accepted'); window.location.reload(); }}
             className="underline hover:text-primary transition-colors pt-2"
           >
             Rileggi il disclaimer

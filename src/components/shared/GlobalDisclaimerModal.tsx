@@ -2,25 +2,25 @@ import React, { useState, useEffect } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import { ShieldAlert } from 'lucide-react';
 
-const DisclaimerModal: React.FC = () => {
+export const GlobalDisclaimerModal: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    const hasAccepted = localStorage.getItem('millionday-disclaimer-accepted');
+    const hasAccepted = localStorage.getItem('global-disclaimer-accepted');
     if (!hasAccepted) {
       setIsOpen(true);
     }
   }, []);
 
   const handleAccept = () => {
-    localStorage.setItem('millionday-disclaimer-accepted', 'true');
+    localStorage.setItem('global-disclaimer-accepted', 'true');
     setIsOpen(false);
   };
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => {
       if (!open) {
-        // Prevent closing by clicking outside
+        // Impedisce la chiusura cliccando fuori o premendo Esc
       }
     }}>
       <DialogContent className="max-w-lg w-[95vw] [&>button]:hidden">
@@ -34,11 +34,11 @@ const DisclaimerModal: React.FC = () => {
         <div className="space-y-4 py-4 text-sm sm:text-base text-foreground/80 leading-relaxed">
           <p>
             Questo sito è un <strong>simulatore didattico</strong> creato esclusivamente per lo studio 
-            matematico della probabilità e della statistica applicate al gioco del MillionDAY.
+            matematico della probabilità e della statistica applicate ai giochi a premi italiani.
           </p>
           <ul className="list-disc pl-5 space-y-2 font-medium">
             <li>Nessun denaro reale è coinvolto in alcun modo.</li>
-            <li>Le "giocate" e le "vincite" sono simulazioni matematiche locali.</li>
+            <li>Le "giocate" e le "vincite" sono mere simulazioni matematiche locali.</li>
             <li>Il gioco d'azzardo reale può causare dipendenza patologica.</li>
           </ul>
           <div className="bg-destructive/10 border border-destructive/20 p-4 rounded-xl mt-6">
@@ -60,7 +60,7 @@ const DisclaimerModal: React.FC = () => {
         <DialogFooter className="sm:justify-center">
           <button
             onClick={handleAccept}
-            className="w-full sm:w-auto px-8 py-3 bg-primary text-primary-foreground font-bold rounded-xl hover:bg-primary/90 transition-all text-lg shadow-lg shadow-primary/20"
+            className="w-full sm:w-auto px-8 py-3 bg-primary text-primary-foreground font-bold rounded-xl hover:opacity-90 transition-all text-lg shadow-lg"
           >
             Ho capito, procedi al simulatore
           </button>
@@ -70,4 +70,4 @@ const DisclaimerModal: React.FC = () => {
   );
 };
 
-export default DisclaimerModal;
+export default GlobalDisclaimerModal;

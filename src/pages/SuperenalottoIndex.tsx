@@ -13,7 +13,7 @@ import { toast } from '@/hooks/use-toast';
 import Schedina from '@/components/superenalotto/Schedina';
 import Estrazione from '@/components/superenalotto/Estrazione';
 import ProbabilitaPanel from '@/components/superenalotto/ProbabilitaPanel';
-import DisclaimerModal from '@/components/superenalotto/DisclaimerModal';
+import { GlobalDisclaimerModal } from '@/components/shared/GlobalDisclaimerModal';
 import { type GameRecord } from '@/components/superenalotto/StatisticheDashboard';
 
 const FormuleCombinatorie = lazy(() => import('@/components/superenalotto/FormuleCombinatorie'));
@@ -117,7 +117,7 @@ const SuperenalottoIndex: React.FC = () => {
   return (
     <div className="theme-superenalotto min-h-screen">
       <main className="min-h-screen pb-12 relative overflow-hidden">
-        <DisclaimerModal />
+        <GlobalDisclaimerModal />
         {/* Background */}
         <div className="fixed inset-0 -z-10" style={{
           background: 'radial-gradient(ellipse at 50% 0%, hsl(225 30% 15%) 0%, hsl(225 25% 8%) 70%)',
@@ -256,7 +256,7 @@ const SuperenalottoIndex: React.FC = () => {
             <a href="tel:800558822" className="underline hover:text-muted-foreground">800 558 822</a>
           </p>
           <button
-            onClick={() => { localStorage.removeItem('superenalotto-disclaimer-accepted'); window.location.reload(); }}
+            onClick={() => { localStorage.removeItem('global-disclaimer-accepted'); window.location.reload(); }}
             className="underline hover:text-muted-foreground"
           >
             Rileggi il disclaimer

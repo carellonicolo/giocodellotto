@@ -8,7 +8,7 @@ import { SelettoreRuote } from '@/components/lotto/SelettoreRuote';
 import { SelettoreSorteImporti } from '@/components/lotto/SelettoreSorteImporti';
 import { TabellaEstrazione } from '@/components/lotto/TabellaEstrazione';
 import { RegoleLottoModal } from '@/components/lotto/RegoleLottoModal';
-import { DisclaimerModal } from '@/components/lotto/DisclaimerModal';
+import { GlobalDisclaimerModal } from '@/components/shared/GlobalDisclaimerModal';
 import { DarkModeToggle } from '@/components/lotto/DarkModeToggle';
 import { Button } from '@/components/ui/button';
 import { ShieldAlert, Landmark, Bot, Shuffle, Zap, ArrowLeft } from 'lucide-react';
@@ -43,7 +43,7 @@ const Index = () => {
 
   return (
     <main className="min-h-screen bg-background py-3 sm:py-6" style={{ backgroundImage: `url(${wallpaperBg})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed' }}>
-      <DisclaimerModal />
+      <GlobalDisclaimerModal />
       <div className="max-w-5xl mx-auto px-2 sm:px-4">
         <div className="relative flex items-center justify-center gap-3 mb-4 sm:mb-6">
           <Link
