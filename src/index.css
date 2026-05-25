@@ -337,3 +337,81 @@
   color: hsl(140 20% 98%);
   background: hsl(140 70% 10%);
 }
+
+/* ===== SiVinceTutto Scoped Theme ===== */
+.theme-sivincetutto {
+  --background: 20 60% 10%;
+  --foreground: 20 20% 96%;
+
+  --card: 20 45% 14%;
+  --card-foreground: 20 20% 96%;
+
+  --popover: 20 45% 14%;
+  --popover-foreground: 20 20% 96%;
+
+  --primary: 15 90% 55%;
+  --primary-foreground: 0 0% 100%;
+
+  --secondary: 20 35% 20%;
+  --secondary-foreground: 20 20% 96%;
+
+  --muted: 20 35% 20%;
+  --muted-foreground: 20 15% 65%;
+
+  --accent: 45 100% 51%;
+  --accent-foreground: 20 60% 10%;
+
+  --destructive: 0 72% 51%;
+  --destructive-foreground: 20 20% 98%;
+
+  --border: 20 35% 22%;
+  --input: 20 35% 22%;
+  --ring: 15 90% 55%;
+
+  --radius: 0.75rem;
+  --glass: 20 45% 14%;
+  --glass-border: 20 35% 25%;
+
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  color: hsl(20 20% 96%);
+  background: hsl(20 60% 10%);
+}
+
+/* ===== VinciCasa Scoped Theme ===== */
+.theme-vincicasa {
+  --background: 190 60% 10%;
+  --foreground: 190 20% 96%;
+
+  --card: 190 45% 14%;
+  --card-foreground: 190 20% 96%;
+
+  --popover: 190 45% 14%;
+  --popover-foreground: 190 20% 96%;
+
+  --primary: 187 100% 42%;
+  --primary-foreground: 0 0% 100%;
+
+  --secondary: 190 35% 20%;
+  --secondary-foreground: 190 20% 96%;
+
+  --muted: 190 35% 20%;
+  --muted-foreground: 190 15% 65%;
+
+  --accent: 45 100% 51%;
+  --accent-foreground: 190 60% 10%;
+
+  --destructive: 0 72% 51%;
+  --destructive-foreground: 190 20% 98%;
+
+  --border: 190 35% 22%;
+  --input: 190 35% 22%;
+  --ring: 187 100% 42%;
+
+  --radius: 0.75rem;
+  --glass: 190 45% 14%;
+  --glass-border: 190 35% 25%;
+
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  color: hsl(190 20% 96%);
+  background: hsl(190 60% 10%);
+}

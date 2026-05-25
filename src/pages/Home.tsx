@@ -37,7 +37,7 @@ const Home = () => {
         Nessun denaro reale coinvolto.
       </p>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 w-full max-w-6xl">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 w-full max-w-6xl">
         {/* Gioco del Lotto */}
         <Link
           to="/giocodellotto"
@@ -148,6 +148,64 @@ const Home = () => {
           <div
             className="mt-4 inline-flex items-center text-sm font-semibold gap-1 transition-colors"
             style={{ color: 'hsl(140 70% 55%)' }}
+          >
+            Gioca ora
+            <span className="group-hover:translate-x-1 transition-transform">&rarr;</span>
+          </div>
+        </Link>
+
+        {/* SiVinceTutto */}
+        <Link
+          to="/sivincetutto"
+          className="group relative rounded-2xl p-6 sm:p-8 border transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl"
+          style={{
+            background: 'linear-gradient(135deg, hsl(15 90% 55% / 0.14), hsl(45 100% 51% / 0.08))',
+            borderColor: 'hsl(15 90% 55% / 0.35)',
+          }}
+        >
+          <div className="text-4xl sm:text-5xl mb-4">💸</div>
+          <h2
+            className="text-xl sm:text-2xl font-bold mb-2"
+            style={{ color: 'hsl(15 90% 65%)' }}
+          >
+            SiVinceTutto
+          </h2>
+          <p className="text-sm" style={{ color: 'hsl(220 15% 60%)' }}>
+            12 numeri su 90, 6 estratti. Vinci con 2-6 hits. Estrazione settimanale e
+            distribuzione integrale del montepremi.
+          </p>
+          <div
+            className="mt-4 inline-flex items-center text-sm font-semibold gap-1 transition-colors"
+            style={{ color: 'hsl(15 90% 65%)' }}
+          >
+            Gioca ora
+            <span className="group-hover:translate-x-1 transition-transform">&rarr;</span>
+          </div>
+        </Link>
+
+        {/* VinciCasa */}
+        <Link
+          to="/vincicasa"
+          className="group relative rounded-2xl p-6 sm:p-8 border transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl"
+          style={{
+            background: 'linear-gradient(135deg, hsl(187 100% 42% / 0.14), hsl(45 100% 51% / 0.08))',
+            borderColor: 'hsl(187 100% 42% / 0.35)',
+          }}
+        >
+          <div className="text-4xl sm:text-5xl mb-4">🏡</div>
+          <h2
+            className="text-xl sm:text-2xl font-bold mb-2"
+            style={{ color: 'hsl(187 100% 60%)' }}
+          >
+            VinciCasa
+          </h2>
+          <p className="text-sm" style={{ color: 'hsl(220 15% 60%)' }}>
+            5 numeri su 40 con estrazione giornaliera.
+            Prima categoria: una casa + €200.000 in contanti.
+          </p>
+          <div
+            className="mt-4 inline-flex items-center text-sm font-semibold gap-1 transition-colors"
+            style={{ color: 'hsl(187 100% 60%)' }}
           >
             Gioca ora
             <span className="group-hover:translate-x-1 transition-transform">&rarr;</span>

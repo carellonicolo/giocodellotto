@@ -10,6 +10,8 @@ const LottoIndex = lazy(() => import("./pages/LottoIndex"));
 const SuperenalottoIndex = lazy(() => import("./pages/SuperenalottoIndex"));
 const MilliondayIndex = lazy(() => import("./pages/MilliondayIndex"));
 const WinforlifeIndex = lazy(() => import("./pages/WinforlifeIndex"));
+const SivincetuttoIndex = lazy(() => import("./pages/SivincetuttoIndex"));
+const VincicasaIndex = lazy(() => import("./pages/VincicasaIndex"));
 
 const PageLoader = () => (
   <div className="min-h-screen flex items-center justify-center" style={{
@@ -33,6 +35,8 @@ const App = () => (
           <Route path="/superenalotto" element={<SuperenalottoIndex />} />
           <Route path="/millionday" element={<MilliondayIndex />} />
           <Route path="/winforlife" element={<WinforlifeIndex />} />
+          <Route path="/sivincetutto" element={<SivincetuttoIndex />} />
+          <Route path="/vincicasa" element={<VincicasaIndex />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
