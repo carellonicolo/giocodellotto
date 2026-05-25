@@ -14,6 +14,7 @@ import Schedina from '@/components/superenalotto/Schedina';
 import Estrazione from '@/components/superenalotto/Estrazione';
 import ProbabilitaPanel from '@/components/superenalotto/ProbabilitaPanel';
 import { GlobalDisclaimerModal } from '@/components/shared/GlobalDisclaimerModal';
+import { LegalFooter } from '@/components/shared/LegalFooter';
 import { type GameRecord } from '@/components/superenalotto/StatisticheDashboard';
 
 const FormuleCombinatorie = lazy(() => import('@/components/superenalotto/FormuleCombinatorie'));
@@ -248,20 +249,7 @@ const SuperenalottoIndex: React.FC = () => {
           </div>
         </div>
 
-        {/* Footer */}
-        <footer className="text-center mt-12 pb-6 text-xs text-muted-foreground/50 space-y-1">
-          <p>Simulatore a scopo didattico · Non è un sito di gioco d'azzardo</p>
-          <p>
-            ⚠️ Il gioco d'azzardo può creare dipendenza · Telefono Verde:{' '}
-            <a href="tel:800558822" className="underline hover:text-muted-foreground">800 558 822</a>
-          </p>
-          <button
-            onClick={() => { localStorage.removeItem('global-disclaimer-accepted'); window.location.reload(); }}
-            className="underline hover:text-muted-foreground"
-          >
-            Rileggi il disclaimer
-          </button>
-        </footer>
+        <LegalFooter gameName="SuperEnalotto" rightsHolder="Sisal S.p.A." variant="dark" />
       </main>
     </div>
   );

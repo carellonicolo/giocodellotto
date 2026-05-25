@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
+import Privacy from "./pages/Privacy";
 
 const LottoIndex = lazy(() => import("./pages/LottoIndex"));
 const SuperenalottoIndex = lazy(() => import("./pages/SuperenalottoIndex"));
@@ -32,6 +33,7 @@ const App = () => (
           <Route path="/superenalotto" element={<SuperenalottoIndex />} />
           <Route path="/millionday" element={<MilliondayIndex />} />
           <Route path="/winforlife" element={<WinforlifeIndex />} />
+          <Route path="/privacy" element={<Privacy />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>

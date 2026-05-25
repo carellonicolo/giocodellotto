@@ -15,6 +15,7 @@ import Schedina from '@/components/millionday/Schedina';
 import Estrazione from '@/components/millionday/Estrazione';
 import ProbabilitaPanel from '@/components/millionday/ProbabilitaPanel';
 import { GlobalDisclaimerModal } from '@/components/shared/GlobalDisclaimerModal';
+import { LegalFooter } from '@/components/shared/LegalFooter';
 
 import {
   type ColumnSelection,
@@ -281,20 +282,7 @@ const MilliondayIndex: React.FC = () => {
           </div>
         </div>
 
-        {/* Footer */}
-        <footer className="text-center mt-12 pb-6 text-xs text-muted-foreground/60 space-y-1.5">
-          <p>Simulatore a scopo didattico · Non è un sito di gioco d'azzardo</p>
-          <p>
-            ⚠️ Il gioco d'azzardo può creare dipendenza · Telefono Verde:{' '}
-            <a href="tel:800558822" className="underline hover:text-primary transition-colors">800 558 822</a>
-          </p>
-          <button
-            onClick={() => { localStorage.removeItem('global-disclaimer-accepted'); window.location.reload(); }}
-            className="underline hover:text-primary transition-colors pt-2"
-          >
-            Rileggi il disclaimer
-          </button>
-        </footer>
+        <LegalFooter gameName="MillionDAY" rightsHolder="Lottomatica S.p.A." variant="dark" />
       </main>
     </div>
   );

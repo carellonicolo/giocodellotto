@@ -1,14 +1,15 @@
 import { useEffect, useRef, lazy, Suspense } from 'react';
 import confetti from 'canvas-confetti';
 import { useLotto } from '@/hooks/use-lotto';
-import lottoLogo from '@/assets/lotto-logo.png';
 import wallpaperBg from '@/assets/wallpaper-bg.jpg';
+import { LottoBrandLogo } from '@/components/lotto/LottoBrandLogo';
 import { GrigliaNumeri } from '@/components/lotto/GrigliaNumeri';
 import { SelettoreRuote } from '@/components/lotto/SelettoreRuote';
 import { SelettoreSorteImporti } from '@/components/lotto/SelettoreSorteImporti';
 import { TabellaEstrazione } from '@/components/lotto/TabellaEstrazione';
 import { RegoleLottoModal } from '@/components/lotto/RegoleLottoModal';
 import { GlobalDisclaimerModal } from '@/components/shared/GlobalDisclaimerModal';
+import { LegalFooter } from '@/components/shared/LegalFooter';
 import { Button } from '@/components/ui/button';
 import { ShieldAlert, Landmark, Bot, Shuffle, Zap, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -61,7 +62,7 @@ const Index = () => {
           <div className="schedina-card overflow-hidden w-full max-w-[400px] mx-auto lg:mx-0">
             {/* Header */}
             <div className="schedina-header p-0 flex items-center justify-center overflow-hidden h-[72px] sm:h-[88px]">
-              <img src={lottoLogo} alt="Il Gioco del Lotto" className="w-[130%] h-auto object-cover" />
+              <LottoBrandLogo />
             </div>
 
             {/* I TUOI NUMERI + RUOTE side by side */}
@@ -305,11 +306,12 @@ const Index = () => {
           <div className="disclaimer-card text-center space-y-1.5">
             <Bot className="h-5 w-5 mx-auto text-lotto-green" />
             <p className="text-[9px] sm:text-[10px] text-muted-foreground leading-relaxed">
-              Questo software è stato <strong className="text-foreground/70">generato con l'ausilio dell'intelligenza artificiale</strong> e ha 
+              Questo software è stato <strong className="text-foreground/70">generato con l'ausilio dell'intelligenza artificiale</strong> e ha
               il <strong className="text-foreground/70">solo scopo di studio della probabilità e della statistica</strong>. Nessuna somma di denaro reale è coinvolta.
             </p>
           </div>
         </div>
+        <LegalFooter gameName="Gioco del Lotto" rightsHolder="Lottomatica S.p.A." variant="light" />
       </div>
     </main>
   );
